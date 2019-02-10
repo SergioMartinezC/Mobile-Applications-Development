@@ -1,4 +1,4 @@
--A la hora de guardar la partida, en lugar de meter X y O para definir las fichas, nos ha recomendado guardar un 1 para el jugador 1, un 2 para el jugador 2 y 0 para las casillas vacías.
+﻿-A la hora de guardar la partida, en lugar de meter X y O para definir las fichas, nos ha recomendado guardar un 1 para el jugador 1, un 2 para el jugador 2 y 0 para las casillas vacías.
 -La clase Partida gestiona todos los cambios de estado del juego y notificaciones, no hay que implementarlas
 -Menú principal con tres opciones. Nueva partida, cargar y salir.
 -Funcionalidad a la hora de guardar y salir (hechos los comandos pero sin funcionalidad)
@@ -6,4 +6,6 @@
 -Acción para cargar la partida
 -Acción para guardar
 -Acción para salir
+
+-Concurrencia (guardar y no sale menu, acaba partida y no avisa)
 
