@@ -1,11 +1,12 @@
 import es.uam.eps.multij.*
-
+import java.io.File
 
 class AccionGuardar(var jugador: Jugador): Accion {
 
-    override fun ejecuta(p: Partida?) {
-        val t = p?.tablero
+    override fun ejecuta(p: Partida) {
+        val t = p.tablero
         if (t is TableroConecta4) {
+            File("prueba2.txt").writeText(t.tableroToString() + "\nPartida")
             t.tableroToString()
             MenuConecta4().menuPrincipal(MenuConecta4().getOpcion())
         }

@@ -1,6 +1,7 @@
 import es.uam.eps.multij.Jugador
 import es.uam.eps.multij.JugadorAleatorio
 import es.uam.eps.multij.Partida
+import java.io.File
 
 
 class MenuConecta4() {
@@ -41,7 +42,22 @@ class MenuConecta4() {
                 partida.addObservador(ObservadorConecta4())
                 partida.comenzar()
             }
-            CARGAR -> print("Cargar")
+            CARGAR -> {
+                val informacionPartida = File("prueba.txt").bufferedReader().readLines()
+                val jugadores = arrayListOf<Jugador> ()
+                val tablero = mutableListOf<MutableList<Int>>()
+                jugadores += JugadorAleatorio(
+                    informacionPartida[3]
+                )
+                jugadores += JugadorConecta4Humano(
+                    informacionPartida[4]
+                )
+                val partida = Partida(TableroConecta4(tablero, informacionPartida[1].toInt(),
+                    MovimientoConecta4(informacionPartida[2].toInt()), informacionPartida[5]), jugadores)
+                partida.tablero.stringToTablero(informacionPartida[0])
+                partida.addObservador(ObservadorConecta4())
+                partida.comenzar()
+            }
             SALIR -> print("Hasta la próxima.")
         }
     }

@@ -6,6 +6,17 @@ import java.util.ArrayList
 * No sé si se puede hacer para definir el tamaño directamente y tenerlo controlado
 * La función mueve simplemente usará el movimiento (columna-jugador) para decir qué ficha poner y donde*/
 public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
+
+    constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String) : this(tablero) {
+        this.turno = turno
+        this.ultimoMovimiento = ultimoMovimiento
+
+        fichasEnColumna = (fichas.split(",").associate {
+            val (left, right) = it.split("=")
+            left.toInt() to right.toInt()
+        }).toMutableMap()
+    }
+
     val NUM_COLUMNAS: Int = 7
     val NUM_FILAS: Int = 6
     val JUGADOR_1 = 'X'
@@ -26,15 +37,20 @@ public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Table
         for (i in 0 until NUM_COLUMNAS) {
             fichasEnColumna.put(i,NUM_FILAS)
         }
+        this.calcularMovimientosValidos()
+    }
+
+    fun calcularMovimientosValidos() {
         for (columna in 0 until NUM_COLUMNAS) {
             if(fichasEnColumna.get(columna) != 0) {
                 movimientosValidos.add(MovimientoConecta4(columna))
             }
         }
     }
+
+
     override fun toString(): String {
         var ret: String?
-
         ret = "    1   2   3   4   5   6   7  \n"
         ret += "  +---+---+---+---+---+---+---+\n"
         for (i in 0 until NUM_FILAS) {
@@ -96,6 +112,7 @@ public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Table
                 }
             }
         }
+        this.calcularMovimientosValidos()
     }
 
     override fun tableroToString(): String {
