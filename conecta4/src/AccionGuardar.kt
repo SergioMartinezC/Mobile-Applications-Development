@@ -6,9 +6,7 @@ class AccionGuardar(var jugador: Jugador): Accion {
     override fun ejecuta(p: Partida) {
         val t = p.tablero
         if (t is TableroConecta4) {
-            File("prueba2.txt").writeText(t.tableroToString() + "\nPartida")
-            t.tableroToString()
-            MenuConecta4().menuPrincipal(MenuConecta4().getOpcion())
+
         }
     }
 
@@ -17,6 +15,6 @@ class AccionGuardar(var jugador: Jugador): Accion {
     }
 
     override fun requiereConfirmacion(): Boolean {
-        return true
+        return false
     }
 }

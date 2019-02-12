@@ -14,6 +14,6 @@ class AccionSalir(var jugador: Jugador): Accion {
     }
 
     override fun requiereConfirmacion(): Boolean {
-        return true
+        return false
     }
 }

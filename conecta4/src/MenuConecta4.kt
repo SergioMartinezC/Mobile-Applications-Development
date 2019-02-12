@@ -9,6 +9,13 @@ class MenuConecta4() {
     val CARGAR = 2
     val SALIR = 3
 
+    val TABLERO = 0
+    val TURNO = 1
+    val ULTIMO_MOVIMIENTO = 2
+    val JUGADOR_1 = 3
+    val JUGADOR_2 = 4
+    val FICHAS = 5
+
     fun getOpcion(): Int? {
         var opcion: Int?
         do {
@@ -28,10 +35,10 @@ class MenuConecta4() {
     }
 
     fun menuPrincipal(opcion: Int?) {
+        val jugadores = arrayListOf<Jugador> ()
+        val tablero = mutableListOf<MutableList<Int>>()
         when (opcion) {
             NUEVA_PARTIDA -> {
-                val jugadores = arrayListOf<Jugador> ()
-                val tablero = mutableListOf<MutableList<Int>>()
                 jugadores += JugadorAleatorio(
                     "Aleatorio"
                 )
@@ -43,23 +50,61 @@ class MenuConecta4() {
                 partida.comenzar()
             }
             CARGAR -> {
-                val informacionPartida = File("prueba.txt").bufferedReader().readLines()
-                val jugadores = arrayListOf<Jugador> ()
-                val tablero = mutableListOf<MutableList<Int>>()
-                jugadores += JugadorAleatorio(
-                    informacionPartida[3]
-                )
+
+                val informacionPartida = File(this.seleccionarPartidaGuardada()).bufferedReader().readLines()
+                /*if (informacionPartida[TURNO].toInt() > 0) {
+                    jugadores += JugadorConecta4Humano(
+                        informacionPartida[JUGADOR_2]
+                    )
+                    jugadores += JugadorAleatorio(
+                        informacionPartida[JUGADOR_1]
+                    )
+                } else {
+                    jugadores += JugadorAleatorio(
+                        informacionPartida[JUGADOR_1]
+                    )
+                    jugadores += JugadorConecta4Humano(
+                        informacionPartida[JUGADOR_2]
+                    )
+                }*/
                 jugadores += JugadorConecta4Humano(
-                    informacionPartida[4]
+                    informacionPartida[JUGADOR_2]
                 )
-                val partida = Partida(TableroConecta4(tablero, informacionPartida[1].toInt(),
-                    MovimientoConecta4(informacionPartida[2].toInt()), informacionPartida[5]), jugadores)
-                partida.tablero.stringToTablero(informacionPartida[0])
+                jugadores += JugadorAleatorio(
+                    informacionPartida[JUGADOR_1]
+                )
+
+                val partida = Partida(TableroConecta4(tablero, informacionPartida[TURNO].toInt(),
+                    MovimientoConecta4(informacionPartida[ULTIMO_MOVIMIENTO].toInt()),
+                    informacionPartida[FICHAS]), jugadores)
+                partida.tablero.stringToTablero(informacionPartida[TABLERO])
                 partida.addObservador(ObservadorConecta4())
                 partida.comenzar()
             }
-            SALIR -> print("Hasta la próxima.")
+            SALIR -> println("Hasta la próxima.")
         }
     }
 
+    fun seleccionarPartidaGuardada(): String {
+        var cont = 0
+        var partida: Int?
+        val path = System.getProperty("user.dir")
+        var lista = mutableListOf<String>()
+        File(path).list().forEach {
+            if (it.endsWith(".txt")) {
+                cont++
+                println("${cont} - ${it}")
+                lista.add(it)
+            }
+        }
+        do {
+            print("Seleccione una partida guardada: ")
+            partida = readLine()!!.toIntOrNull()
+        } while(partida !in 1..cont)
+
+        if (partida != null) {
+            return (lista.get(partida-1))
+        }
+        return ""
+    }
 }

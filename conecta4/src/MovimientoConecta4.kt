@@ -11,7 +11,7 @@ public class MovimientoConecta4(var columna: Int) : Movimiento() {
     }
 
     override fun toString(): String {
-        return "C-$columna"
+        return "C-${columna + 1}"
     }
 
 }
