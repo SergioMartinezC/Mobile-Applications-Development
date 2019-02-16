@@ -5,9 +5,8 @@ import java.util.ArrayList
 /*Para el tablero he estado buscando una forma de hacer un array bidimensional y solo me ha aparecido esto
 * No sé si se puede hacer para definir el tamaño directamente y tenerlo controlado
 * La función mueve simplemente usará el movimiento (columna-jugador) para decir qué ficha poner y donde*/
-public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
-
-    constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String) : this(tablero) {
+class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
+    constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this(tablero) {
         this.turno = turno
         this.ultimoMovimiento = ultimoMovimiento
 
@@ -15,6 +14,7 @@ public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Table
             val (left, right) = it.split("=")
             left.toInt() to right.toInt()
         }).toMutableMap()
+        this.numJugadas = nJugadas
     }
 
     val NUM_COLUMNAS: Int = 7
@@ -146,25 +146,25 @@ public class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Table
                 if (jugador != CASILLA_VACIA) {
                     /*Comprobamos en horizontal*/
                     if (columna + 3 < COLUMNA &&
-                        jugador == tablero[fila][columna+1] &&
-                        jugador == tablero[fila][columna+2] &&
-                        jugador == tablero[fila][columna+3])
+                        jugador == tablero[fila][columna + 1] &&
+                        jugador == tablero[fila][columna + 2] &&
+                        jugador == tablero[fila][columna + 3])
                         return jugador
                     /*Comprobamos en vertical*/
                     if (fila + 3 < FILA) {
-                        if (jugador == tablero[fila+1][columna] &&
-                            jugador == tablero[fila+2][columna] &&
-                            jugador == tablero[fila+3][columna])
+                        if (jugador == tablero[fila + 1][columna] &&
+                            jugador == tablero[fila + 2][columna] &&
+                            jugador == tablero[fila + 3][columna])
                             return jugador
                         if (columna + 3 < COLUMNA &&
-                            jugador == tablero[fila+1][columna+1] &&
-                            jugador == tablero[fila+2][columna+2] &&
-                            jugador == tablero[fila+3][columna+3])
+                            jugador == tablero[fila + 1][columna + 1] &&
+                            jugador == tablero[fila + 2][columna + 2] &&
+                            jugador == tablero[fila + 3][columna + 3])
                             return jugador
                         if (columna - 3 >= 0 &&
-                            jugador == tablero[fila+1][columna-1] &&
-                            jugador == tablero[fila+2][columna-2] &&
-                            jugador == tablero[fila+3][columna-3])
+                            jugador == tablero[fila + 1][columna - 1] &&
+                            jugador == tablero[fila + 2][columna - 2] &&
+                            jugador == tablero[fila + 3][columna - 3])
                             return jugador
                     }
                 }

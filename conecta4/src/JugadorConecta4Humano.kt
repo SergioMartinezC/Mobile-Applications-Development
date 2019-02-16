@@ -1,7 +1,4 @@
-import es.uam.eps.multij.Jugador
-import es.uam.eps.multij.AccionMover
-import es.uam.eps.multij.Evento
-import es.uam.eps.multij.Tablero
+import es.uam.eps.multij.*
 import java.io.File
 import java.lang.NumberFormatException
 import java.lang.management.MonitorInfo
@@ -10,6 +7,8 @@ import java.lang.management.MonitorInfo
 * tipo de ficha para cada jugador*/
 class JugadorConecta4Humano(var name: String) : Jugador {
     val ERROR = "ERROR"
+    val GUARDADA = "GUARDADA"
+    val MAX_NOMBRE_PARTIDA = 50
     override fun getNombre() = name
     override fun puedeJugar(tablero: Tablero?): Boolean {
         return true
@@ -20,9 +19,9 @@ class JugadorConecta4Humano(var name: String) : Jugador {
             Evento.EVENTO_TURNO -> {
                 try {
                     do {
-                        println("Elige una columna:")
+                        println("\nElige una columna:")
                         println("Además, 'G' o 'Guardar' para guardar y 'S' o 'Salir' para salir de la partida")
-                        print("->")
+                        print("-> ")
                         var comando: String = readLine().toString().toLowerCase()
                         if (comando in "1".."7") {
                             try {
@@ -38,22 +37,21 @@ class JugadorConecta4Humano(var name: String) : Jugador {
                             }
 
                         } else if (comando == "g" || comando == "guardar") {
-                            print("Elija un nombre para el guardado: ")
-                            val nombrePartida = readLine() + ".txt"
+                            var nombrePartida = pedirNombrePartida()
                             val tablero = evento.partida.tablero
                             val movimiento = evento.partida.tablero.ultimoMovimiento
                             if (tablero is TableroConecta4 && movimiento is MovimientoConecta4) {
                                 File(nombrePartida).writeText(evento.partida.tablero.tableroToString() + "\n"
                                         + evento.partida.tablero.turno + "\n" + movimiento.columna + "\n"
-                                        + evento.partida.getJugador(0).nombre + "\n" + evento.partida.getJugador(1).nombre + "\n"
-                                        + tablero.fichasEnColumna.toString().replace("{", "").replace("}", "").replace(" ", ""))
+                                        + evento.partida.getJugador(0).nombre + "\n"
+                                        + evento.partida.getJugador(1).nombre + "\n"
+                                        + tablero.fichasEnColumna.toString().replace("{", "")
+                                    .replace("}", "").replace(" ", "")
+                                + "\n" + evento.partida.tablero.numJugadas)
                             }
-                            MenuConecta4().menuPrincipal(MenuConecta4().getOpcion())
+                            comando = GUARDADA
                         } else if (comando == "s" || comando == "salir") {
-                            evento.partida.realizaAccion(AccionSalir(this))
-                        }
-                        else if (comando == "p") {
-                            println(evento.partida.tablero.tableroToString())
+                            MenuConecta4().menuPrincipal(MenuConecta4().getOpcion())
                         }
                     }while (!comandoValido(comando.trim()))
                 }catch (e: NumberFormatException) {
@@ -61,6 +59,44 @@ class JugadorConecta4Humano(var name: String) : Jugador {
                 }
             }
         }
+    }
+
+
+    fun confirmaSobreescritura(): Boolean {
+        var sobreescribe: Int?
+        do {
+            println("Ya existe una partida con ese nombre, ¿desea sobreescribir?:")
+            println("1 - Sí\n2 - No")
+            sobreescribe = readLine()?.toIntOrNull()
+        } while(sobreescribe !in 1..2)
+        return sobreescribe == 1
+    }
+
+    fun longitudNombreMayorMax(nombrePartida: String?): Boolean {
+        if (nombrePartida != null) {
+            if (nombrePartida.length > MAX_NOMBRE_PARTIDA) {
+                println("Nombre demasiado largo, no más de $MAX_NOMBRE_PARTIDA caracteres")
+                return true
+            }
+        }
+        return false
+    }
+
+    fun pedirNombrePartida(): String? {
+        val path = System.getProperty("user.dir")
+        var lista = mutableListOf<String>()
+        var nombrePartida: String?
+        File(path).list().forEach {
+            if (it.endsWith(".txt")) {
+                lista.add(it)
+            }
+        }
+
+        do {
+            print("Elija un nombre para el guardado: ")
+            nombrePartida = readLine() + ".txt"
+        } while((nombrePartida in lista && !confirmaSobreescritura()) || longitudNombreMayorMax(nombrePartida))
+        return nombrePartida
     }
 
     private fun comandoValido(comando: String): Boolean {

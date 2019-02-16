@@ -12,6 +12,7 @@ class ObservadorConecta4() :PartidaListener {
             Evento.EVENTO_CAMBIO -> {
                 println(evento.partida.tablero)
                 println(evento.descripcion)
+
             }
             Evento.EVENTO_FIN -> {
                 println(evento.partida.tablero)
