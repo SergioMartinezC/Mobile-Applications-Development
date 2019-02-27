@@ -9,6 +9,7 @@
     </style>
 
     <style name="token">
+        <item name="android:onClick">onClickButton</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:src">@drawable/ic_piece_48dp</item>
