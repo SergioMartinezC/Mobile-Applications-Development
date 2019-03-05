@@ -12,7 +12,7 @@ import android.app.ActionBar
 import com.example.e321799.conecta4.R
 
 
-class MainActivity : AppCompatActivity(), View.OnClickListener, PartidaListener {
+class MainActivity : AppCompatActivity(), PartidaListener {
 
     private lateinit var game: Partida
 
@@ -70,10 +70,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, PartidaListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
-        registerListeners()
+        startGame()
     }
 
-    override fun onCambioEnPartida(p0: Evento?) {}
+    override fun onCambioEnPartida(e: Evento) {
+        when(e.tipo) {
+            Evento.EVENTO_CAMBIO -> updateUI()
+        }
+    }
 
     private fun startGame() {
         val jugadores = arrayListOf<Jugador>()
@@ -85,23 +89,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, PartidaListener 
         jugadores += JugadorAleatorio(
             "Aleatorio"
         )
-        val game = Partida(TableroConecta4(tablero), jugadores)
-        game.addObservador(ObservadorConecta4())
+        game = Partida(TableroConecta4(tablero), jugadores)
+        game.addObservador(this)
+        for (jugador in jugadores) {
+            if (jugador is JugadorConecta4Humano) {
+                registerListeners(jugador)
+                jugador.setPartida(game)
+            }
+        }
         game.comenzar()
 
     }
 
-    override fun onClick(view: View) {
-        if (view is ImageButton) {
-            view.setImageResource(R.drawable.ic_brightness_1_black_24dp)
-        }
-    }
 
-    private fun registerListeners() {
+    private fun registerListeners(jugador: JugadorConecta4Humano) {
         var button: ImageButton
         for (i in 0 until ids.size) for (j in 0 until ids.size) {
             button = findViewById(ids[i][j])
-            button.setOnClickListener(this)
+            button.setOnClickListener(jugador)
         }
     }
 
