@@ -38,6 +38,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
                  /* CHOU DE QUE LA PARTIDA NO ESTA EN CURSO */
                 return
             }
+            println("Creamos movimiento")
             val movimiento = MovimientoConecta4(fromViewToColumn(view))
             if (game.tablero.esValido(movimiento)) {
                 game.realizaAccion(AccionMover(this, movimiento))
@@ -46,7 +47,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
             }
 
         } catch (e: Exception) {
-            /* que no funciona loco */
+            println(e)
         }
     }
 
@@ -59,7 +60,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
     }
 
     override fun onCambioEnPartida(evento: Evento?) {
-        when(evento?.tipo){
+        /*when(evento?.tipo){
             Evento.EVENTO_TURNO -> {
                 try {
                     do {
@@ -102,7 +103,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
                     println(e.message)
                 }
             }
-        }
+        }*/
     }
 
 

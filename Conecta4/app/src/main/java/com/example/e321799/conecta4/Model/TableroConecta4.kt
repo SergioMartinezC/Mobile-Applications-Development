@@ -19,9 +19,9 @@ class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
 
     val NUM_COLUMNAS: Int = 7
     val NUM_FILAS: Int = 6
-    val JUGADOR_1 = 'X'
-    val JUGADOR_2 = 'O'
-    val CASILLA_VACIA = ' '
+    val JUGADOR_1 = 1
+    val JUGADOR_2 = 2
+    val CASILLA_VACIA = 0
     var ganador = 0
     var movimientosValidos: ArrayList<Movimiento> = ArrayList()
     var fichasEnColumna = mutableMapOf<Int, Int>()
@@ -56,14 +56,14 @@ class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
         for (i in 0 until NUM_FILAS) {
             for (j in 0 until NUM_COLUMNAS) {
                 when (j) {
-                    0 -> ret += "  | ${convertirFicha(tablero[i][j])} "
+                    0 -> ret += "  | $tablero[i][j] "
 
                     NUM_COLUMNAS - 1 -> {
-                        ret += "| ${convertirFicha(tablero[i][j])} |\n"
+                        ret += "| $tablero[i][j] |\n"
                         ret += "  +---+---+---+---+---+---+---+\n"
                     }
                     else ->
-                        ret += "| ${convertirFicha(tablero[i][j])} "
+                        ret += "| $tablero[i][j] "
                 }
             }
         }
@@ -125,14 +125,14 @@ class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
         return guardar
     }
 
-    fun convertirFicha(turno: Int): Char? {
+    /*fun convertirFicha(turno: Int): Char? {
         when(turno) {
             0 -> return CASILLA_VACIA
             1 -> return JUGADOR_1
             2 -> return JUGADOR_2
             else -> return null
         }
-    }
+    }*/
 
     fun comprobarGanador(tablero: MutableList<MutableList<Int>>): Int {
         val FILA = tablero.size
