@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity(), PartidaListener {
     private fun registerListeners(jugador: JugadorConecta4Humano) {
         var button: ImageButton
         for (i in 0 until ids.size){
-            for (j in 0 until ids.size) {
+            for (j in 0 until ids[i].size) {
                 button = findViewById(ids[i][j])
                 button.setOnClickListener(jugador)
             }
@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity(), PartidaListener {
     fun updateUI() {
         val tablero = game.tablero
         for (i in 0 until ids.size) {
-            for (j in 0 until ids.size) {
+            for (j in 0 until ids[i].size) {
                 val button = findViewById(ids[i][j]) as ImageButton
                 if (tablero is TableroConecta4) {
                     button.update(tablero, i, j)

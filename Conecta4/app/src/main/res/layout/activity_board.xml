@@ -22,17 +22,17 @@
                 android:layout_width="wrap_content"
                 android:orientation="vertical">
             <ImageButton style="@style/token"
-                android:id="@+id/button00"></ImageButton>
+                        android:id="@+id/button00"></ImageButton>
             <ImageButton style="@style/token"
-                android:id="@+id/button10"></ImageButton>
+                        android:id="@+id/button10"></ImageButton>
             <ImageButton style="@style/token"
-                android:id="@+id/button20"></ImageButton>
+                        android:id="@+id/button20"></ImageButton>
             <ImageButton style="@style/token"
-                android:id="@+id/button30"></ImageButton>
+                        android:id="@+id/button30"></ImageButton>
             <ImageButton style="@style/token"
-                android:id="@+id/button40"></ImageButton>
+                        android:id="@+id/button40"></ImageButton>
             <ImageButton style="@style/token"
-                android:id="@+id/button50"></ImageButton>
+                        android:id="@+id/button50"></ImageButton>
         </LinearLayout>
         <LinearLayout
                 android:layout_height="wrap_content"
