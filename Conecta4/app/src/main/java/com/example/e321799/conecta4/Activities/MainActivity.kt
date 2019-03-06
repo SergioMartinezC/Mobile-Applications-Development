@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button02,
             R.id.button03,
             R.id.button04,
-            R.id.button05
+            R.id.button05,
+            R.id.button06
         ),
         intArrayOf(
             R.id.button10,
@@ -31,7 +32,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button12,
             R.id.button13,
             R.id.button14,
-            R.id.button15
+            R.id.button15,
+            R.id.button16
         ),
         intArrayOf(
             R.id.button20,
@@ -39,7 +41,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button22,
             R.id.button23,
             R.id.button24,
-            R.id.button25
+            R.id.button25,
+            R.id.button26
         ),
         intArrayOf(
             R.id.button30,
@@ -47,7 +50,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button32,
             R.id.button33,
             R.id.button34,
-            R.id.button35
+            R.id.button35,
+            R.id.button36
         ),
         intArrayOf(
             R.id.button40,
@@ -55,7 +59,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button42,
             R.id.button43,
             R.id.button44,
-            R.id.button45
+            R.id.button45,
+            R.id.button46
         ),
         intArrayOf(
             R.id.button50,
@@ -63,7 +68,8 @@ class MainActivity : AppCompatActivity(), PartidaListener {
             R.id.button52,
             R.id.button53,
             R.id.button54,
-            R.id.button55
+            R.id.button55,
+            R.id.button56
         )
     )
 
@@ -104,9 +110,11 @@ class MainActivity : AppCompatActivity(), PartidaListener {
 
     private fun registerListeners(jugador: JugadorConecta4Humano) {
         var button: ImageButton
-        for (i in 0 until ids.size) for (j in 0 until ids.size) {
-            button = findViewById(ids[i][j])
-            button.setOnClickListener(jugador)
+        for (i in 0 until ids.size){
+            for (j in 0 until ids.size) {
+                button = findViewById(ids[i][j])
+                button.setOnClickListener(jugador)
+            }
         }
     }
 

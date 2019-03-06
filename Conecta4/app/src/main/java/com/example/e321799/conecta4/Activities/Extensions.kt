@@ -7,11 +7,11 @@ import TableroConecta4
 import com.example.e321799.conecta4.R
 
 fun ImageButton.update(tablero: TableroConecta4, i: Int, j: Int) {
-    if (tablero.tablero[i][j] == tablero.JUGADOR_1.toInt()) {
-        setImageResource(R.drawable.ic_brightness_1_black_24dp)
-    } else if (tablero.tablero[i][j] == tablero.JUGADOR_2.toInt()) {
-        setImageResource(R.drawable.player_2_red_48dp)
+    if (tablero.tablero[i][j] == tablero.JUGADOR_1) {
+        setImageResource(R.drawable.token_blue_48dp)
+    } else if (tablero.tablero[i][j] == tablero.JUGADOR_2) {
+        setImageResource(R.drawable.token_red_48dp)
     } else {
-        setImageResource(R.drawable.ic_piece_48dp)
+        setImageResource(R.drawable.token_black_48dp)
     }
 }
