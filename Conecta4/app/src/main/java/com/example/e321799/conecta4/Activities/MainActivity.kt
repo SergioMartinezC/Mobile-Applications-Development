@@ -9,6 +9,7 @@ import JugadorConecta4Humano
 import TableroConecta4
 import ObservadorConecta4
 import android.app.ActionBar
+import android.content.Intent
 import com.example.e321799.conecta4.R
 
 
@@ -82,6 +83,11 @@ class MainActivity : AppCompatActivity(), PartidaListener {
     override fun onCambioEnPartida(e: Evento) {
         when(e.tipo) {
             Evento.EVENTO_CAMBIO -> updateUI()
+            Evento.EVENTO_FIN -> {
+                updateUI()
+                val intent = Intent(this, EndGamePopUp::class.java)
+                startActivity(intent)
+            }
         }
     }
 
@@ -122,7 +128,7 @@ class MainActivity : AppCompatActivity(), PartidaListener {
         val tablero = game.tablero
         for (i in 0 until ids.size) {
             for (j in 0 until ids[i].size) {
-                val button = findViewById(ids[i][j]) as ImageButton
+                val button = findViewById<ImageButton>(ids[i][j])
                 if (tablero is TableroConecta4) {
                     button.update(tablero, i, j)
                 }
