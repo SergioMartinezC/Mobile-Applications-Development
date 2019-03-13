@@ -4,6 +4,8 @@ import es.uam.eps.multij.*
 import java.io.File
 import java.lang.Exception
 import java.lang.NumberFormatException
+import android.support.design.widget.Snackbar
+
 
 
 /*Solo pido por pantalla la columna donde quiere poner una ficha, podríamos poner una variable que designe el
@@ -83,7 +85,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
     override fun onClick(view: View) {
         try {
             if (game.tablero.estado != Tablero.EN_CURSO) {
-                 /* CHOU DE QUE LA PARTIDA NO ESTA EN CURSO */
+                /* que hacer que hacer */
                 return
             }
             println("Creamos movimiento ${view.id}")
@@ -95,7 +97,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
             }
 
         } catch (e: Exception) {
-            println("FALLA")
+            Snackbar.make(view, R.string.invalid_movement, Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -108,50 +110,6 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
     }
 
     override fun onCambioEnPartida(evento: Evento?) {
-        /*when(evento?.tipo){
-            Evento.EVENTO_TURNO -> {
-                try {
-                    do {
-                        println("\nElige una columna:")
-                        println("Además, 'G' o 'Guardar' para guardar y 'S' o 'Salir' para salir de la partida")
-                        print("-> ")
-                        var comando: String = readLine().toString().toLowerCase()
-                        if (comando in "1".."7") {
-                            try {
-                                val movimiento = MovimientoConecta4(comando.toInt().dec())
-                                if (evento.partida.tablero.esValido(movimiento)) {
-                                    evento.partida.realizaAccion(AccionMover(this, movimiento))
-                                } else {
-                                    comando = ERROR
-                                }
-                            } catch (e: NumberFormatException) {
-                                println(e.message)
-                                comando = ERROR
-                            }
-
-                        } else if (comando == "g" || comando == "guardar") {
-                            var nombrePartida = pedirNombrePartida()
-                            val tablero = evento.partida.tablero
-                            val movimiento = evento.partida.tablero.ultimoMovimiento
-                            if (tablero is TableroConecta4 && movimiento is MovimientoConecta4) {
-                                File(nombrePartida).writeText(evento.partida.tablero.tableroToString() + "\n"
-                                        + evento.partida.tablero.turno + "\n" + movimiento.columna + "\n"
-                                        + evento.partida.getJugador(0).nombre + "\n"
-                                        + evento.partida.getJugador(1).nombre + "\n"
-                                        + tablero.fichasEnColumna.toString().replace("{", "")
-                                    .replace("}", "").replace(" ", "")
-                                + "\n" + evento.partida.tablero.numJugadas)
-                            }
-                            comando = GUARDADA
-                        } else if (comando == "s" || comando == "salir") {
-                            MenuConecta4().menuPrincipal(MenuConecta4().getOpcion())
-                        }
-                    }while (!comandoValido(comando.trim()))
-                }catch (e: NumberFormatException) {
-                    println(e.message)
-                }
-            }
-        }*/
     }
 
 
