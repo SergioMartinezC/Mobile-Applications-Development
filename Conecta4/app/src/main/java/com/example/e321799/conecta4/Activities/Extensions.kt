@@ -12,6 +12,6 @@ fun ImageButton.update(tablero: TableroConecta4, i: Int, j: Int) {
     } else if (tablero.tablero[i][j] == tablero.JUGADOR_2) {
         setImageResource(R.drawable.token_red_48dp)
     } else {
-        setImageResource(R.drawable.token_black_48dp)
+        setImageResource(R.drawable.token_white_48dp)
     }
 }

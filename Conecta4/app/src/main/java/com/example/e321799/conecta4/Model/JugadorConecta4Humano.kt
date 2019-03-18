@@ -4,7 +4,6 @@ import es.uam.eps.multij.*
 import java.io.File
 import java.lang.Exception
 import java.lang.NumberFormatException
-import android.support.design.widget.Snackbar
 
 
 
@@ -97,7 +96,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
             }
 
         } catch (e: Exception) {
-            Snackbar.make(view, R.string.invalid_movement, Snackbar.LENGTH_SHORT).show()
+           /* TO DO */
         }
     }
 
