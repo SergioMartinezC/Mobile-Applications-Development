@@ -13,9 +13,9 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
     val ERROR = "ERROR"
     val GUARDADA = "GUARDADA"
     val MAX_NOMBRE_PARTIDA = 50
+    var token_tag: Int = 0
 
     private lateinit var game: Partida
-
     private val ids = arrayOf(
         intArrayOf(
             R.id.button00,
