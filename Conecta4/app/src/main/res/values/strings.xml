@@ -2,4 +2,7 @@
     <string name="app_name">Conecta4</string>
     <string name="game_finished">Fin de partida</string>
     <string name="invalid_movement">Movimiento no válido</string>
+    <string name="play">Jugar</string>
+    <string name="load_game">Cargar partida</string>
+    <string name="exit">Salir</string>
 </resources>

@@ -18,5 +18,10 @@
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
+    <style name="menu_buttons">
+        <item name="android:textSize">30dp</item>
+        <item name="android:fontFamily">@font/dk_butterfly_ball</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>

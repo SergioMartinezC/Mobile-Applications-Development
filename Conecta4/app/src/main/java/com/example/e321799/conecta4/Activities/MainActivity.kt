@@ -10,6 +10,7 @@ import TableroConecta4
 import ObservadorConecta4
 import android.app.ActionBar
 import android.content.Intent
+import android.widget.Button
 import com.example.e321799.conecta4.R
 
 
