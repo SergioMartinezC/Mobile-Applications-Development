@@ -24,5 +24,9 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:background">@drawable/button_background</item>
     </style>
+    <style name="button_menu">
+        <item name="android:src">@drawable/ic_menu_black_24dp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+    </style>
 
 </resources>
