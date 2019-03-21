@@ -10,11 +10,9 @@ import android.content.Intent
 import android.view.View
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_board.*
-import java.lang.Exception
 
 
 class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener {
-
     private lateinit var game: Partida
     private lateinit var board: TableroConecta4
     val BOARDSTRING = "es.uam.eps.dadm.er8.grid"
@@ -80,6 +78,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
         button_menu.setOnClickListener(this)
+
         startGame()
     }
 
@@ -131,8 +130,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         jugadores += JugadorConecta4Humano(
             "Humano"
         )
-        jugadores += JugadorConecta4Humano(
-            "Paco"
+        jugadores += JugadorAleatorio(
+            "Aleatorio"
         )
         board = TableroConecta4(tablero)
         game = Partida(board, jugadores)
@@ -141,6 +140,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
             if (jugador is JugadorConecta4Humano) {
                 registerListeners(jugador)
                 jugador.setPartida(game)
+                jugador.drawable = intent.extras.getInt("drawable")
             }
         }
         game.comenzar()
@@ -164,7 +164,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
             for (j in 0 until ids[i].size) {
                 val button = findViewById<ImageButton>(ids[i][j])
                 if (tablero is TableroConecta4) {
-                    button.update(tablero, i, j)
+                    button.update(tablero, i, j, game)
                 }
 
             }

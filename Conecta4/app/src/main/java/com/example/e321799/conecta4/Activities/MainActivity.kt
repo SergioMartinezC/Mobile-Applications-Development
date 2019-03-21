@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.button_play-> {
-                val intent = Intent(this, BoardActivity::class.java)
+                val intent = Intent(this, PreGameActivity::class.java)
                 startActivity(intent)
             }
             R.id.button_exit-> {

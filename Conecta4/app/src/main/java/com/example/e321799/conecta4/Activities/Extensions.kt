@@ -4,10 +4,18 @@ import android.widget.ImageButton
 import TableroConecta4
 import JugadorConecta4Humano
 import com.example.e321799.conecta4.R
+import es.uam.eps.multij.Jugador
+import es.uam.eps.multij.Partida
 
-fun ImageButton.update(tablero: TableroConecta4, i: Int, j: Int) {
+fun ImageButton.update(tablero: TableroConecta4, i: Int, j: Int, game: Partida) {
+    var jugador: Jugador
     when (tablero.tablero[i][j]) {
-        tablero.JUGADOR_1 -> setImageResource(R.drawable.token_blue_48dp)
+        tablero.JUGADOR_1 -> {
+            jugador = game.getJugador(tablero.JUGADOR_1-1)
+            if (jugador is JugadorConecta4Humano) {
+                setImageResource(jugador.drawable)
+            }
+        }
         tablero.JUGADOR_2 -> setImageResource(R.drawable.token_red_48dp)
         tablero.CASILLA_VACIA -> setImageResource(R.drawable.token_white_48dp)
     }
