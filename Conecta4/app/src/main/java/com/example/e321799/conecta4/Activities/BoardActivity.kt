@@ -7,10 +7,13 @@ import es.uam.eps.multij.*
 import JugadorConecta4Humano
 import TableroConecta4
 import android.content.Intent
+import android.view.View
 import com.example.e321799.conecta4.R
+import kotlinx.android.synthetic.main.activity_board.*
+import java.lang.Exception
 
 
-class BoardActivity : AppCompatActivity(), PartidaListener {
+class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener {
 
     private lateinit var game: Partida
     private lateinit var board: TableroConecta4
@@ -76,6 +79,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
+        button_menu.setOnClickListener(this)
         startGame()
     }
 
@@ -105,6 +109,18 @@ class BoardActivity : AppCompatActivity(), PartidaListener {
             updateUI()
         } catch (e: ExcepcionJuego) {
             e.printStackTrace()
+        }
+    }
+
+    override fun onClick(view: View) {
+        when(view?.id) {
+            R.id.button_menu-> {
+                val intent = Intent(this, EndGamePopUp::class.java)
+                startActivity(intent)
+            }
+            R.id.button_exit-> {
+                System.exit(0)
+            }
         }
     }
 

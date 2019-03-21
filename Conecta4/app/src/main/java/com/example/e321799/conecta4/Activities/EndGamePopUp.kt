@@ -22,7 +22,7 @@ class EndGamePopUp : Activity() {
         val height = dm.heightPixels
 
 
-        window.setLayout(width * 100 / 125, height * 100 / 140)
+        window.setLayout(width * 100 / 150, height * 100 / 170)
 
         val params : WindowManager.LayoutParams = window.attributes
         params.gravity = Gravity.CENTER
