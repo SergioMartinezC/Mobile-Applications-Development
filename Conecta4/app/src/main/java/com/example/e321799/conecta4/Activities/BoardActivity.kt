@@ -100,7 +100,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener {
         super.onRestoreInstanceState(savedInstanceState)
         try {
             if (savedInstanceState?.getString(BOARDSTRING) != null) {
-                board.stringToTablero(savedInstanceState?.getString(BOARDSTRING))
+                board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
             }
             updateUI()
         } catch (e: ExcepcionJuego) {
@@ -115,8 +115,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener {
         jugadores += JugadorConecta4Humano(
             "Humano"
         )
-        jugadores += JugadorAleatorio(
-            "Aleatorio"
+        jugadores += JugadorConecta4Humano(
+            "Paco"
         )
         board = TableroConecta4(tablero)
         game = Partida(board, jugadores)

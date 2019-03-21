@@ -5,5 +5,5 @@
     <string name="play">Jugar</string>
     <string name="load_game">Cargar partida</string>
     <string name="exit">Salir</string>
-    <string name="preferences">Preferencias</string>
+    <string name="options">Opciones</string>
 </resources>
