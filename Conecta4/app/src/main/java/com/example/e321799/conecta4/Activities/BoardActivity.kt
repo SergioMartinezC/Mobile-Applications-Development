@@ -20,6 +20,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
     val MENU_PARTIDA_FINALIZADA = 1
     val MENU_FIN_PARTIDA = 2
 
+    var ficha = 0
     val BOARDSTRING = "es.uam.eps.dadm.er8.grid"
 
     private val ids = arrayOf(
@@ -83,7 +84,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
         button_menu.setOnClickListener(this)
-
+        ficha = intent.extras.getInt("drawable")
         startGame()
     }
 
@@ -94,6 +95,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 updateUI()
                 val intent = Intent(this, PopUp::class.java)
                 intent.putExtra("menu", MENU_FIN_PARTIDA)
+                intent.putExtra( "drawable", ficha)
                 startActivity(intent)
             }
         }
@@ -123,8 +125,10 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 val intent = Intent(this, PopUp::class.java)
                 if (game.tablero.estado == Tablero.FINALIZADA || game.tablero.estado == Tablero.TABLAS) {
                     intent.putExtra("menu", MENU_PARTIDA_FINALIZADA)
+                    intent.putExtra( "drawable",  ficha)
                 } else {
                     intent.putExtra("menu", MENU_PARTIDA)
+                    intent.putExtra( "drawable", ficha)
                 }
                 startActivity(intent)
             }
@@ -135,24 +139,15 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         var jugador1 = game.getJugador(board.JUGADOR_1 - 1)
         var jugador2 = game.getJugador(board.JUGADOR_2 - 1)
         if (jugador1 is JugadorConecta4CPU) {
-            if (jugador2 is JugadorConecta4Humano) {
-                while(jugador1.drawable == jugador2.drawable) {
-                    setCPUColor(jugador1)
-                }
+            if (jugador2 is JugadorConecta4Humano && jugador1.drawable == jugador2.drawable) {
+                jugador1.drawable = R.drawable.token_blue_48dp
             }
         }
         else if (jugador1 is JugadorConecta4Humano){
-            if (jugador2 is JugadorConecta4CPU) {
-                while(jugador1.drawable == jugador2.drawable) {
-                    setCPUColor(jugador2)
-                }
+            if (jugador2 is JugadorConecta4CPU && jugador1.drawable == jugador2.drawable) {
+                jugador2.drawable = R.drawable.token_blue_48dp
             }
         }
-    }
-
-    private fun setCPUColor(jugador: JugadorConecta4CPU) {
-        var random = (0 until drawableIds.size).shuffled().last()
-        jugador.drawable = drawableIds[random]
     }
 
     private fun startGame() {
@@ -172,7 +167,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
             if (jugador is JugadorConecta4Humano) {
                 registerListeners(jugador)
                 jugador.setPartida(game)
-                jugador.drawable = intent.extras.getInt("drawable")
+                jugador.drawable = ficha
+                val uno = 1
             }
         }
         checkCPUColor()

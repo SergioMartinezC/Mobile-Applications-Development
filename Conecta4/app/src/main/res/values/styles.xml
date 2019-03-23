@@ -22,23 +22,23 @@
         <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/prototype</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/button_background_solid</item>
     </style>
     <style name="button_menu">
         <item name="android:src">@drawable/menu_black_48dp</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/button_background_transparent</item>
     </style>
 
     <style name="back_button">
         <item name="android:src">@drawable/arrow_back_black_48dp</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/button_background_transparent</item>
     </style>
     <style name="game_menu_button">
         <item name="android:padding">5dp</item>
         <item name="android:textSize">15sp</item>
         <item name="android:fontFamily">@font/prototype</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
-        <item name="android:background">@drawable/button_background</item>
+        <item name="android:background">@drawable/button_background_solid</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

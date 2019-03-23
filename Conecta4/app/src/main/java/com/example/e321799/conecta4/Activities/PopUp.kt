@@ -1,6 +1,7 @@
 package com.example.e321799.conecta4.Activities
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
@@ -8,8 +9,12 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.TableRow
 import com.example.e321799.conecta4.R
+import kotlinx.android.synthetic.main.activity_menu_board.*
 
-class PopUp : Activity() {
+class PopUp : Activity(), View.OnClickListener {
+
+    var ficha = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val MENU_PARTIDA = 0
@@ -17,13 +22,21 @@ class PopUp : Activity() {
         val MENU_FIN_PARTIDA = 2
 
         super.onCreate(savedInstanceState)
-
+        ficha = intent.extras.getInt("drawable")
         val extras = intent.extras.getInt("menu")
 
         if (extras == MENU_FIN_PARTIDA) {
             setContentView(R.layout.activity_end_game_pop_up)
         } else {
+
             setContentView(R.layout.activity_menu_board)
+
+            load_game.setOnClickListener(this)
+            new_game.setOnClickListener(this)
+            main_menu.setOnClickListener(this)
+            button_back.setOnClickListener(this)
+            save_game.setOnClickListener(this)
+
             if (extras == MENU_PARTIDA) {
                 findViewById<TableRow>(R.id.load_row).visibility = View.GONE
             } else if (extras == MENU_PARTIDA_FINALIZADA) {
@@ -46,5 +59,28 @@ class PopUp : Activity() {
         params.y = -20
 
         window.attributes = params
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id) {
+            R.id.save_game-> {
+
+            }
+            R.id.load_game-> {
+
+            }
+            R.id.new_game-> {
+                val intent = Intent(this, BoardActivity::class.java)
+                intent.putExtra( "drawable", ficha)
+                startActivity(intent)
+            }
+            R.id.main_menu-> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.button_back-> {
+                this.finish()
+            }
+        }
     }
 }

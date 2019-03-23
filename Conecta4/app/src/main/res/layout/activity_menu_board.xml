@@ -20,7 +20,7 @@
                 android:layout_marginBottom="25dp">
             <Button style="@style/game_menu_button"
                     android:text="Guardar Partida"
-                    android:id="@+id/save"
+                    android:id="@+id/save_game"
             />
         </TableRow>
         <TableRow
@@ -29,7 +29,7 @@
                 android:layout_marginBottom="25dp">
             <Button style="@style/game_menu_button"
                     android:text="Cargar Partida"
-                    android:id="@+id/load"/>
+                    android:id="@+id/load_game"/>
         </TableRow>
         <TableRow
                 android:id="@+id/new_game_row"

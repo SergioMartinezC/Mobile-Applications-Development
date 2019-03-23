@@ -4,7 +4,7 @@
                                              xmlns:tools="http://schemas.android.com/tools"
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent"
-                                             android:background="@color/colorPrimary"
+                                             android:background="@drawable/marmol_background"
 >
 
     <LinearLayout
@@ -15,6 +15,7 @@
             android:layout_marginTop="175dp"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center_horizontal"
+
             app:layout_constraintHorizontal_bias="0.636">
         <LinearLayout
                 android:background="@color/color_board"
