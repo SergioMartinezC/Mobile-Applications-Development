@@ -20,7 +20,7 @@
 
         </activity>
         <activity android:name=".Activities.PreGameActivity"></activity>
-        <activity android:name=".Activities.EndGamePopUp"
+        <activity android:name=".Activities.PopUp"
         android:theme="@style/AppTheme.PopMe">
         </activity>
     </application>

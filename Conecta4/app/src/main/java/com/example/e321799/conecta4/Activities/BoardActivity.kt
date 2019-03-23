@@ -8,6 +8,7 @@ import JugadorConecta4Humano
 import TableroConecta4
 import android.content.Intent
 import android.view.View
+import com.example.e321799.conecta4.Model.JugadorConecta4CPU
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_board.*
 
@@ -15,6 +16,10 @@ import kotlinx.android.synthetic.main.activity_board.*
 class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener {
     private lateinit var game: Partida
     private lateinit var board: TableroConecta4
+    val MENU_PARTIDA = 0
+    val MENU_PARTIDA_FINALIZADA = 1
+    val MENU_FIN_PARTIDA = 2
+
     val BOARDSTRING = "es.uam.eps.dadm.er8.grid"
 
     private val ids = arrayOf(
@@ -87,7 +92,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
             Evento.EVENTO_CAMBIO -> updateUI()
             Evento.EVENTO_FIN -> {
                 updateUI()
-                val intent = Intent(this, EndGamePopUp::class.java)
+                val intent = Intent(this, PopUp::class.java)
+                intent.putExtra("menu", MENU_FIN_PARTIDA)
                 startActivity(intent)
             }
         }
@@ -114,13 +120,39 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
     override fun onClick(view: View) {
         when(view?.id) {
             R.id.button_menu-> {
-                val intent = Intent(this, EndGamePopUp::class.java)
+                val intent = Intent(this, PopUp::class.java)
+                if (game.tablero.estado == Tablero.FINALIZADA || game.tablero.estado == Tablero.TABLAS) {
+                    intent.putExtra("menu", MENU_PARTIDA_FINALIZADA)
+                } else {
+                    intent.putExtra("menu", MENU_PARTIDA)
+                }
                 startActivity(intent)
             }
-            R.id.button_exit-> {
-                System.exit(0)
+        }
+    }
+
+    private fun checkCPUColor() {
+        var jugador1 = game.getJugador(board.JUGADOR_1 - 1)
+        var jugador2 = game.getJugador(board.JUGADOR_2 - 1)
+        if (jugador1 is JugadorConecta4CPU) {
+            if (jugador2 is JugadorConecta4Humano) {
+                while(jugador1.drawable == jugador2.drawable) {
+                    setCPUColor(jugador1)
+                }
             }
         }
+        else if (jugador1 is JugadorConecta4Humano){
+            if (jugador2 is JugadorConecta4CPU) {
+                while(jugador1.drawable == jugador2.drawable) {
+                    setCPUColor(jugador2)
+                }
+            }
+        }
+    }
+
+    private fun setCPUColor(jugador: JugadorConecta4CPU) {
+        var random = (0 until drawableIds.size).shuffled().last()
+        jugador.drawable = drawableIds[random]
     }
 
     private fun startGame() {
@@ -130,7 +162,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         jugadores += JugadorConecta4Humano(
             "Humano"
         )
-        jugadores += JugadorAleatorio(
+        jugadores += JugadorConecta4CPU(
             "Aleatorio"
         )
         board = TableroConecta4(tablero)
@@ -143,8 +175,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 jugador.drawable = intent.extras.getInt("drawable")
             }
         }
+        checkCPUColor()
         game.comenzar()
-
     }
 
 

@@ -37,6 +37,27 @@
         android:src="@drawable/token_green_48dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageButton
+            android:id="@+id/red_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="132dp"
+            android:layout_marginTop="136dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/token_red_48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+    <ImageButton
+            android:id="@+id/yellow_token"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="56dp"
+            android:layout_marginTop="136dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/token_yellow_48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
 
 
 </android.support.constraint.ConstraintLayout>
