@@ -1,14 +1,11 @@
 package com.example.e321799.conecta4.Activities
 
 import android.app.Activity
-import android.hardware.display.DisplayManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.Button
 import android.widget.TableRow
 import com.example.e321799.conecta4.R
 
