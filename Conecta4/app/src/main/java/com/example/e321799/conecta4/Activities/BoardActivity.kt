@@ -20,7 +20,11 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
     val MENU_PARTIDA_FINALIZADA = 1
     val MENU_FIN_PARTIDA = 2
 
-    var ficha = 0
+    val JUGADOR_1 = 0
+    val JUGADOR_2 = 1
+
+    var ficha1 = 0
+    var ficha2 = 0
     val BOARDSTRING = "es.uam.eps.dadm.er8.grid"
 
     private val ids = arrayOf(
@@ -84,7 +88,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
         button_menu.setOnClickListener(this)
-        ficha = intent.extras.getInt("drawable")
+        ficha1 = intent.extras.getInt("ficha_jugador_1")
+        ficha2 = intent.extras.getInt("ficha_jugador_2")
         startGame()
     }
 
@@ -95,7 +100,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 updateUI()
                 val intent = Intent(this, PopUp::class.java)
                 intent.putExtra("menu", MENU_FIN_PARTIDA)
-                intent.putExtra( "drawable", ficha)
+                intent.putExtra( "ficha_jugador_1", ficha1)
+                intent.putExtra( "ficha_jugador_2", ficha2)
                 startActivity(intent)
             }
         }
@@ -125,10 +131,12 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 val intent = Intent(this, PopUp::class.java)
                 if (game.tablero.estado == Tablero.FINALIZADA || game.tablero.estado == Tablero.TABLAS) {
                     intent.putExtra("menu", MENU_PARTIDA_FINALIZADA)
-                    intent.putExtra( "drawable",  ficha)
+                    intent.putExtra( "ficha_jugador_1", ficha1)
+                    intent.putExtra( "ficha_jugador_2", ficha2)
                 } else {
                     intent.putExtra("menu", MENU_PARTIDA)
-                    intent.putExtra( "drawable", ficha)
+                    intent.putExtra( "ficha_jugador_1", ficha1)
+                    intent.putExtra( "ficha_jugador_2", ficha2)
                 }
                 startActivity(intent)
             }
@@ -157,19 +165,26 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         jugadores += JugadorConecta4Humano(
             "Humano"
         )
-        jugadores += JugadorConecta4CPU(
+        jugadores += JugadorConecta4Humano(
             "Aleatorio"
         )
         board = TableroConecta4(tablero)
         game = Partida(board, jugadores)
         game.addObservador(this)
+
         for (jugador in jugadores) {
             if (jugador is JugadorConecta4Humano) {
                 registerListeners(jugador)
                 jugador.setPartida(game)
-                jugador.drawable = ficha
-                val uno = 1
             }
+        }
+        var jugador_aux = jugadores[JUGADOR_1]
+        if (jugador_aux is JugadorConecta4Humano) {
+            jugador_aux.drawable = ficha1
+        }
+        jugador_aux = jugadores[JUGADOR_2]
+        if (jugador_aux is JugadorConecta4Humano) {
+            jugador_aux.drawable = ficha2
         }
         checkCPUColor()
         game.comenzar()

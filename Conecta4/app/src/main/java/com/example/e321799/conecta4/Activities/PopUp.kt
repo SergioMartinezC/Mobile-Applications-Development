@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.activity_menu_board.*
 
 class PopUp : Activity(), View.OnClickListener {
 
-    var ficha = 0
+    var ficha1 = 0
+    var ficha2 = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,8 @@ class PopUp : Activity(), View.OnClickListener {
         val MENU_FIN_PARTIDA = 2
 
         super.onCreate(savedInstanceState)
-        ficha = intent.extras.getInt("drawable")
+        ficha1 = intent.extras.getInt("ficha_jugador_1")
+        ficha2 = intent.extras.getInt("ficha_jugador_2")
         val extras = intent.extras.getInt("menu")
 
         if (extras == MENU_FIN_PARTIDA) {
@@ -71,7 +73,8 @@ class PopUp : Activity(), View.OnClickListener {
             }
             R.id.new_game-> {
                 val intent = Intent(this, BoardActivity::class.java)
-                intent.putExtra( "drawable", ficha)
+                intent.putExtra("ficha_jugador_1", ficha1)
+                intent.putExtra("ficha_jugador_2", ficha2)
                 startActivity(intent)
             }
             R.id.main_menu-> {
