@@ -47,14 +47,20 @@ class PreGameActivity : AppCompatActivity(), View.OnClickListener {
             var button : ImageButton = findViewById(buttonTokenIds[i])
             button.setOnClickListener(this)
         }
+        button_start_game.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        val buttonPressed = findViewById<ImageButton>(v!!.id)
-        val intent = Intent(this, BoardActivity::class.java)
-        var tag = buttonPressed.tag.toString().toInt()
-        intent.putExtra("drawable", tag)
-        startActivity(intent)
+        if(v?.id == R.id.button_start_game) {
+            startActivity(intent)
+        }
+        else {
+            val buttonPressed = findViewById<ImageButton>(v!!.id)
+            buttonPressed.isSelected = true
+            val intent = Intent(this, BoardActivity::class.java)
+            var tag = buttonPressed.tag.toString().toInt()
+            intent.putExtra("drawable", tag)
+        }
     }
 
 }
