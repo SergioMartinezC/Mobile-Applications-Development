@@ -1,11 +1,12 @@
 import es.uam.eps.multij.Movimiento
 import es.uam.eps.multij.Tablero
+import java.io.Serializable
 import java.util.ArrayList
 
 /*Para el tablero he estado buscando una forma de hacer un array bidimensional y solo me ha aparecido esto
 * No sé si se puede hacer para definir el tamaño directamente y tenerlo controlado
 * La función mueve simplemente usará el movimiento (columna-jugador) para decir qué ficha poner y donde*/
-class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero() {
+class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero(), Serializable {
     constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this(tablero) {
         this.turno = turno
         this.ultimoMovimiento = ultimoMovimiento

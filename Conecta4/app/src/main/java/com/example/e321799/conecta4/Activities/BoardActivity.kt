@@ -11,6 +11,8 @@ import android.view.View
 import com.example.e321799.conecta4.Model.JugadorConecta4CPU
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_board.*
+import MovimientoConecta4
+import com.example.e321799.conecta4.Model.Round
 
 
 class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener {
@@ -88,9 +90,17 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_board)
         button_menu.setOnClickListener(this)
-        ficha1 = intent.extras.getInt("ficha_jugador_1")
-        ficha2 = intent.extras.getInt("ficha_jugador_2")
-        startGame()
+        if (intent.extras.containsKey("ficha_jugador_1") && intent.extras.containsKey("ficha_jugador_2")) {
+            ficha1 = intent.extras.getInt("ficha_jugador_1")
+            ficha2 = intent.extras.getInt("ficha_jugador_2")
+        }
+        if (intent.extras.containsKey("round")) {
+            var round = intent.extras.getSerializable("round") as Round
+            loadGame(round)
+        }
+        else {
+            startGame()
+        }
     }
 
     override fun onCambioEnPartida(e: Evento) {
@@ -100,8 +110,14 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 updateUI()
                 val intent = Intent(this, PopUp::class.java)
                 intent.putExtra("menu", MENU_FIN_PARTIDA)
-                intent.putExtra( "ficha_jugador_1", ficha1)
-                intent.putExtra( "ficha_jugador_2", ficha2)
+                /*****************ESTO POR QUE ALVARO********************/
+                intent.putExtra("ficha_jugador_1", ficha1)
+                intent.putExtra("ficha_jugador_2", ficha2)
+                intent.putExtra("player_one_name", game.getJugador(JUGADOR_1 - 1).nombre)
+                intent.putExtra("player_two_name", game.getJugador(JUGADOR_2 - 1).nombre)
+                intent.putExtra("turno", board.turno)
+                intent.putExtra("board", board.tableroToString())
+                /*********************************************************/
                 startActivity(intent)
             }
         }
@@ -131,13 +147,18 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 val intent = Intent(this, PopUp::class.java)
                 if (game.tablero.estado == Tablero.FINALIZADA || game.tablero.estado == Tablero.TABLAS) {
                     intent.putExtra("menu", MENU_PARTIDA_FINALIZADA)
-                    intent.putExtra( "ficha_jugador_1", ficha1)
-                    intent.putExtra( "ficha_jugador_2", ficha2)
                 } else {
                     intent.putExtra("menu", MENU_PARTIDA)
-                    intent.putExtra( "ficha_jugador_1", ficha1)
-                    intent.putExtra( "ficha_jugador_2", ficha2)
                 }
+                intent.putExtra( "ficha_jugador_1", ficha1)
+                intent.putExtra( "ficha_jugador_2", ficha2)
+                intent.putExtra("player_one_name", game.getJugador(JUGADOR_1).nombre)
+                intent.putExtra("player_two_name", game.getJugador(JUGADOR_2).nombre)
+                intent.putExtra("turno", board.turno)
+                intent.putExtra("board", board.tableroToString())
+                intent.putExtra("fichasEnColumna", board.fichasEnColumna.toString().replace("{", "")
+                    .replace("}", "").replace(" ", ""))
+
                 startActivity(intent)
             }
         }
@@ -156,6 +177,40 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 jugador2.drawable = R.drawable.token_blue_48dp
             }
         }
+    }
+
+    private fun loadGame(round : Round) {
+        val jugadores = arrayListOf<Jugador>()
+        val tablero = mutableListOf<MutableList<Int>>()
+        var ultimoMovimiento = MovimientoConecta4(0)
+        board = TableroConecta4(tablero, round.turno, ultimoMovimiento, round.fichas, 0)
+        board.stringToTablero(round.board)
+
+        jugadores += JugadorConecta4Humano (
+            round.player_one_name
+        )
+        jugadores += JugadorConecta4Humano (
+            round.player_two_name
+        )
+        game = Partida(board, jugadores)
+        game.addObservador(this)
+        for (jugador in jugadores) {
+            if (jugador is JugadorConecta4Humano) {
+                registerListeners(jugador)
+                jugador.setPartida(game)
+            }
+        }
+        var jugador_aux = jugadores[JUGADOR_1]
+        if (jugador_aux is JugadorConecta4Humano) {
+            jugador_aux.drawable = round.player_one_token
+        }
+        jugador_aux = jugadores[JUGADOR_2]
+        if (jugador_aux is JugadorConecta4Humano) {
+            jugador_aux.drawable = round.player_two_token
+        }
+        checkCPUColor()
+        updateUI()
+        game.continuar()
     }
 
     private fun startGame() {

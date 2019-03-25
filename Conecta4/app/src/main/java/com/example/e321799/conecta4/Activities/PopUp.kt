@@ -8,6 +8,10 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.TableRow
+import TableroConecta4
+import android.app.ActionBar
+import com.example.e321799.conecta4.Model.Round
+import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_menu_board.*
 
@@ -15,7 +19,12 @@ class PopUp : Activity(), View.OnClickListener {
 
     var ficha1 = 0
     var ficha2 = 0
-
+    var menu = 0
+    var turno = 0
+    lateinit var fichasEnColumnas : String
+    lateinit var name_player_one : String
+    lateinit var name_player_two : String
+    lateinit var board : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val MENU_PARTIDA = 0
@@ -23,11 +32,19 @@ class PopUp : Activity(), View.OnClickListener {
         val MENU_FIN_PARTIDA = 2
 
         super.onCreate(savedInstanceState)
+
         ficha1 = intent.extras.getInt("ficha_jugador_1")
         ficha2 = intent.extras.getInt("ficha_jugador_2")
-        val extras = intent.extras.getInt("menu")
+        menu = intent.extras.getInt("menu")
+        board = intent.extras.getString("board")
+        name_player_one = intent.extras.getString("player_one_name")
+        name_player_two = intent.extras.getString("player_two_name")
+        turno = intent.extras.getInt("turno")
+        fichasEnColumnas = intent.extras.getString("fichasEnColumna")
 
-        if (extras == MENU_FIN_PARTIDA) {
+
+
+        if (menu == MENU_FIN_PARTIDA) {
             setContentView(R.layout.activity_end_game_pop_up)
         } else {
 
@@ -39,9 +56,9 @@ class PopUp : Activity(), View.OnClickListener {
             button_back.setOnClickListener(this)
             save_game.setOnClickListener(this)
 
-            if (extras == MENU_PARTIDA) {
+            if (menu == MENU_PARTIDA) {
                 findViewById<TableRow>(R.id.load_row).visibility = View.GONE
-            } else if (extras == MENU_PARTIDA_FINALIZADA) {
+            } else if (menu == MENU_PARTIDA_FINALIZADA) {
                 findViewById<TableRow>(R.id.save_row).visibility = View.GONE
             }
         }
@@ -66,10 +83,12 @@ class PopUp : Activity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.save_game-> {
-
+                RoundRepository.addRound(Round(ficha1, ficha2, name_player_one, name_player_two,
+                            turno, board, fichasEnColumnas))
             }
             R.id.load_game-> {
-
+                val intent = Intent(this, RoundListActivity::class.java)
+                startActivity(intent)
             }
             R.id.new_game-> {
                 val intent = Intent(this, BoardActivity::class.java)
