@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_main)
         button_play.setOnClickListener(this)
         button_exit.setOnClickListener(this)
+        button_load_game.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
@@ -24,6 +25,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
             R.id.button_exit-> {
                 System.exit(0)
+            }
+            R.id.button_load_game-> {
+                val intent = Intent(this, RoundListActivity::class.java)
+                startActivity(intent)
             }
         }
 

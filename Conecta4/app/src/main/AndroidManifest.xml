@@ -23,6 +23,7 @@
         <activity android:name=".Activities.PopUp"
         android:theme="@style/AppTheme.PopMe">
         </activity>
+        <activity android:name=".Activities.RoundListActivity"></activity>
     </application>
 
 </manifest>

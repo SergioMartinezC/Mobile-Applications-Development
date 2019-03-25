@@ -150,8 +150,4 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
         return nombrePartida
     }
 
-    private fun comandoValido(comando: String): Boolean {
-        return comando in "1".."7" || comando == "guardar" || comando == "g"
-        || comando == "salir" || comando == "s"
-    }
 }

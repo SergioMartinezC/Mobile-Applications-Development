@@ -26,6 +26,7 @@ class PopUp : Activity(), View.OnClickListener {
         ficha1 = intent.extras.getInt("ficha_jugador_1")
         ficha2 = intent.extras.getInt("ficha_jugador_2")
         val extras = intent.extras.getInt("menu")
+        var board_string = intent.extras.getString("board")
 
         if (extras == MENU_FIN_PARTIDA) {
             setContentView(R.layout.activity_end_game_pop_up)
@@ -66,7 +67,7 @@ class PopUp : Activity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.save_game-> {
-
+                
             }
             R.id.load_game-> {
 

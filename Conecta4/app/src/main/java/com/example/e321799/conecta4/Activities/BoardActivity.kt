@@ -137,6 +137,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                     intent.putExtra("menu", MENU_PARTIDA)
                     intent.putExtra( "ficha_jugador_1", ficha1)
                     intent.putExtra( "ficha_jugador_2", ficha2)
+                    intent.putExtra("board", game.tablero.tableroToString())
                 }
                 startActivity(intent)
             }
