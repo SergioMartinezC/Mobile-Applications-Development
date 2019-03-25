@@ -35,6 +35,7 @@ class PopUp : Activity(), View.OnClickListener {
 
         ficha1 = intent.extras.getInt("ficha_jugador_1")
         ficha2 = intent.extras.getInt("ficha_jugador_2")
+<<<<<<< HEAD
         menu = intent.extras.getInt("menu")
         board = intent.extras.getString("board")
         name_player_one = intent.extras.getString("player_one_name")
@@ -43,6 +44,10 @@ class PopUp : Activity(), View.OnClickListener {
         fichasEnColumnas = intent.extras.getString("fichasEnColumna")
 
 
+=======
+        val extras = intent.extras.getInt("menu")
+        var board_string = intent.extras.getString("board")
+>>>>>>> 1a08e1a8282dd472e11e4cfc5e58d80308ed1770
 
         if (menu == MENU_FIN_PARTIDA) {
             setContentView(R.layout.activity_end_game_pop_up)
@@ -83,8 +88,12 @@ class PopUp : Activity(), View.OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.save_game-> {
+<<<<<<< HEAD
                 RoundRepository.addRound(Round(ficha1, ficha2, name_player_one, name_player_two,
                             turno, board, fichasEnColumnas))
+=======
+                
+>>>>>>> 1a08e1a8282dd472e11e4cfc5e58d80308ed1770
             }
             R.id.load_game-> {
                 val intent = Intent(this, RoundListActivity::class.java)
