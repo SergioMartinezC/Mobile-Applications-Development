@@ -96,6 +96,8 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         }
         if (intent.extras.containsKey("round")) {
             var round = intent.extras.getSerializable("round") as Round
+            ficha1 = round.player_one_token
+            ficha2 = round.player_two_token
             loadGame(round)
         }
         else {
@@ -113,16 +115,23 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 /*****************ESTO POR QUE ALVARO********************/
                 intent.putExtra("ficha_jugador_1", ficha1)
                 intent.putExtra("ficha_jugador_2", ficha2)
-                intent.putExtra("player_one_name", game.getJugador(JUGADOR_1 - 1).nombre)
-                intent.putExtra("player_two_name", game.getJugador(JUGADOR_2 - 1).nombre)
+                intent.putExtra("player_one_name", game.getJugador(JUGADOR_1).nombre)
+                intent.putExtra("player_two_name", game.getJugador(JUGADOR_2).nombre)
                 intent.putExtra("turno", board.turno)
                 intent.putExtra("board", board.tableroToString())
+                intent.putExtra("fichasEnColumna", board.fichasEnColumna.toString().replace("{", "")
+                    .replace("}", "").replace(" ", ""))
                 /*********************************************************/
                 startActivity(intent)
             }
         }
     }
 
+
+    override fun onBackPressed() {
+        System.exit(0)
+        super.onBackPressed()
+    }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(BOARDSTRING, board.tableroToString())
@@ -150,8 +159,10 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
                 } else {
                     intent.putExtra("menu", MENU_PARTIDA)
                 }
+
                 intent.putExtra( "ficha_jugador_1", ficha1)
                 intent.putExtra( "ficha_jugador_2", ficha2)
+
                 intent.putExtra("player_one_name", game.getJugador(JUGADOR_1).nombre)
                 intent.putExtra("player_two_name", game.getJugador(JUGADOR_2).nombre)
                 intent.putExtra("turno", board.turno)
@@ -184,7 +195,7 @@ class BoardActivity : AppCompatActivity(), PartidaListener, View.OnClickListener
         val tablero = mutableListOf<MutableList<Int>>()
         var ultimoMovimiento = MovimientoConecta4(0)
         board = TableroConecta4(tablero, round.turno, ultimoMovimiento, round.fichas, 0)
-        board.stringToTablero(round.board)
+        board.stringToTablero(round.board_string)
 
         jugadores += JugadorConecta4Humano (
             round.player_one_name

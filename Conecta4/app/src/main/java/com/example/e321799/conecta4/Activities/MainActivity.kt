@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button_load_game.setOnClickListener(this)
     }
 
+    override fun onBackPressed() {
+        System.exit(0)
+    }
+
     override fun onClick(v: View?) {
         when(v?.id) {
             R.id.button_play-> {
