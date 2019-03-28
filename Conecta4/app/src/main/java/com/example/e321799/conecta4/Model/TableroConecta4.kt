@@ -6,8 +6,8 @@ import java.util.ArrayList
 /*Para el tablero he estado buscando una forma de hacer un array bidimensional y solo me ha aparecido esto
 * No sé si se puede hacer para definir el tamaño directamente y tenerlo controlado
 * La función mueve simplemente usará el movimiento (columna-jugador) para decir qué ficha poner y donde*/
-class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero(), Serializable {
-    constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this(tablero) {
+class TableroConecta4() : Tablero(), Serializable {
+    constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this() {
         this.turno = turno
         this.ultimoMovimiento = ultimoMovimiento
 
@@ -17,7 +17,7 @@ class TableroConecta4(var tablero: MutableList<MutableList<Int>>) : Tablero(), S
         }).toMutableMap()
         this.numJugadas = nJugadas
     }
-
+    val tablero = mutableListOf<MutableList<Int>>()
     val NUM_COLUMNAS: Int = 7
     val NUM_FILAS: Int = 6
     val JUGADOR_1 = 1

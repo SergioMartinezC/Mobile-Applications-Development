@@ -2,33 +2,26 @@ package com.example.e321799.conecta4.Activities
 
 import android.widget.ImageButton
 import TableroConecta4
-import JugadorConecta4Humano
-import com.example.e321799.conecta4.Model.JugadorConecta4CPU
+import android.support.v7.widget.RecyclerView
+import com.example.e321799.conecta4.Model.Round
+import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
-import es.uam.eps.multij.Jugador
-import es.uam.eps.multij.Partida
 
-fun ImageButton.update(tablero: TableroConecta4, i: Int, j: Int, game: Partida) {
-    var jugador: Jugador
-    when (tablero.tablero[i][j]) {
-        tablero.JUGADOR_1 -> {
-            jugador = game.getJugador(tablero.JUGADOR_1-1)
-            if (jugador is JugadorConecta4Humano) {
-                setImageResource(jugador.drawable)
-            }
-            else if (jugador is JugadorConecta4CPU) {
-                setImageResource(jugador.drawable)
-            }
-        }
-        tablero.JUGADOR_2 ->  {
-            jugador = game.getJugador(tablero.JUGADOR_2-1)
-            if (jugador is JugadorConecta4Humano) {
-                setImageResource(jugador.drawable)
-            }
-            else if (jugador is JugadorConecta4CPU) {
-                setImageResource(jugador.drawable)
-            }
-        }
-        tablero.CASILLA_VACIA -> setImageResource(R.drawable.token_white_48dp)
+fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
+    if (board.tablero[i][j] == board.JUGADOR_1) {
+        setImageResource(R.drawable.token_blue_48dp)
     }
+    else if (board.tablero[i][j] == board.CASILLA_VACIA) {
+        setImageResource(R.drawable.token_white_48dp)
+    }
+    else {
+        setImageResource(R.drawable.token_red_48dp)
+    }
+}
+
+fun RecyclerView.update(onClickListener: (Round) -> Unit) {
+    if (adapter == null)
+        adapter = RoundAdapter(RoundRepository.rounds, onClickListener)
+    else
+        adapter?.notifyDataSetChanged()
 }

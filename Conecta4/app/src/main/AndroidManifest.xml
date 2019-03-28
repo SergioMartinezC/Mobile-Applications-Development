@@ -10,20 +10,18 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity">
+
+        </activity>
+        <activity android:name=".Activities.RoundListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.BoardActivity">
+        <activity android:name=".Activities.RoundActivity">
 
         </activity>
-        <activity android:name=".Activities.PreGameActivity"></activity>
-        <activity android:name=".Activities.PopUp"
-        android:theme="@style/AppTheme.PopMe">
-        </activity>
-        <activity android:name=".Activities.RoundListActivity"></activity>
     </application>
 
 </manifest>

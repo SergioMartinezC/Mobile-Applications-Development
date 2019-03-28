@@ -112,42 +112,4 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
     override fun onCambioEnPartida(evento: Evento?) {
     }
 
-
-    fun confirmaSobreescritura(): Boolean {
-        var sobreescribe: Int?
-        do {
-            println("Ya existe una partida con ese nombre, ¿desea sobreescribir?:")
-            println("1 - Sí\n2 - No")
-            sobreescribe = readLine()?.toIntOrNull()
-        } while(sobreescribe !in 1..2)
-        return sobreescribe == 1
-    }
-
-    fun longitudNombreMayorMax(nombrePartida: String?): Boolean {
-        if (nombrePartida != null) {
-            if (nombrePartida.length > MAX_NOMBRE_PARTIDA) {
-                println("Nombre demasiado largo, no más de $MAX_NOMBRE_PARTIDA caracteres")
-                return true
-            }
-        }
-        return false
-    }
-
-    fun pedirNombrePartida(): String? {
-        val path = System.getProperty("user.dir")
-        var lista = mutableListOf<String>()
-        var nombrePartida: String?
-        File(path).list().forEach {
-            if (it.endsWith(".txt")) {
-                lista.add(it)
-            }
-        }
-
-        do {
-            print("Elija un nombre para el guardado: ")
-            nombrePartida = readLine() + ".txt"
-        } while((nombrePartida in lista && !confirmaSobreescritura()) || longitudNombreMayorMax(nombrePartida))
-        return nombrePartida
-    }
-
 }

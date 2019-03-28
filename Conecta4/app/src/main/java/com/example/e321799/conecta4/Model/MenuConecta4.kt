@@ -58,7 +58,7 @@ class MenuConecta4() {
                 jugadores += JugadorAleatorio(
                     "Aleatorio"
                 )
-                val partida = Partida(TableroConecta4(tablero), jugadores)
+                val partida = Partida(TableroConecta4(), jugadores)
                 partida.addObservador(ObservadorConecta4())
                 partida.comenzar()
             }
