@@ -13,11 +13,11 @@ import com.example.e321799.conecta4.Model.RoundRepository
 import es.uam.eps.multij.*
 import kotlinx.android.synthetic.main.activity_round.*
 
-class RoundActivity : AppCompatActivity(), PartidaListener {
+class RoundActivity : AppCompatActivity() {
     val BOARDSTRING = "es.uam.eps.dadm.er8.grid"
-    private lateinit var game: Partida
+
     private lateinit var board: TableroConecta4
-    private lateinit var round: Round
+
 
     private val ids = arrayOf(
         intArrayOf(
@@ -76,31 +76,9 @@ class RoundActivity : AppCompatActivity(), PartidaListener {
         )
     )
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_round)
-        val roundId = intent.extras.getString(EXTRA_ROUND_ID)
-        round = RoundRepository.getRound(roundId)
-        round_title.text = round.title
-        startRound()
-        if (savedInstanceState != null) {
-            try {
-                board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
-                updateUI()
-            } catch (e: ExcepcionJuego) {
-                e.printStackTrace()
-            }
-        }
-    }
 
-    companion object {
-        val EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
-        fun newIntent(packageContext: Context, roundId: String): Intent {
-            val intent = Intent(packageContext, RoundActivity::class.java)
-            intent.putExtra(EXTRA_ROUND_ID, roundId)
-            return intent
-        }
-    }
+
+
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(BOARDSTRING, board.tableroToString())
@@ -125,20 +103,7 @@ class RoundActivity : AppCompatActivity(), PartidaListener {
                 button.setOnClickListener(localPlayer)
             }
     }
-    private fun startRound() {
-        val players = ArrayList<Jugador>()
-        val localPlayer = JugadorConecta4Humano("Humano")
-        val randomPlayer = JugadorAleatorio("Random player")
-        players.add(localPlayer)
-        players.add(randomPlayer)
-        board = TableroConecta4()
-        game = Partida(board, players)
-        game.addObservador(this)
-        localPlayer.setPartida(game)
-        registerListeners(localPlayer)
-        if (game.tablero.estado == Tablero.EN_CURSO)
-            game.comenzar()
-    }
+
     fun updateUI() {
         for (i in 0 until ids.size)
             for (j in 0 until ids[0].size) {
@@ -147,12 +112,12 @@ class RoundActivity : AppCompatActivity(), PartidaListener {
             }
     }
 
-    override fun onCambioEnPartida(evento: Evento) {
-        when (evento.tipo) {
-            Evento.EVENTO_CAMBIO -> updateUI()
-            Evento.EVENTO_FIN -> {
-                updateUI()
-            }
+    companion object {
+        val EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
+        fun newIntent(packageContext: Context, roundId: String): Intent {
+            val intent = Intent(packageContext, RoundActivity::class.java)
+            intent.putExtra(EXTRA_ROUND_ID, roundId)
+            return intent
         }
     }
 }
