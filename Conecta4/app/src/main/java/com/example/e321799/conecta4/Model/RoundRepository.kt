@@ -4,7 +4,7 @@ object RoundRepository {
     val rounds = ArrayList<Round>()
     init {
         for (i in 0..100) {
-            rounds.add(Round(3))
+            rounds.add(Round())
         }
     }
     fun getRound(id: String): Round {

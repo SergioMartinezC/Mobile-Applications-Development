@@ -26,17 +26,7 @@ class RoundListActivity : AppCompatActivity() {
     }
     override fun onResume() {
         super.onResume()
-        updateUI()
+        recyclerView.update { round -> onRoundSelected(round) }
     }
-    fun updateUI() {
-        recyclerView.apply {
-            if (adapter == null) {
-                adapter =
-                        RoundAdapter(RoundRepository.rounds)
-                        { round -> onRoundSelected(round) }
-            } else {
-                adapter?.notifyDataSetChanged()
-            }
-        }
-    }
+
 }
