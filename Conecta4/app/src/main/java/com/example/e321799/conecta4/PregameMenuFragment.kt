@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.fragment_pregame_menu.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -17,24 +18,27 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [PreGameMenuFragment.OnFragmentInteractionListener] interface
+ * [PregameMenuFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
  *
  */
-class PreGameMenuFragment : Fragment() {
+class PregameMenuFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?    ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pre_game_menu, container, false)
+        return inflater.inflate(R.layout.fragment_pregame_menu, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        button.setOnClickListener { listener?.onFragmentInteraction("Button pressed") }
+    }
     // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    fun onButtonPressed(string: String) {
+        listener?.onFragmentInteraction(string)
     }
 
     override fun onAttach(context: Context) {
@@ -51,11 +55,6 @@ class PreGameMenuFragment : Fragment() {
         listener = null
     }
 
-
-    override fun onStart() {
-        super.onStart()
-        TODO()
-    }
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -69,7 +68,7 @@ class PreGameMenuFragment : Fragment() {
      */
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
+        fun onFragmentInteraction(string: String)
     }
 
 }

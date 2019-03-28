@@ -16,9 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.BoardActivity">
-
-        </activity>
+        <activity android:name=".Activities.BoardActivity"></activity>
+        <activity android:name=".Activities.DetailActivity"></activity>
         <activity android:name=".Activities.PreGameActivity"></activity>
         <activity android:name=".Activities.PopUp"
         android:theme="@style/AppTheme.PopMe">
