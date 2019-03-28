@@ -8,6 +8,7 @@ import TableroConecta4
 import JugadorConecta4Humano
 import android.content.Context
 import android.content.Intent
+import android.support.v4.app.FragmentContainer
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import es.uam.eps.multij.*
@@ -76,9 +77,24 @@ class RoundActivity : AppCompatActivity() {
         )
     )
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_fragment)
+        val fm = supportFragmentManager
+        if (fm.findFragmentById(R.id.fragment_container) == null) {
+            val fragment = RoundFragment.newInstance(intent.getStringExtra(EXTRA_ROUND_ID))
+            fm.executeTransaction { add(R.id.fragment_container, fragment) }
+        }
+    }
 
-
-
+    /*override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_fragment)
+        val fm = supportFragmentManager
+        if (fm.findFragmentById(R.id.fragment_container) == null) {
+            fm.executeTransaction { add(R.id.fragment_container, RoundFragment()) }
+        }
+    }*/
 
     override fun onSaveInstanceState(outState: Bundle?) {
         outState?.putString(BOARDSTRING, board.tableroToString())

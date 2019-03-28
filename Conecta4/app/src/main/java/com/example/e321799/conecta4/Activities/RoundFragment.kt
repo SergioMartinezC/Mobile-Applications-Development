@@ -72,7 +72,7 @@ class RoundFragment : Fragment(), PartidaListener {
         view?.update(round)
     }
 
-    private fun startRound() {
+    internal fun startRound() {
         val players = ArrayList<Jugador>()
         val localPlayer = JugadorConecta4Humano("Humano")
         val randomPlayer = JugadorAleatorio("Random player")

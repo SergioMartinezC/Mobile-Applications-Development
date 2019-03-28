@@ -9,6 +9,7 @@ import android.view.View
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
+import JugadorConecta4Humano
 
 fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
     if (board.tablero[i][j] == board.JUGADOR_1) {
@@ -35,7 +36,7 @@ fun FragmentManager.executeTransaction(operations: (FragmentTransaction.() -> Un
     transaction.commit()
 }
 
-fun View.setPlayerAsOnClickListener(player: View.OnClickListener) {
+fun View.setPlayerAsOnClickListener(player: JugadorConecta4Humano) {
     val ids = arrayOf(
         intArrayOf(
             R.id.button00,
@@ -159,14 +160,14 @@ fun View.update(round: Round) {
     )
     for (i in 0 until ids.size)
         for (j in 0 until ids[i].size) {
-            val button = findViewById(ids[i][j]) as ImageButton
+            val button = findViewById<ImageButton>(ids[i][j])
             with(button) {
                 if (round.board.tablero[i][j] == round.board.JUGADOR_1)
-                    setBackgroundResource(R.drawable.token_blue_48dp)
+                    setImageResource(R.drawable.token_blue_48dp)
                 else if (round.board.tablero[i][j] == round.board.JUGADOR_2)
-                    setBackgroundResource(R.drawable.token_red_48dp)
+                    setImageResource(R.drawable.token_red_48dp)
                 else
-                    setBackgroundResource(R.drawable.token_white_48dp)
+                    setImageResource(R.drawable.token_white_48dp)
             }
         }
 }
