@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
+import android.util.Log
 
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
