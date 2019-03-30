@@ -38,17 +38,11 @@ class RoundListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_round_list, container, false)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?)
-    {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater?.inflate(R.menu.menu, menu)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
-
+    
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_item_new_round -> {

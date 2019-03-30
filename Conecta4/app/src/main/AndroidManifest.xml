@@ -19,12 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.RoundActivity">
-            android:parentActivityName="es.uam.eps.dadm.er14.activities.RoundListActivity">
+            android:parentActivityName=".Activities.RoundListActivity">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value=".Activities.RoundListActivity"/>
-        </activity>
-        <activity android:name=".Activities.AlertDialogFragment">
         </activity>
     </application>
 
