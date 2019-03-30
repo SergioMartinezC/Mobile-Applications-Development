@@ -6,6 +6,7 @@
         android:orientation="horizontal"
         android:padding="@dimen/board_padding"
         android:id="@+id/linearLayout"
+
         android:layout_marginBottom="4dp">
     <LinearLayout
             android:layout_height="wrap_content"

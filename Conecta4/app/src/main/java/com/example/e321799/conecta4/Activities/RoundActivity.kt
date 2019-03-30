@@ -33,9 +33,7 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onRoundUpdated() {
-
-    }
+    override fun onRoundUpdated() {    }
 
     companion object {
         val EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
