@@ -1,0 +1,129 @@
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_marginTop="@dimen/board_margin_normal_size"
+        android:background="@drawable/board_background"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/board_padding"
+        android:id="@+id/linearLayout"
+        android:layout_marginBottom="4dp">
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button00"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button10"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button20"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button30"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button40"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button50"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button01"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button11"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button21"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button31"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button41"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button51"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button02"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button12"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button22"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button32"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button42"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button52"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button03"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button13"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button23"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button33"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button43"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button53"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button04"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button14"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button24"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button34"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button44"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button54"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button05"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button15"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button25"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button35"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button45"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button55"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:orientation="vertical">
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button06"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button16"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button26"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button36"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button46"></com.example.e321799.conecta4.views.ERButton>
+        <com.example.e321799.conecta4.views.ERButton style="@style/token"
+                     android:id="@+id/button56"></com.example.e321799.conecta4.views.ERButton>
+    </LinearLayout>
+</LinearLayout>

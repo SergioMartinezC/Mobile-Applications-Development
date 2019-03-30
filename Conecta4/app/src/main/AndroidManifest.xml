@@ -10,7 +10,6 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".Activities.MainActivity">
-
         </activity>
         <activity android:name=".Activities.RoundListActivity">
             <intent-filter>
@@ -20,7 +19,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.RoundActivity">
-
+            android:parentActivityName="es.uam.eps.dadm.er14.activities.RoundListActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".Activities.RoundListActivity"/>
+        </activity>
+        <activity android:name=".Activities.AlertDialogFragment">
         </activity>
     </application>
 

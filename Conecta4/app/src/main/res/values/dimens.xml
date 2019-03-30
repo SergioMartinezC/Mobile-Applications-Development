@@ -10,5 +10,6 @@
     <dimen name="button_menu_board_margin_top">30dp</dimen>
     <dimen name="main_menu_button_padding">10dp</dimen>
     <dimen name="board_stroke_width">2dp</dimen>
-
+    <dimen name="activity_vertical_margin">20dp</dimen>
+    <dimen name="activity_horizontal_margin">20dp</dimen>
 </resources>

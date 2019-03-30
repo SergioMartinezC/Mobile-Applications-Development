@@ -7,22 +7,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.views.ERView
 
-class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView), View.OnClickListener {
+class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     var idTextView: TextView
+    var boardTextView: ERView
     var dateTextView: TextView
-
-    override fun onClick(v: View?) {
-    }
+    private lateinit var round: Round
 
     init {
         idTextView = itemView.findViewById(R.id.list_item_id) as TextView
         dateTextView = itemView.findViewById(R.id.list_item_date) as TextView
+        boardTextView = itemView.findViewById(R.id.list_item_board) as ERView
     }
     fun bindRound(round: Round, listener: (Round) -> Unit) {
+        this.round = round
         idTextView.text = round.title
         dateTextView.text = round.date.substring(0,19)
+        boardTextView.setBoard(round.board)
+        boardTextView.invalidate()
         itemView.setOnClickListener{ listener(round)}
+        boardTextView.setOnClickListener {listener(round)}
+        idTextView.setOnClickListener { listener(round) }
+        dateTextView.setOnClickListener { listener(round) }
     }
 }
 

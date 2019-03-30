@@ -135,6 +135,18 @@ class TableroConecta4() : Tablero(), Serializable {
         }
     }*/
 
+    override fun reset(): Boolean {
+        for (fila in 0 until NUM_FILAS) {
+            for (columna in 0 until NUM_COLUMNAS) {
+                this.tablero[fila][columna] = CASILLA_VACIA
+            }
+        }
+        for (i in 0 until NUM_COLUMNAS) {
+            fichasEnColumna.put(i,NUM_FILAS)
+        }
+        return super.reset()
+    }
+
     fun comprobarGanador(tablero: MutableList<MutableList<Int>>): Int {
         val FILA = tablero.size
         val COLUMNA = tablero[0].size

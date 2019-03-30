@@ -2,16 +2,18 @@ package com.example.e321799.conecta4.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
-import com.example.e321799.conecta4.R.id.detail_fragment_container
-import kotlinx.android.synthetic.main.activity_round_list.*
+import kotlinx.android.synthetic.main.activity_fragment.*
+import kotlinx.android.synthetic.main.activity_twopane.*
+import kotlinx.android.synthetic.main.fragment_round_list.*
+
 
 class RoundListActivity : AppCompatActivity(),
-    RoundListFragment.OnRoundListFragmentInteractionListener {
+    RoundListFragment.OnRoundListFragmentInteractionListener,
+    RoundFragment.OnRoundFragmentInteractionListener {
 
     override fun onRoundSelected(round: Round) {
         val fm = supportFragmentManager
@@ -22,6 +24,7 @@ class RoundListActivity : AppCompatActivity(),
                 RoundFragment.newInstance(round.id)) }
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_master_detail)
@@ -29,6 +32,25 @@ class RoundListActivity : AppCompatActivity(),
         if (fm.findFragmentById(R.id.fragment_container) == null) {
             fm.executeTransaction { add(R.id.fragment_container, RoundListFragment())}
         }
+        setSupportActionBar(my_toolbar)
+    }
+
+    override fun onRoundAdded() {
+        RoundRepository.addRound()
+    }
+
+    /*override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }*/
+
+    override fun onRoundUpdated() {
+        round_recycler_view.adapter?.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        onRoundUpdated()
     }
 
 }

@@ -1,5 +1,6 @@
 import android.view.View
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.views.ERView
 import es.uam.eps.multij.*
 import java.io.File
 import java.lang.Exception
@@ -9,7 +10,7 @@ import java.lang.NumberFormatException
 
 /*Solo pido por pantalla la columna donde quiere poner una ficha, podríamos poner una variable que designe el
 * tipo de ficha para cada jugador*/
-class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
+class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
     val ERROR = "ERROR"
     val GUARDADA = "GUARDADA"
     val MAX_NOMBRE_PARTIDA = 50
@@ -82,22 +83,13 @@ class JugadorConecta4Humano(var name: String) : Jugador, View.OnClickListener {
         this.game = game
     }
 
-    override fun onClick(view: View) {
-        try {
-            if (game.tablero.estado != Tablero.EN_CURSO) {
-                /* que hacer que hacer */
-                return
-            }
-            println("Creamos movimiento ${view.id}")
-            val movimiento = MovimientoConecta4(fromViewToColumn(view))
-            if (game.tablero.esValido(movimiento)) {
-                game.realizaAccion(AccionMover(this, movimiento))
-            } else {
-                /* que hacer que hacer */
-            }
-
-        } catch (e: Exception) {
-           /* TO DO */
+    override fun onPlay(column: Int) {
+        if (game.tablero.estado != Tablero.EN_CURSO){
+            return
+        }
+        val m = MovimientoConecta4(column)
+        if (game.tablero.esValido(m)) {
+            game.realizaAccion(AccionMover(this, m))
         }
     }
 

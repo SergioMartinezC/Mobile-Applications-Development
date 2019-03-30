@@ -10,6 +10,11 @@ import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
 import JugadorConecta4Humano
+import android.content.Context
+import android.graphics.Color
+import android.graphics.Paint
+import android.support.v4.content.ContextCompat
+import com.example.e321799.conecta4.views.ERButton
 
 fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
     if (board.tablero[i][j] == board.JUGADOR_1) {
@@ -36,7 +41,7 @@ fun FragmentManager.executeTransaction(operations: (FragmentTransaction.() -> Un
     transaction.commit()
 }
 
-fun View.setPlayerAsOnClickListener(player: JugadorConecta4Humano) {
+/*fun View.setPlayerAsOnClickListener(player: JugadorConecta4Humano) {
     val ids = arrayOf(
         intArrayOf(
             R.id.button00,
@@ -99,7 +104,7 @@ fun View.setPlayerAsOnClickListener(player: JugadorConecta4Humano) {
             button = findViewById<View>(ids[i][j]) as ImageButton
             button.setOnClickListener(player)
         }
-}
+}*/
 
 fun View.update(round: Round) {
     val ids = arrayOf(
@@ -158,16 +163,26 @@ fun View.update(round: Round) {
             R.id.button56
         )
     )
-    for (i in 0 until ids.size)
+    for (i in 0 until ids.size) {
         for (j in 0 until ids[i].size) {
-            val button = findViewById<ImageButton>(ids[i][j])
+            val button = findViewById<ERButton>(ids[i][j])
             with(button) {
                 if (round.board.tablero[i][j] == round.board.JUGADOR_1)
-                    setImageResource(R.drawable.token_blue_48dp)
+                    button.human()
                 else if (round.board.tablero[i][j] == round.board.JUGADOR_2)
-                    setImageResource(R.drawable.token_red_48dp)
+                    button.randomPlayer()
                 else
-                    setImageResource(R.drawable.token_white_48dp)
+                    button.notClicked()
             }
         }
+    }
+}
+
+fun Paint.setColor(board: TableroConecta4, i: Int, j: Int, context: Context) {
+    if (board.tablero[i][j] === board.JUGADOR_1)
+        setColor(ContextCompat.getColor(context, R.color.blue_token))
+    else if (board.tablero[i][j] === board.JUGADOR_2)
+        setColor(ContextCompat.getColor(context, R.color.red_token))
+    else
+        setColor(ContextCompat.getColor(context, R.color.colorPrimary))
 }

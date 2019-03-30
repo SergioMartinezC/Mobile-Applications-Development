@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.design.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,138 +18,11 @@
             app:layout_constraintBottom_toTopOf="@+id/linearLayout">
 
     </TextView>
-    <LinearLayout
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="@dimen/board_margin_normal_size"
-            android:background="@drawable/board_background"
+    <com.example.e321799.conecta4.views.ERView
+            android:id="@+id/board_erview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="@dimen/board_padding"
-            android:id="@+id/linearLayout" app:layout_constraintTop_toBottomOf="@+id/round_title"
-            android:layout_marginBottom="4dp">
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button00"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button10"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button20"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button30"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button40"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button50"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button01"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button11"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button21"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button31"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button41"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button51"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button02"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button12"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button22"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button32"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button42"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button52"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button03"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button13"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button23"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button33"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button43"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button53"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button04"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button14"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button24"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button34"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button44"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button54"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button05"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button15"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button25"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button35"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button45"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button55"></ImageButton>
-        </LinearLayout>
-        <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:orientation="vertical">
-            <ImageButton style="@style/token"
-                         android:id="@+id/button06"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button16"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button26"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button36"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button46"></ImageButton>
-            <ImageButton style="@style/token"
-                         android:id="@+id/button56"></ImageButton>
-        </LinearLayout>
-    </LinearLayout>
+            android:layout_margin="30dp"/>
     <ImageButton style="@style/button_menu"
                  app:layout_constraintTop_toTopOf="parent"
                  app:layout_constraintEnd_toEndOf="@+id/linearLayout"
@@ -157,4 +30,13 @@
                  android:layout_height="wrap_content"
                  android:id="@+id/button_menu"
                  android:layout_marginTop="@dimen/button_menu_board_margin_top"/>
-</android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/reset_round_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:src="@android:drawable/ic_menu_revert"/>
+</android.support.design.widget.CoordinatorLayout>
