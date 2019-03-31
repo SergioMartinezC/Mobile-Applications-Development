@@ -6,11 +6,12 @@ import android.view.Menu
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
-import kotlinx.android.synthetic.main.activity_fragment.*
 import kotlinx.android.synthetic.main.activity_twopane.*
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
-
+/**
+ * Clase que representa la actividad que muestra la lista de partidas
+ */
 class RoundListActivity : AppCompatActivity(),
     RoundListFragment.OnRoundListFragmentInteractionListener,
     RoundFragment.OnRoundFragmentInteractionListener {
@@ -40,19 +41,32 @@ class RoundListActivity : AppCompatActivity(),
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    /**
+     * Funcion que es llamada cuando una partida se va a añadir a la lista
+     */
     override fun onRoundAdded() {
         RoundRepository.addRound()
     }
 
+    /**
+     * Funcion que se llama para crear el menu de opciones utilizando
+     * [menu]
+     */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return true
     }
 
+    /**
+     * Funcion que se llama cuando se actualiza una partida
+     */
     override fun onRoundUpdated() {
         round_recycler_view.adapter?.notifyDataSetChanged()
     }
 
+    /**
+     *
+     */
     override fun onResume() {
         super.onResume()
         onRoundUpdated()

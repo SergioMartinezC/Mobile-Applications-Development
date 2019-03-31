@@ -9,13 +9,14 @@ import android.view.View
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
-import JugadorConecta4Humano
 import android.content.Context
-import android.graphics.Color
 import android.graphics.Paint
 import android.support.v4.content.ContextCompat
 import com.example.e321799.conecta4.views.ERButton
 
+/**
+ * Funcion que extiende ImageButton y actualiza una ficha del [board] en la posicion [i] [j]
+ */
 fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
     if (board.tablero[i][j] == board.JUGADOR_1) {
         setImageResource(R.drawable.token_blue_48dp)
@@ -28,6 +29,9 @@ fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
     }
 }
 
+/**
+ * Funcion que extiende de RecyclerView y actualiza la lista de partidas guardadas
+ */
 fun RecyclerView.update(onClickListener: (Round) -> Unit) {
     if (adapter == null)
         adapter = RoundAdapter(RoundRepository.rounds, onClickListener)
@@ -35,12 +39,19 @@ fun RecyclerView.update(onClickListener: (Round) -> Unit) {
         adapter?.notifyDataSetChanged()
 }
 
+/**
+ * Funcion que extiende de FragmentManager y ejecuta una transicion sobre un fragmento
+ * con unas operaciones dadas [operations]
+ */
 fun FragmentManager.executeTransaction(operations: (FragmentTransaction.() -> Unit)) {
     val transaction = beginTransaction()
     transaction.operations()
     transaction.commit()
 }
 
+/**
+ * Funcion que extiende de la clase View y actualiza el tablero usando la ronda actual
+ */
 fun View.update(round: Round) {
     val ids = arrayOf(
         intArrayOf(
@@ -113,6 +124,9 @@ fun View.update(round: Round) {
     }
 }
 
+/**
+ * Funcion que extiende de Paint y asigna un color en función de qué ficha es cada jugador
+ */
 fun Paint.setColor(board: TableroConecta4, i: Int, j: Int, context: Context) {
     if (board.tablero[i][j] === board.JUGADOR_1)
         setColor(ContextCompat.getColor(context, R.color.blue_token))

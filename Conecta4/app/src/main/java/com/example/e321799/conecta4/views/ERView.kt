@@ -12,6 +12,10 @@ import com.example.e321799.conecta4.Activities.setColor
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.Tablero
 
+/**
+ * Clase representa una vista customizada de nuestro tablero
+ * 
+ */
 class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val DEBUG = "ERView"
     private var numero: Int = 0
@@ -34,8 +38,11 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         backgroundPaint.strokeWidth = 16f
         linePaint.strokeWidth = 4f
     }
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
 
+    /**
+     * Estimamos la altura y anchura de nuestro tablero en funcion de las especificaciones del padre
+     */
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val wMode: String
         val hMode: String
         val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
@@ -59,6 +66,9 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         setMeasuredDimension(height, width)
     }
 
+    /**
+     * Actualizacion del tamaño de las fichas
+     */
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         widthOfTile = (w / COLUMNS).toFloat()
         heightOfTile = (h / ROWS).toFloat()
@@ -69,6 +79,9 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
+    /**
+     * Dibuja el tablero
+     */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val boardWidth = width.toFloat()
@@ -82,6 +95,9 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         drawCircles(canvas, linePaint)
     }
 
+    /**
+     * Dibuja las fichas del tablero
+     */
     private fun drawCircles(canvas: Canvas, paint: Paint) {
         var centerRaw: Float
         var centerColumn: Float
@@ -100,17 +116,30 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         }
     }
 
+    /**
+     * Convierte [event] en una columna de nuestro tablero
+     */
     private fun fromEventToJ(event: MotionEvent): Int {
         return (event.x / widthOfTile).toInt()
     }
 
+    /**
+     *
+     */
     fun setOnPlayListener(listener: OnPlayListener) {
         this.onPlayListener = listener
     }
+
+    /**
+     * Asigna [board] al tablero de la vista
+     */
     fun setBoard(board: TableroConecta4) {
         this.board = board
     }
 
+    /**
+     * Funcion que realiza una acción cuando se toca un elemento del tablero
+     */
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (onPlayListener == null)
             return super.onTouchEvent(event)

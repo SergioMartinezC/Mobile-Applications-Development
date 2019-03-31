@@ -10,14 +10,19 @@ import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
 
 
-
+/**
+ * Clase que representa los mensajes de alerta de nuestra aplicacion
+ */
 class AlertDialogFragment : DialogFragment() {
+    /**
+     * Funcion que se ejecuta cuando se crea el dialogo
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = activity as AppCompatActivity?
         val alertDialogBuilder = AlertDialog.Builder(getActivity())
         alertDialogBuilder.setTitle(R.string.game_over)
         alertDialogBuilder.setMessage(R.string.game_over_message)
-        alertDialogBuilder.setPositiveButton("Yes") { dialog, which ->
+        alertDialogBuilder.setPositiveButton(R.string.yes_confirmation) { dialog, which ->
             RoundRepository.addRound()
             if (activity is RoundListActivity)
                 activity.onRoundUpdated()
@@ -25,7 +30,7 @@ class AlertDialogFragment : DialogFragment() {
                 activity?.finish()
             dialog.dismiss()
         }
-        alertDialogBuilder.setNegativeButton("No",
+        alertDialogBuilder.setNegativeButton(R.string.no_confirmation,
             object : DialogInterface.OnClickListener {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     if (activity is RoundActivity)

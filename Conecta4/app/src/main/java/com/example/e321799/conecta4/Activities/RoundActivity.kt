@@ -2,23 +2,17 @@ package com.example.e321799.conecta4.Activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
 import com.example.e321799.conecta4.R
-import TableroConecta4
-import JugadorConecta4Humano
 import android.content.Context
 import android.content.Intent
-import android.support.v4.app.FragmentContainer
-import android.widget.Toolbar
-import com.example.e321799.conecta4.Model.Round
-import com.example.e321799.conecta4.Model.RoundRepository
-import es.uam.eps.multij.*
-import kotlinx.android.synthetic.main.activity_fragment.*
-import kotlinx.android.synthetic.main.activity_round.*
-import kotlinx.android.synthetic.main.activity_twopane.*
 
+/**
+ * Actividad que se lanza cuando se muestra una partida
+ */
 class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteractionListener {
-
+    /**
+     * Funcion que se ejecuta una vez que se crea la actividad
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment)
@@ -33,8 +27,14 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    /**
+     * Funcion que se ejecuta cada vez que se actualiza el tablero
+     */
     override fun onRoundUpdated() {    }
 
+    /**
+     * Metodo de factoria que genera un nuevo intent lanzando RoundActivity
+     */
     companion object {
         val EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
         fun newIntent(packageContext: Context, roundId: String): Intent {

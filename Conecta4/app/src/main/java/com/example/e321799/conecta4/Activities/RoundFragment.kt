@@ -1,6 +1,5 @@
 package com.example.e321799.conecta4.Activities
 
-
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -9,25 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
-
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
-import kotlinx.android.synthetic.main.activity_round.*
 import JugadorConecta4Humano
 import android.support.design.widget.FloatingActionButton
 import android.widget.TextView
-import com.example.e321799.conecta4.views.ERButton
 import com.example.e321799.conecta4.views.ERView
-import kotlinx.android.synthetic.main.fragment_round.*
 import java.lang.RuntimeException
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
+ * Fragmento utilizado para mostrar la partida
  *
  */
 class RoundFragment : Fragment(), PartidaListener {
@@ -37,10 +28,20 @@ class RoundFragment : Fragment(), PartidaListener {
     private lateinit var board_erview: ERView
 
     var listener: OnRoundFragmentInteractionListener? = null
+
+    /**
+     * Interfaz que interactua con el fragmento
+     */
     interface OnRoundFragmentInteractionListener {
+        /**
+         * Funcion que es llamada cuando el tablero de la ronda se actualiza
+         */
         fun onRoundUpdated()
     }
 
+    /**
+     * Se crea el fragmento con la ronda seleccionada
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         try {
@@ -54,6 +55,9 @@ class RoundFragment : Fragment(), PartidaListener {
 
     }
 
+    /**
+     * Funcion que es llamada cuando se asigna el fragmento a la vista
+     */
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         if (context is OnRoundFragmentInteractionListener) {
@@ -64,18 +68,26 @@ class RoundFragment : Fragment(), PartidaListener {
         }
     }
 
+    /**
+     * Funcion que es llamada cuando se desacopla el fragmento de la vista
+     */
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
 
+    /**
+     * Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_round, container, false)
     }
 
+    /**
+     * Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         registerResetButton()
@@ -83,7 +95,9 @@ class RoundFragment : Fragment(), PartidaListener {
         titleView.text = round.title
     }
 
-
+    /**
+     * Metodo de factoria del fragmento que crea una instancia con la ronda seleccionada
+     */
     companion object {
         val ARG_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
         @JvmStatic
@@ -95,6 +109,9 @@ class RoundFragment : Fragment(), PartidaListener {
             }
     }
 
+    /**
+     * Funcion que asigna un metodo onClick al botón que resetea el tablero
+     */
     private fun registerResetButton() {
         val resetButton = view!!.findViewById(R.id.reset_round_fab) as
                 FloatingActionButton
@@ -109,15 +126,25 @@ class RoundFragment : Fragment(), PartidaListener {
         })
     }
 
+    /**
+     *
+     */
     override fun onStart() {
         super.onStart()
         startRound()
     }
+
+    /**
+     *
+     */
     override fun onResume() {
         super.onResume()
         board_erview.invalidate()
     }
 
+    /**
+     * Funcion que inicia una partida completa desde 0
+     */
     internal fun startRound() {
         val players = ArrayList<Jugador>()
         val localPlayer = JugadorConecta4Humano("Humano")
@@ -136,7 +163,9 @@ class RoundFragment : Fragment(), PartidaListener {
         }
     }
 
-
+    /**
+     * Funcion que es llamada cuando se produce un evento [evento]
+     */
     override fun onCambioEnPartida(evento: Evento) {
         when (evento.tipo) {
             Evento.EVENTO_CAMBIO ->  {

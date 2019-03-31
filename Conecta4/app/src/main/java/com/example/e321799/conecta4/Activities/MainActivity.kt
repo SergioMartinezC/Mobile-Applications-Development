@@ -4,13 +4,18 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_main.*
 
+/**
+ * Actividad principal de la aplicacion que lanza el menú principal
+ */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
+    /**
+     * Funcion que se ejecuta al crear la actividad
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,6 +24,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button_exit.setOnClickListener(this)
     }
 
+    /**
+     * Definimos qué acciones hace cada boton del menu principal
+     */
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.button_play -> {

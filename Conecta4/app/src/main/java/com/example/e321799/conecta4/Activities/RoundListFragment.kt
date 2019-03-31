@@ -10,17 +10,14 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.example.e321799.conecta4.Model.Round
 import com.example.e321799.conecta4.R
-import kotlinx.android.synthetic.main.activity_round_list.*
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
+ * Fragmento que representa la lista de partidas.
  *
  */
 class RoundListFragment : Fragment() {
@@ -31,6 +28,9 @@ class RoundListFragment : Fragment() {
         fun onRoundAdded()
     }
 
+    /**
+     *
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?    ): View? {
@@ -38,11 +38,17 @@ class RoundListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_round_list, container, false)
     }
 
+    /**
+     *
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
+    /**
+     *
+     */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.menu_item_new_round -> {
@@ -55,6 +61,9 @@ class RoundListFragment : Fragment() {
         }
     }
 
+    /**
+     *
+     */
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         if (context is OnRoundListFragmentInteractionListener) {
@@ -65,11 +74,17 @@ class RoundListFragment : Fragment() {
         }
     }
 
+    /**
+     *
+     */
     override fun onDetach() {
         super.onDetach()
         listener = null
     }
 
+    /**
+     *
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         round_recycler_view.apply {

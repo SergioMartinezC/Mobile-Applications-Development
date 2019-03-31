@@ -10,7 +10,9 @@
     <string name="new_round">New Round</string>
     <string name="title">EN RAYA</string>
     <string name="game_over">Game over</string>
-    <string name="game_over_message">Would you like to create a new round?</string>
-    <string name="round_already_finished">This round is finished</string>
+    <string name="game_over_message">¿Quieres crear una nueva partida?</string>
+    <string name="round_already_finished">Partida ya finalizada</string>
+    <string name="yes_confirmation">Sí</string>
+    <string name="no_confirmation">No</string>
 
 </resources>
