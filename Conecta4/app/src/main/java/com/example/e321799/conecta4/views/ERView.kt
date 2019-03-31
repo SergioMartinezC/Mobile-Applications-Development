@@ -14,7 +14,7 @@ import es.uam.eps.multij.Tablero
 
 /**
  * Clase representa una vista customizada de nuestro tablero
- * 
+ *
  */
 class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val DEBUG = "ERView"

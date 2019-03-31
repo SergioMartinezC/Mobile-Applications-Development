@@ -6,7 +6,7 @@
     <dimen name="board_padding">10dp</dimen>
     <dimen name="main_menu_font_size">40sp</dimen>
     <dimen name="board_margin_normal_size">175dp</dimen>
-    <dimen name="board_view_margin">30dp</dimen>
+    <dimen name="board_view_margin">45dp</dimen>
     <dimen name="button_menu_board_margin_top">30dp</dimen>
     <dimen name="main_menu_button_padding">10dp</dimen>
     <dimen name="board_stroke_width">2dp</dimen>
@@ -29,6 +29,7 @@
     <dimen name="item_list_padding_top">10dp</dimen>
     <dimen name="item_list_padding_bottom">10dp</dimen>
     <dimen name="item_list_text_size">16sp</dimen>
+    <dimen name="board_size_list">75dp</dimen>
 
 
 
