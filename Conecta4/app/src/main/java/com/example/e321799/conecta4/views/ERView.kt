@@ -30,19 +30,22 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
 
     init {
 
+        backgroundPaint.color = ContextCompat.getColor(context, R.color.color_board)
         backgroundPaint.strokeWidth = 16f
         linePaint.strokeWidth = 4f
     }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val desiredWidth = 500
+
         val wMode: String
         val hMode: String
         val widthMode = View.MeasureSpec.getMode(widthMeasureSpec)
         var widthSize = View.MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = View.MeasureSpec.getMode(heightMeasureSpec)
         var heightSize = View.MeasureSpec.getSize(heightMeasureSpec)
-        val width: Int
-        val height: Int
+        var width: Int
+        var height: Int
+
+
         if (widthSize < heightSize) {
             heightSize = widthSize
             height = heightSize
@@ -52,6 +55,7 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
             height = widthSize
             width = height
         }
+
         setMeasuredDimension(height, width)
     }
 
@@ -63,6 +67,21 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         else
             radio = heightOfTile * 0.3f
         super.onSizeChanged(w, h, oldw, oldh)
+    }
+
+    private fun reconcileSize(contentSize: Int, measureSpec: Int): Int {
+        val mode = View.MeasureSpec.getMode(measureSpec)
+        val specSize = View.MeasureSpec.getSize(measureSpec)
+        when (mode) {
+            View.MeasureSpec.EXACTLY -> return specSize
+            View.MeasureSpec.AT_MOST -> return if (contentSize < specSize) {
+                contentSize
+            } else {
+                specSize
+            }
+            View.MeasureSpec.UNSPECIFIED -> return contentSize
+            else -> return contentSize
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
