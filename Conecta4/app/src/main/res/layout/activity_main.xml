@@ -11,15 +11,15 @@
             android:id="@+id/round_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:padding="@dimen/main_menu_title_padding"
             android:textSize="@dimen/round_title"
             android:fontFamily="@font/prototype"
             android:textColor="@color/colorPrimary"
-            android:text="CONECTA 4"
+            android:text="@string/app_name"
             android:gravity="center_horizontal"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="@dimen/button_menu_board_margin_top"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp">
+            app:layout_constraintStart_toStartOf="parent">
 
     </TextView>
 
@@ -28,9 +28,7 @@
                  android:id="@+id/gridLayout"
                  app:layout_constraintStart_toStartOf="parent"
                  app:layout_constraintBottom_toBottomOf="parent"
-                 android:layout_marginBottom="52dp"
-                 android:layout_marginStart="36dp" app:layout_constraintEnd_toEndOf="parent"
-                 android:layout_marginEnd="8dp">
+                 app:layout_constraintEnd_toEndOf="parent">
         <TableRow
                 android:layout_marginBottom="@dimen/main_menu_button_margin"
                 android:layout_width="match_parent"

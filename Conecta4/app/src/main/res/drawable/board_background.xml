@@ -6,6 +6,4 @@
         android:width="@dimen/board_stroke_width"/>
     <solid
         android:color="@color/color_board"/>
-
-
 </shape>
