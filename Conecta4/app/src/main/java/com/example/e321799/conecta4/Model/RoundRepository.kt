@@ -12,7 +12,9 @@ object RoundRepository {
         return round ?: throw Exception("Round not found.")
     }
 
-    fun addRound() {
-        rounds.add(Round())
+    fun addRound() : String {
+        var round = Round()
+        rounds.add(round)
+        return round.id
     }
 }

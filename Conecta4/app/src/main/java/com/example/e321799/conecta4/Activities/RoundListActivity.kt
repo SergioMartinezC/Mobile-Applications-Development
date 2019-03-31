@@ -34,9 +34,9 @@ class RoundListActivity : AppCompatActivity(),
         if (fm.findFragmentById(R.id.fragment_container) == null) {
             fm.executeTransaction { add(R.id.fragment_container, RoundListFragment())}
         }
+
         var tb = findViewById<android.support.v7.widget.Toolbar>(R.id.my_toolbar)
         setSupportActionBar(tb)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
