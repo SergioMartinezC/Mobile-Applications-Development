@@ -69,21 +69,6 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         super.onSizeChanged(w, h, oldw, oldh)
     }
 
-    private fun reconcileSize(contentSize: Int, measureSpec: Int): Int {
-        val mode = View.MeasureSpec.getMode(measureSpec)
-        val specSize = View.MeasureSpec.getSize(measureSpec)
-        when (mode) {
-            View.MeasureSpec.EXACTLY -> return specSize
-            View.MeasureSpec.AT_MOST -> return if (contentSize < specSize) {
-                contentSize
-            } else {
-                specSize
-            }
-            View.MeasureSpec.UNSPECIFIED -> return contentSize
-            else -> return contentSize
-        }
-    }
-
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val boardWidth = width.toFloat()

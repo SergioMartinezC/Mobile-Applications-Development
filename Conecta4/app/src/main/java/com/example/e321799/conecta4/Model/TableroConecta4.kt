@@ -3,13 +3,17 @@ import es.uam.eps.multij.Tablero
 import java.io.Serializable
 import java.util.ArrayList
 
-/*Para el tablero he estado buscando una forma de hacer un array bidimensional y solo me ha aparecido esto
-* No sé si se puede hacer para definir el tamaño directamente y tenerlo controlado
-* La función mueve simplemente usará el movimiento (columna-jugador) para decir qué ficha poner y donde*/
+/**
+ * Representacion de el tablero de nuestro juego
+ *
+ *
+ *
+ * @constructor Crea un tablero
+ */
 class TableroConecta4() : Tablero(), Serializable {
     constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this() {
         this.turno = turno
-        this.ultimoMovimiento = ultimoMovimiento
+        this.ultimoMovimiento = ultimoMovimiento /* Último movimiento*/
 
         fichasEnColumna = (fichas.split(",").associate {
             val (left, right) = it.split("=")
@@ -17,17 +21,17 @@ class TableroConecta4() : Tablero(), Serializable {
         }).toMutableMap()
         this.numJugadas = nJugadas
     }
-    val tablero = mutableListOf<MutableList<Int>>()
-    val NUM_COLUMNAS: Int = 7
-    val NUM_FILAS: Int = 6
-    val JUGADOR_1 = 1
-    val JUGADOR_2 = 2
-    val CASILLA_VACIA = 0
-    var ganador = 0
-    var movimientosValidos: ArrayList<Movimiento> = ArrayList()
-    var fichasEnColumna = mutableMapOf<Int, Int>()
+    val tablero = mutableListOf<MutableList<Int>>() /* Doble array que representa el tablero con las fichas del juego*/
+    val NUM_COLUMNAS: Int = 7 /*Numero de columnas del tablero*/
+    val NUM_FILAS: Int = 6 /*Numero de filas del tablero*/
+    val JUGADOR_1 = 1 /*Valor dentro del array que representa una ficha del jugador 1*/
+    val JUGADOR_2 = 2 /*Valor dentro del array que representa una ficha del jugador 2*/
+    val CASILLA_VACIA = 0 /*Valor dentro del array que representa una ficha que no pertenece a ningún jugador*/
+    var movimientosValidos: ArrayList<Movimiento> = ArrayList() /*Lista de movimientos validos*/
+    var fichasEnColumna = mutableMapOf<Int, Int>() /*Mapa que relaciona la columna con el número de fichas que hay en ella*/
     init {
         estado = EN_CURSO
+        /* Ponemos a 0 (vacio) todas las casillas*/
         for (i in 0 until NUM_FILAS) {
             var columna = mutableListOf<Int>()
             for (j in 0 until NUM_COLUMNAS) {
@@ -41,6 +45,10 @@ class TableroConecta4() : Tablero(), Serializable {
         this.calcularMovimientosValidos()
     }
 
+    /**
+     * Guarda en la lista de movimientos validos todos los movimientos validos
+     * que se calculan a partir de las fichas que hay en cada columna
+     */
     fun calcularMovimientosValidos() {
         for (columna in 0 until NUM_COLUMNAS) {
             if(fichasEnColumna.get(columna) != 0) {
@@ -49,7 +57,10 @@ class TableroConecta4() : Tablero(), Serializable {
         }
     }
 
-
+    /**
+     * Representa gráficamente el tablero
+     * @return Un string que representa nuestro tablero
+     */
     override fun toString(): String {
         var ret: String?
         ret = "    1   2   3   4   5   6   7  \n"
@@ -71,6 +82,11 @@ class TableroConecta4() : Tablero(), Serializable {
             return ret
     }
 
+
+    /**
+     * Realiza un movimiento si el movimiento [m] es válido
+     *
+     */
     override fun mueve(m: Movimiento?) {
         if (m is MovimientoConecta4) {
             tablero[fichasEnColumna.getValue(m.columna)-1][m.columna] = this.turno + 1
@@ -90,10 +106,10 @@ class TableroConecta4() : Tablero(), Serializable {
         }
     }
 
-    fun salir() {
-        this.cambiaEstado(Tablero.TABLAS)
-    }
-
+    /**
+     * Comprueba si el movimiento [m] es valido
+     * @return true si el moviemto es valido, false si no
+     */
     override fun esValido(m: Movimiento?): Boolean {
         if (m is MovimientoConecta4) {
             return m in movimientosValidos()
@@ -101,10 +117,17 @@ class TableroConecta4() : Tablero(), Serializable {
         return false
     }
 
+    /**
+     * Devuelve la lista de movimientos validos
+     * @return Lista de movimientos validos
+     */
     override fun movimientosValidos(): ArrayList<Movimiento> {
         return movimientosValidos
     }
 
+    /**
+     * Covierte [cadena] en una representacion del tablero
+     */
     override fun stringToTablero(cadena: String?) {
         if(cadena?.length == NUM_COLUMNAS * NUM_FILAS) {
             for (fila in 0 until NUM_FILAS) {
@@ -116,6 +139,10 @@ class TableroConecta4() : Tablero(), Serializable {
         this.calcularMovimientosValidos()
     }
 
+    /**
+     * Convierte el array de ints que representa el tablero a un string
+     * @return El string que representa el tablero
+     */
     override fun tableroToString(): String {
         var guardar = String()
         for (fila in 0 until NUM_FILAS)  {
@@ -126,15 +153,10 @@ class TableroConecta4() : Tablero(), Serializable {
         return guardar
     }
 
-    /*fun convertirFicha(turno: Int): Char? {
-        when(turno) {
-            0 -> return CASILLA_VACIA
-            1 -> return JUGADOR_1
-            2 -> return JUGADOR_2
-            else -> return null
-        }
-    }*/
-
+    /**
+     * Reinicia el tablero poniendo todas las casillas vacías
+     * @return true si lo hace correctamente, false si no
+     */
     override fun reset(): Boolean {
         for (fila in 0 until NUM_FILAS) {
             for (columna in 0 until NUM_COLUMNAS) {
@@ -147,6 +169,10 @@ class TableroConecta4() : Tablero(), Serializable {
         return super.reset()
     }
 
+    /**
+     * Comprueba si un jugador ha juntado 4 fichas en línea en el tablero [tablero]
+     * @return Número del jugador que ha ganado, 0 si tablas
+     */
     fun comprobarGanador(tablero: MutableList<MutableList<Int>>): Int {
         val FILA = tablero.size
         val COLUMNA = tablero[0].size
@@ -186,6 +212,9 @@ class TableroConecta4() : Tablero(), Serializable {
         return CASILLA_VACIA /*No gana nadie*/
     }
 
+    /**
+     * Cambia el estado de la partida por [estado]
+     */
     fun cambiaEstado(estado: Int) {
         this.estado = estado
     }

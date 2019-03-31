@@ -7,82 +7,45 @@ import java.lang.Exception
 import java.lang.NumberFormatException
 
 
-
-/*Solo pido por pantalla la columna donde quiere poner una ficha, podríamos poner una variable que designe el
-* tipo de ficha para cada jugador*/
+/**
+ * Jugador humano de la aplicación
+ *
+ *
+ *
+ * @param T the type of a member in this group.
+ * @property name Nombre del jugador.
+ * @constructor Crea un jugador humano con el nombre
+ */
 class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
-    val ERROR = "ERROR"
-    val GUARDADA = "GUARDADA"
-    val MAX_NOMBRE_PARTIDA = 50
-    var token_tag: Int = 0
     var drawable: Int = 0
 
     private lateinit var game: Partida
-    private val ids = arrayOf(
-        intArrayOf(
-            R.id.button00,
-            R.id.button01,
-            R.id.button02,
-            R.id.button03,
-            R.id.button04,
-            R.id.button05,
-            R.id.button06
-        ),
-        intArrayOf(
-            R.id.button10,
-            R.id.button11,
-            R.id.button12,
-            R.id.button13,
-            R.id.button14,
-            R.id.button15,
-            R.id.button16
-        ),
-        intArrayOf(
-            R.id.button20,
-            R.id.button21,
-            R.id.button22,
-            R.id.button23,
-            R.id.button24,
-            R.id.button25,
-            R.id.button26
-        ),
-        intArrayOf(
-            R.id.button30,
-            R.id.button31,
-            R.id.button32,
-            R.id.button33,
-            R.id.button34,
-            R.id.button35,
-            R.id.button36
-        ),
-        intArrayOf(
-            R.id.button40,
-            R.id.button41,
-            R.id.button42,
-            R.id.button43,
-            R.id.button44,
-            R.id.button45,
-            R.id.button46
-        ),
-        intArrayOf(
-            R.id.button50,
-            R.id.button51,
-            R.id.button52,
-            R.id.button53,
-            R.id.button54,
-            R.id.button55,
-            R.id.button56
-        )
-    )
 
+    /**
+     * Obtiene el nombre del jugador
+     * @return Nombre del jugador
+     */
     override fun getNombre() = name
 
+
+    /**
+     * Decide si un jugador puede jugar
+     * @return True si puede jugar, false en caso contrario
+     */
     override fun puedeJugar(tablero: Tablero?) = true
 
+
+    /**
+     * Asigna la partida [game] al jugador
+     */
     fun setPartida(game: Partida) {
         this.game = game
     }
 
+    /**
+     * Realiza la acción de jugar sobre la columna [column] en caso de que la partida este en curso
+     *
+     */
     override fun onPlay(column: Int) {
         if (game.tablero.estado != Tablero.EN_CURSO){
             return
@@ -93,14 +56,9 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
         }
     }
 
-    private fun fromViewToColumn(view: View): Int {
-        for (ficha in 0 until ids.size)
-            for (columna in 0 until ids[ficha].size)
-                if (view.id == ids[ficha][columna])
-                    return columna
-        return -1
-    }
-
+    /**
+     * Funcion que es ejecutada cada vez que se recibe [evento]
+     */
     override fun onCambioEnPartida(evento: Evento?) {
     }
 

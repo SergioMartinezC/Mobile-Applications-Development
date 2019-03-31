@@ -9,6 +9,8 @@ import android.support.v4.app.DialogFragment
 import com.example.e321799.conecta4.Model.RoundRepository
 import com.example.e321799.conecta4.R
 
+
+
 class AlertDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = activity as AppCompatActivity?
