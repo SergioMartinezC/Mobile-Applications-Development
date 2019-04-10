@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/application_background"
-        tools:context=".Activities.RoundActivity">
+        tools:context=".activities.RoundActivity">
 
         <com.example.e321799.conecta4.views.ERView
                 android:id="@+id/board_erview"

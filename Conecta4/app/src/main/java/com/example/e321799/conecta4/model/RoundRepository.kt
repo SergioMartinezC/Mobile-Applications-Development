@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Model
+package com.example.e321799.conecta4.model
 
 /**
  * Repositorio donde van a estar todas las partidas guardadas

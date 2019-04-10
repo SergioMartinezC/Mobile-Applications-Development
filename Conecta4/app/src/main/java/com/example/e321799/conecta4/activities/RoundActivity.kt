@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.widget.ImageButton
 import TableroConecta4
@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import com.example.e321799.conecta4.Model.Round
-import com.example.e321799.conecta4.Model.RoundRepository
+import com.example.e321799.conecta4.model.Round
+import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import android.content.Context
 import android.graphics.Paint

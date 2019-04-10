@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Model
+package com.example.e321799.conecta4.model
 
 import TableroConecta4
 import java.util.*

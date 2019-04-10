@@ -6,6 +6,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/application_background"
-        tools:context=".Activities.RoundActivity">
+        tools:context=".activities.RoundActivity">
 
 </android.support.constraint.ConstraintLayout>

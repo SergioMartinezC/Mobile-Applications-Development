@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.example.e321799.conecta4.Model.Round
+import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.R
 import com.example.e321799.conecta4.views.ERView
 

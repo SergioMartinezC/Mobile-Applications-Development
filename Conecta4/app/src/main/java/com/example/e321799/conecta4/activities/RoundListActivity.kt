@@ -1,10 +1,10 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import com.example.e321799.conecta4.Model.Round
-import com.example.e321799.conecta4.Model.RoundRepository
+import com.example.e321799.conecta4.model.Round
+import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.activity_twopane.*
 import kotlinx.android.synthetic.main.fragment_round_list.*

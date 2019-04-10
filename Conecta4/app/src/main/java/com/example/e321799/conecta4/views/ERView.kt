@@ -8,7 +8,7 @@ import android.view.View
 import TableroConecta4
 import android.support.v4.content.ContextCompat
 import android.view.MotionEvent
-import com.example.e321799.conecta4.Activities.setColor
+import com.example.e321799.conecta4.activities.setColor
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.Tablero
 

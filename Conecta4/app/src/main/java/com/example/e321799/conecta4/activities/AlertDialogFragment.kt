@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.app.AlertDialog
 import android.app.Dialog
@@ -6,7 +6,7 @@ import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import com.example.e321799.conecta4.Model.RoundRepository
+import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 
 

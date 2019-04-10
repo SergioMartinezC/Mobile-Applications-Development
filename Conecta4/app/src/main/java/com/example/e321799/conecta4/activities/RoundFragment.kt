@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 import android.content.Context
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.e321799.conecta4.Model.Round
-import com.example.e321799.conecta4.Model.RoundRepository
+import com.example.e321799.conecta4.model.Round
+import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano

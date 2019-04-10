@@ -6,13 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/application_background"
-        tools:context=".Activities.MainActivity" tools:layout_editor_absoluteY="81dp">
+        tools:context=".activities.MainActivity" tools:layout_editor_absoluteY="81dp">
     <TextView
-            android:id="@+id/round_title"
+            android:id="@+id/game_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/main_menu_title_padding"
-            android:textSize="@dimen/round_title"
+            android:textSize="@dimen/game_title"
             android:fontFamily="@font/prototype"
             android:textColor="@color/colorPrimary"
             android:text="@string/app_name"

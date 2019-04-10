@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.Activities
+package com.example.e321799.conecta4.activities
 
 
 import android.content.Context
@@ -8,7 +8,7 @@ import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
-import com.example.e321799.conecta4.Model.Round
+import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.R
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
