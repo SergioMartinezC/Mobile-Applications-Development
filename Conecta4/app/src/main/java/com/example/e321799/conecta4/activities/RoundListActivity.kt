@@ -1,7 +1,9 @@
 package com.example.e321799.conecta4.activities
 
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.Menu
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
@@ -39,6 +41,8 @@ class RoundListActivity : AppCompatActivity(),
         var tb = findViewById<android.support.v7.widget.Toolbar>(R.id.my_toolbar)
         setSupportActionBar(tb)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false)
+
     }
 
     /**
@@ -46,6 +50,13 @@ class RoundListActivity : AppCompatActivity(),
      */
     override fun onRoundAdded() {
         RoundRepository.addRound()
+    }
+
+    /**
+     * Funcion que es llamada cuando se accede a las opciones
+     */
+    override fun onPreferenceSelected() {
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 
     /**

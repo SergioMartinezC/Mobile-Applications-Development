@@ -29,7 +29,7 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     private val COLUMNS = 7
     private var onPlayListener: OnPlayListener? = null
     interface OnPlayListener {
-        fun onPlay(column: Int)
+        fun onPlay(column: Int, view: ERView)
     }
 
     init {
@@ -148,7 +148,7 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
         }
         if (event.action == MotionEvent.ACTION_DOWN) {
             try {
-                onPlayListener?.onPlay(fromEventToJ(event))
+                onPlayListener?.onPlay(fromEventToJ(event), this)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
