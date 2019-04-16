@@ -1,3 +1,4 @@
+import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.example.e321799.conecta4.R
@@ -47,7 +48,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
      * Realiza la acción de jugar sobre la columna [column] en caso de que la partida este en curso
      *
      */
-    override fun onPlay(view: ERView, column: Int) {
+    override fun onPlay(column: Int, view: ERView) {
         if (game.tablero.estado != Tablero.EN_CURSO){
             return
         }
@@ -55,7 +56,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
         if (game.tablero.esValido(m)) {
             game.realizaAccion(AccionMover(this, m))
         } else {
-            Snackbar.make(view, "Movimiento no valido", Snackbar.LENGTH_LONG ).show()
+            Snackbar.make(view, R.string.invalid_movement, Snackbar.LENGTH_SHORT).show()
         }
     }
 

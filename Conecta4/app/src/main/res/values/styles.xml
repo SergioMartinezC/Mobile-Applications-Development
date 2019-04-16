@@ -23,4 +23,11 @@
         <item name="android:background">@drawable/button_background_solid</item>
     </style>
 
+    <style name="PreferencesTheme" parent="AppTheme">
+        <item name="android:listDivider">@color/colorPrimary</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+
 </resources>
