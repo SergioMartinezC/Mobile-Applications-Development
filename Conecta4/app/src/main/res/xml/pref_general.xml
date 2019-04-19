@@ -9,31 +9,31 @@
                 android:maxLines="1"
                 android:selectAllOnFocus="true"
                 android:singleLine="true"
-                android:title="Nombre del jugador" />
- <Preference
- android:key="prueba"
- android:summary="Pulsa para mostrar un Toast"
- android:title="Esto es una prueba" />
- </PreferenceCategory>
- <PreferenceCategory android:title="Ajustes del juego">
- <SwitchPreference
- android:defaultValue="true"
- android:key="music_switch"
- android:summary="Animar las jugadas con sonidos"
- android:title="Sonido" />
- <ListPreference
- android:defaultValue="3"
-        android:entries="@array/pref_game_level_list_titles"
-        android:entryValues="@array/pref_game_level_list_values"
-        android:key="boardsize_list"
-        android:negativeButtonText="@null"
-        android:positiveButtonText="@null"
-        android:title="Elige el tamaño del tablero" />
-     <CheckBoxPreference
-             android:key="music"
-             android:summary="Click if you feel like listening to music"
-             android:title="Music"
-             android:defaultValue="false"/>
+                android:title="Nombre del jugador"/>
+        <Preference
+                android:key="prueba"
+                android:summary="Pulsa para mostrar un Toast"
+                android:title="Esto es una prueba"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Ajustes del juego">
+        <SwitchPreference
+                android:defaultValue="true"
+                android:key="music_switch"
+                android:summary="Animar las jugadas con sonidos"
+                android:title="Sonido"/>
+        <ListPreference
+                android:defaultValue="3"
+                android:entries="@array/pref_game_level_list_titles"
+                android:entryValues="@array/pref_game_level_list_values"
+                android:key="boardsize_list"
+                android:negativeButtonText="@null"
+                android:positiveButtonText="@null"
+                android:title="Elige el tamaño del tablero"/>
+        <CheckBoxPreference
+                android:key="music"
+                android:summary="Click if you feel like listening to music"
+                android:title="Music"
+                android:defaultValue="false"/>
     </PreferenceCategory>
 
 </android.preference.PreferenceScreen>

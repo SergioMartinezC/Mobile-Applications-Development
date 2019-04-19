@@ -48,7 +48,7 @@ class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 /**
  *
  */
-class RoundAdapter(val rounds: List<Round>, val listener: (Round) -> Unit): RecyclerView.Adapter<RoundHolder>() {
+class RoundAdapter(var rounds: List<Round>, val listener: (Round) -> Unit): RecyclerView.Adapter<RoundHolder>() {
     /**
     * Infla una vista a partir del fichero de diseño de los ítems y crea un nuevo RoundHolder con esta vista como argumento
     **/

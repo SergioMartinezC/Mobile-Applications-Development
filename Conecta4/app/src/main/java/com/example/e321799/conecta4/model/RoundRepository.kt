@@ -3,25 +3,26 @@ package com.example.e321799.conecta4.model
 /**
  * Repositorio donde van a estar todas las partidas guardadas
  */
-object RoundRepository {
-    val rounds = ArrayList<Round>()
-
-    /**
-     * De vuelve el round con id [id]
-     * @return ronda si se encuentra en la lista
-     */
-    fun getRound(id: String): Round {
-        val round = rounds.find { it.id == id }
-        return round ?: throw Exception("Round not found.")
+interface RoundRepository {
+    @Throws(Exception::class)
+    fun open()
+    fun close()
+    interface LoginRegisterCallback {
+        fun onLogin(playerUuid: String)
+        fun onError(error: String)
     }
+    fun login(playername: String, password: String, callback: LoginRegisterCallback)
+    fun register(playername: String, password: String, callback: LoginRegisterCallback)
 
-    /**
-     * Añade una ronda vacía a la lista
-     * @return el id de la ronda que se crea
-     */
-    fun addRound() : String {
-        var round = Round()
-        rounds.add(round)
-        return round.id
+    interface BooleanCallback {
+        fun onResponse(ok: Boolean)
+    }
+    fun getRounds(playeruuid: String, orderByField: String, group: String,
+                  callback: RoundsCallback)
+    fun addRound(round: Round, callback: BooleanCallback)
+    fun updateRound(round: Round, callback: BooleanCallback)
+    interface RoundsCallback {
+        fun onResponse(rounds: List<Round>)
+        fun onError(error: String)
     }
 }

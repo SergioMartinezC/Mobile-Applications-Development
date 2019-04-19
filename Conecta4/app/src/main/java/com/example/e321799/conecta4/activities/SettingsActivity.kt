@@ -31,6 +31,8 @@ import com.example.e321799.conecta4.R
  */
 class SettingsActivity : AppCompatPreferenceActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -166,6 +168,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
          * A preference value change listener that updates the preference's summary
          * to reflect its new value.
          */
+        lateinit var PlayerName : String
+        var PlayerUUID : Int = 0
         val BOARDSIZE_KEY = "boardsize_list"
         val BOARDSIZE_DEFAULT = "3"
         fun getBoardSize(context: Context): String {

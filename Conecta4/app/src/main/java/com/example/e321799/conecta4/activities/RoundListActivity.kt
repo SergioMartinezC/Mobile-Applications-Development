@@ -4,10 +4,12 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.support.design.widget.Snackbar
 import android.view.Menu
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.activity_twopane.*
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
@@ -20,13 +22,12 @@ class RoundListActivity : AppCompatActivity(),
 
     lateinit var round : Round
     override fun onRoundSelected(round: Round) {
-        this.round = round
-        val fm = supportFragmentManager
         if (detail_fragment_container == null) {
-            startActivity(RoundActivity.newIntent(this, round.id))
+            startActivity(RoundActivity.newIntent(this, round.toJSONString()))
         } else {
-            fm.executeTransaction { replace(R.id.detail_fragment_container,
-                RoundFragment.newInstance(round.id)) }
+            supportFragmentManager.executeTransaction {
+                replace(R.id.detail_fragment_container,
+                    RoundFragment.newInstance(round.toJSONString())) }
         }
     }
 
@@ -49,7 +50,32 @@ class RoundListActivity : AppCompatActivity(),
      * Funcion que es llamada cuando una partida se va a añadir a la lista
      */
     override fun onRoundAdded() {
-        RoundRepository.addRound()
+        val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
+        round.firstPlayerName = "Random"
+        round.firstPlayerUUID = "Random"
+        round.secondPlayerName = SettingsActivity.getPlayerName(this)
+        round.secondPlayerUUID = SettingsActivity.getPlayerUUID(this)
+        val repository = RoundRepositoryFactory.createRepository(this)
+        val callback = object : RoundRepository.BooleanCallback {
+            override fun onResponse(response: Boolean) {
+                if (response == false)
+                    Snackbar.make(findViewById(R.id.round_recycler_view),
+                        R.string.error_adding_round, Snackbar.LENGTH_LONG).show()
+                else {
+                    Snackbar.make(findViewById(R.id.round_recycler_view),
+                        "New " + round.title + " added", Snackbar.LENGTH_LONG).show()
+                    val fragmentManager = supportFragmentManager
+                    val roundListFragment =
+                        fragmentManager.findFragmentById(R.id.fragment_container)
+                                as RoundListFragment
+                    roundListFragment.recyclerView.update(
+                        SettingsActivity.getPlayerUUID(baseContext),
+                        { round -> onRoundSelected(round) }
+                    )
+                }
+            }
+        }
+        repository?.addRound(round, callback)
     }
 
     /**
@@ -72,7 +98,21 @@ class RoundListActivity : AppCompatActivity(),
      * Funcion que se llama cuando se actualiza una partida
      */
     override fun onRoundUpdated() {
-        round_recycler_view.adapter?.notifyDataSetChanged()
+        val repository = RoundRepositoryFactory.createRepository(this)
+        val callback = object : RoundRepository.BooleanCallback {
+            override fun onResponse(response: Boolean) {
+                if (response == true) {
+                    round_recycler_view.update(
+                        SettingsActivity.getPlayerUUID(baseContext),
+                        { round -> onRoundSelected(round) }
+                    )
+                } else
+                    Snackbar.make(findViewById(R.id.title),
+                        R.string.error_updating_round,
+                        Snackbar.LENGTH_LONG).show()
+            }
+        }
+        repository?.updateRound(round, callback)
     }
 
     /**
