@@ -41,7 +41,7 @@ fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
                 adapter = RoundAdapter(rounds, onClickListener)
             else {
                 (adapter as RoundAdapter).rounds = rounds
-                adapter.notifyDataSetChanged()
+                adapter?.notifyDataSetChanged()
             }
         }
         override fun onError(error: String) {

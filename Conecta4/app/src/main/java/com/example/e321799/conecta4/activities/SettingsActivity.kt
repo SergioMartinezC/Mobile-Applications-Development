@@ -169,9 +169,11 @@ class SettingsActivity : AppCompatPreferenceActivity() {
          * to reflect its new value.
          */
         lateinit var PlayerName : String
-        var PlayerUUID : Int = 0
+        lateinit var PlayerUUID : String
         val BOARDSIZE_KEY = "boardsize_list"
         val BOARDSIZE_DEFAULT = "3"
+        val PLAYER_NAME_DEFAULT = "Jugador Humano"
+        val PLAYER_UUID_DEFAULT = "0000000"
         fun getBoardSize(context: Context): String {
             return PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(BOARDSIZE_KEY, BOARDSIZE_DEFAULT)
@@ -183,6 +185,35 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             editor.putInt(SettingsActivity.BOARDSIZE_KEY, size)
             editor.commit()
         }
+        /* Hechas por nosotros */
+        fun setPlayerUUID(context: Context, playerUUID: String) {
+            val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
+            editor.putString(SettingsActivity.PlayerUUID, playerUUID)
+            editor.commit()
+        }
+        fun setPlayerName(context: Context, playerName: String) {
+            val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+            val editor = sharedPreferences.edit()
+            editor.putString(SettingsActivity.PlayerName, playerName)
+            editor.commit()
+        }
+
+        fun getPlayerUUID (context: Context) : String {
+            val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+            return sharedPreferences.getString(SettingsActivity.PlayerUUID, PLAYER_UUID_DEFAULT)
+        }
+        fun getPlayerName(context: Context) : String {
+            val sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context)
+            return sharedPreferences.getString(SettingsActivity.PlayerName, PLAYER_NAME_DEFAULT)
+        }
+
+        /* Estas 4 funciones */
+
         private val sBindPreferenceSummaryToValueListener = Preference.OnPreferenceChangeListener { preference, value ->
             val stringValue = value.toString()
 
