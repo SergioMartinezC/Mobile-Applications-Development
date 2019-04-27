@@ -44,7 +44,6 @@ class TableroConecta4() : Tablero(), Serializable {
         for (i in 0 until NUM_COLUMNAS) {
             fichasEnColumna.put(i,NUM_FILAS)
         }
-        MainActivity.tupac
         this.calcularMovimientosValidos()
     }
 

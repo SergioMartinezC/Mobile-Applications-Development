@@ -168,8 +168,8 @@ class SettingsActivity : AppCompatPreferenceActivity() {
          * A preference value change listener that updates the preference's summary
          * to reflect its new value.
          */
-        lateinit var PlayerName : String
-        lateinit var PlayerUUID : String
+        val PLAYER_NAME_KEY = "player_name"
+        val PLAYER_UUID_KEY = "player_key"
         val BOARDSIZE_KEY = "boardsize_list"
         val BOARDSIZE_DEFAULT = "3"
         val PLAYER_NAME_DEFAULT = "Jugador Humano"
@@ -190,26 +190,26 @@ class SettingsActivity : AppCompatPreferenceActivity() {
             val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
             val editor = sharedPreferences.edit()
-            editor.putString(SettingsActivity.PlayerUUID, playerUUID)
+            editor.putString(SettingsActivity.PLAYER_UUID_KEY, playerUUID)
             editor.commit()
         }
         fun setPlayerName(context: Context, playerName: String) {
             val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
             val editor = sharedPreferences.edit()
-            editor.putString(SettingsActivity.PlayerName, playerName)
+            editor.putString(SettingsActivity.PLAYER_NAME_KEY, playerName)
             editor.commit()
         }
 
         fun getPlayerUUID (context: Context) : String {
             val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
-            return sharedPreferences.getString(SettingsActivity.PlayerUUID, PLAYER_UUID_DEFAULT)
+            return sharedPreferences.getString(SettingsActivity.PLAYER_UUID_KEY, PLAYER_UUID_DEFAULT)
         }
         fun getPlayerName(context: Context) : String {
             val sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(context)
-            return sharedPreferences.getString(SettingsActivity.PlayerName, PLAYER_NAME_DEFAULT)
+            return sharedPreferences.getString(SettingsActivity.PLAYER_NAME_KEY, PLAYER_NAME_DEFAULT)
         }
 
         /* Estas 4 funciones */

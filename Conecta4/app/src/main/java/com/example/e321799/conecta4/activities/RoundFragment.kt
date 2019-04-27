@@ -38,7 +38,7 @@ class RoundFragment : Fragment(), PartidaListener {
         /**
          * Funcion que es llamada cuando el tablero de la ronda se actualiza
          */
-        fun onRoundUpdated()
+        fun onRoundUpdated(round: Round)
     }
 
     /**
@@ -131,7 +131,7 @@ class RoundFragment : Fragment(), PartidaListener {
             round.board.reset()
             startRound()
             board_erview.invalidate()
-            listener?.onRoundUpdated()
+            listener?.onRoundUpdated(round)
         })
     }
 
@@ -179,11 +179,11 @@ class RoundFragment : Fragment(), PartidaListener {
         when (evento.tipo) {
             Evento.EVENTO_CAMBIO ->  {
                 board_erview.invalidate()
-                listener?.onRoundUpdated()
+                listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
                 board_erview.invalidate()
-                listener?.onRoundUpdated()
+                listener?.onRoundUpdated(round)
                 AlertDialogFragment().show(activity?.supportFragmentManager,
                     "ALERT_DIALOG")
             }

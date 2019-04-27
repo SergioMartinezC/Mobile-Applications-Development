@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.model.Round
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.button_play -> {
-                val intent = RoundActivity.newIntent(this, RoundRepository.addRound())
-                startActivity(intent)
+                /*val intent = RoundActivity.newIntent(this, RoundRepository.addRound(Round()))
+                startActivity(intent)*/
             }
             R.id.button_load_game -> {
                 val intent = Intent(this, RoundListActivity::class.java)

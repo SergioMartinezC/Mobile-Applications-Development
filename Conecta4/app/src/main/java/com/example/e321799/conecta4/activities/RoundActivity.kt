@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.e321799.conecta4.R
 import android.content.Context
 import android.content.Intent
+import com.example.e321799.conecta4.model.Round
 
 /**
  * Actividad que se lanza cuando se muestra una partida
@@ -30,7 +31,7 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
     /**
      * Funcion que se ejecuta cada vez que se actualiza el tablero
      */
-    override fun onRoundUpdated() {    }
+    override fun onRoundUpdated(round: Round) {    }
 
     /**
      * Metodo de factoria que genera un nuevo intent lanzando RoundActivity

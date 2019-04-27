@@ -54,7 +54,7 @@ class DataBase(context: Context) : RoundRepository {
         }
     }
 
-
+    @Throws(SQLException::class)
     override fun open() {
         db = helper.writableDatabase
     }

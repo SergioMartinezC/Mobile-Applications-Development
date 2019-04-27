@@ -20,7 +20,7 @@ class RoundListActivity : AppCompatActivity(),
     RoundListFragment.OnRoundListFragmentInteractionListener,
     RoundFragment.OnRoundFragmentInteractionListener {
 
-    lateinit var round : Round
+
     override fun onRoundSelected(round: Round) {
         if (detail_fragment_container == null) {
             startActivity(RoundActivity.newIntent(this, round.toJSONString()))
@@ -51,10 +51,10 @@ class RoundListActivity : AppCompatActivity(),
      */
     override fun onRoundAdded() {
         val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
-        round.firstPlayerName = "Random"
-        round.firstPlayerUUID = "Random"
-        round.secondPlayerName = SettingsActivity.getPlayerName(this)
-        round.secondPlayerUUID = SettingsActivity.getPlayerUUID(this)
+        round.firstPlayerName = SettingsActivity.getPlayerName(this)
+        round.firstPlayerUUID = SettingsActivity.getPlayerUUID(this)
+        round.secondPlayerName = "Random"
+        round.secondPlayerUUID = "Random"
         val repository = RoundRepositoryFactory.createRepository(this)
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
@@ -68,7 +68,7 @@ class RoundListActivity : AppCompatActivity(),
                     val roundListFragment =
                         fragmentManager.findFragmentById(R.id.fragment_container)
                                 as RoundListFragment
-                    roundListFragment.recyclerView.update(
+                    roundListFragment.round_recycler_view.update(
                         SettingsActivity.getPlayerUUID(baseContext),
                         { round -> onRoundSelected(round) }
                     )
@@ -97,7 +97,7 @@ class RoundListActivity : AppCompatActivity(),
     /**
      * Funcion que se llama cuando se actualiza una partida
      */
-    override fun onRoundUpdated() {
+    override fun onRoundUpdated(round: Round) {
         val repository = RoundRepositoryFactory.createRepository(this)
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
@@ -118,9 +118,9 @@ class RoundListActivity : AppCompatActivity(),
     /**
      *
      */
-    override fun onResume() {
+   /* override fun onResume() {
         super.onResume()
-        onRoundUpdated()
-    }
+        onRoundUpdated(round)
+    }*/
 
 }

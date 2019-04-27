@@ -23,11 +23,11 @@ class AlertDialogFragment : DialogFragment() {
         alertDialogBuilder.setTitle(R.string.game_over)
         alertDialogBuilder.setMessage(R.string.game_over_message)
         alertDialogBuilder.setPositiveButton(R.string.yes_confirmation) { dialog, which ->
-            RoundRepository.addRound()
+          /* RoundRepository.addRound()
             if (activity is RoundListActivity)
                 activity.onRoundUpdated()
             else
-                activity?.finish()
+                activity?.finish()*/
             dialog.dismiss()
         }
         alertDialogBuilder.setNegativeButton(R.string.no_confirmation,
