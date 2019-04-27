@@ -12,8 +12,10 @@ import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
 import android.support.design.widget.FloatingActionButton
+import android.util.Log
 import android.widget.TextView
 import com.example.e321799.conecta4.views.ERView
+import kotlinx.android.synthetic.main.fragment_round.*
 import java.lang.RuntimeException
 
 
@@ -46,13 +48,18 @@ class RoundFragment : Fragment(), PartidaListener {
         super.onCreate(savedInstanceState)
         try {
             arguments?.let {
-                round = RoundRepository.getRound(it.getString(ARG_ROUND_ID))
+                round = Round.fromJSONString(it.getString(ARG_ROUND))
             }
-        }catch (e : Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.d("DEBUG", e.message)
             activity?.finish()
         }
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(BOARDSTRING, round.board.tableroToString())
+        super.onSaveInstanceState(outState)
     }
 
     /**
@@ -90,21 +97,23 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        registerResetButton()
-        val titleView = view.findViewById<TextView>(R.id.round_title)
-        titleView.text = round.title
+        round_title.text = "${round.title}"
+        if (savedInstanceState != null) {
+            round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
+        }
     }
 
     /**
      * Metodo de factoria del fragmento que crea una instancia con la ronda seleccionada
      */
     companion object {
-        val ARG_ROUND_ID = "es.uam.eps.dadm.er10.round_id"
+        val ARG_ROUND = "es.uam.eps.dadm.er20.round"
+        val BOARDSTRING = "es.uam.eps.dadm.er20.boardstring"
         @JvmStatic
-        fun newInstance(round_id: String) =
+        fun newInstance(round: String) =
             RoundFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_ROUND_ID, round_id)
+                    putString(ARG_ROUND, round)
                 }
             }
     }

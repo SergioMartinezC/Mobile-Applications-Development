@@ -12,6 +12,7 @@ import com.example.e321799.conecta4.R
 import android.content.Context
 import android.graphics.Paint
 import android.support.v4.content.ContextCompat
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.example.e321799.conecta4.views.ERButton
 
 /**
@@ -32,11 +33,21 @@ fun ImageButton.update(board: TableroConecta4, i: Int, j: Int) {
 /**
  * Funcion que extiende de RecyclerView y actualiza la lista de partidas guardadas
  */
-fun RecyclerView.update(onClickListener: (Round) -> Unit) {
-    if (adapter == null)
-        adapter = RoundAdapter(RoundRepository.rounds, onClickListener)
-    else
-        adapter?.notifyDataSetChanged()
+fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
+    val repository = RoundRepositoryFactory.createRepository(context)
+    val roundsCallback = object : RoundRepository.RoundsCallback {
+        override fun onResponse(rounds: List<Round>) {
+            if (adapter == null)
+                adapter = RoundAdapter(rounds, onClickListener)
+            else {
+                (adapter as RoundAdapter).rounds = rounds
+                adapter?.notifyDataSetChanged()
+            }
+        }
+        override fun onError(error: String) {
+        }
+    }
+    repository?.getRounds(userName, "", "", roundsCallback)
 }
 
 /**

@@ -51,11 +51,9 @@ class RoundListFragment : Fragment() {
      *
      */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+        when (item!!.itemId) {
             R.id.menu_item_new_round -> {
                 listener?.onRoundAdded()
-                round_recycler_view.update { round ->
-                    listener?.onRoundSelected(round) }
                 return true
             }
             R.id.menu_item_settings -> {
@@ -87,16 +85,21 @@ class RoundListFragment : Fragment() {
         listener = null
     }
 
+    override fun onResume() {
+        super.onResume()
+        round_recycler_view.update(SettingsActivity.getPlayerUUID(context!!))
+        { round -> listener?.onRoundSelected(round) }
+    }
+
     /**
      *
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         round_recycler_view.apply {
-            /*  round_recycler_view */
             layoutManager = LinearLayoutManager(activity)
-            itemAnimator = DefaultItemAnimator()
-            update { round -> listener?.onRoundSelected(round) }
+            update(SettingsActivity.getPlayerUUID(context!!))
+            { round -> listener?.onRoundSelected(round) }
         }
     }
 }
