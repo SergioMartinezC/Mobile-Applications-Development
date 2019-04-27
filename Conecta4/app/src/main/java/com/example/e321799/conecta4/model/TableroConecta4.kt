@@ -1,3 +1,4 @@
+import com.example.e321799.conecta4.activities.MainActivity
 import es.uam.eps.multij.Movimiento
 import es.uam.eps.multij.Tablero
 import java.io.Serializable
@@ -21,6 +22,7 @@ class TableroConecta4() : Tablero(), Serializable {
         }).toMutableMap()
         this.numJugadas = nJugadas
     }
+
     val tablero = mutableListOf<MutableList<Int>>() /* Doble array que representa el tablero con las fichas del juego*/
     val NUM_COLUMNAS: Int = 7 /*Numero de columnas del tablero*/
     val NUM_FILAS: Int = 6 /*Numero de filas del tablero*/
@@ -42,6 +44,7 @@ class TableroConecta4() : Tablero(), Serializable {
         for (i in 0 until NUM_COLUMNAS) {
             fichasEnColumna.put(i,NUM_FILAS)
         }
+        MainActivity.tupac
         this.calcularMovimientosValidos()
     }
 

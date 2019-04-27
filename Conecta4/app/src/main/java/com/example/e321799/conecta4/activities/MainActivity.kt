@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
  * Actividad principal de la aplicacion que lanza el menú principal
  */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-
+    var tupack = 0
     /**
      * Funcion que se ejecuta al crear la actividad
      */
