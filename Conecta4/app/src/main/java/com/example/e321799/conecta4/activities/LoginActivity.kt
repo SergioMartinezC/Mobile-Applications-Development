@@ -125,8 +125,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
         }
     }
-
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -173,6 +171,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            showProgress(true)
+            mAuthTask = UserLoginTask(emailStr, passwordStr)
+            mAuthTask!!.execute(null as Void?)
             Attempt(type)
         }
     }
