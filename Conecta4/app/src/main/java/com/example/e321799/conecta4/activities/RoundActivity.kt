@@ -5,7 +5,11 @@ import android.os.Bundle
 import com.example.e321799.conecta4.R
 import android.content.Context
 import android.content.Intent
+import android.support.design.widget.Snackbar
 import com.example.e321799.conecta4.model.Round
+import com.example.e321799.conecta4.model.RoundRepository
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
+import kotlinx.android.synthetic.main.fragment_round_list.*
 
 /**
  * Actividad que se lanza cuando se muestra una partida
@@ -31,7 +35,23 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
     /**
      * Funcion que se ejecuta cada vez que se actualiza el tablero
      */
-    override fun onRoundUpdated(round: Round) {    }
+    override fun onRoundUpdated(round: Round) {
+        /*val repository = RoundRepositoryFactory.createRepository(this)
+        val callback = object : RoundRepository.BooleanCallback {
+            override fun onResponse(response: Boolean) {
+                if (response == true) {
+                    round_recycler_view.update(
+                        SettingsActivity.getPlayerUUID(baseContext),
+                        { round -> onRoundSelected(round) }
+                    )
+                } else
+                    Snackbar.make(findViewById(R.id.title),
+                        R.string.error_updating_round,
+                        Snackbar.LENGTH_LONG).show()
+            }
+        }
+        repository?.updateRound(round, callback)*/
+    }
 
     /**
      * Metodo de factoria que genera un nuevo intent lanzando RoundActivity

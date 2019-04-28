@@ -110,7 +110,7 @@ class DataBase(context: Context) : RoundRepository {
         values.put(RoundDataBaseSchema.RoundTable.Cols.ROUNDUUID, round.id)
         values.put(RoundDataBaseSchema.RoundTable.Cols.DATE, round.date)
         values.put(RoundDataBaseSchema.RoundTable.Cols.TITLE, round.title)
-        /* values.put(RoundDataBaseSchema.RoundTable.Cols.SIZE, round.size) */
+        values.put(RoundDataBaseSchema.RoundTable.Cols.SIZE, 8)
         values.put(RoundDataBaseSchema.RoundTable.Cols.BOARD, round.board.tableroToString())
         return values
     }

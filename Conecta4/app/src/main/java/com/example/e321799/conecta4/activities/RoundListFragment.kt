@@ -95,6 +95,7 @@ class RoundListFragment : Fragment() {
      *
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        recyclerView = view.findViewById(R.id.round_recycler_view)
         super.onViewCreated(view, savedInstanceState)
         round_recycler_view.apply {
             layoutManager = LinearLayoutManager(activity)

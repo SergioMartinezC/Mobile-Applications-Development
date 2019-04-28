@@ -51,10 +51,10 @@ class RoundListActivity : AppCompatActivity(),
      */
     override fun onRoundAdded() {
         val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
-        round.firstPlayerName = SettingsActivity.getPlayerName(this)
-        round.firstPlayerUUID = SettingsActivity.getPlayerUUID(this)
-        round.secondPlayerName = "Random"
-        round.secondPlayerUUID = "Random"
+        round.firstPlayerName = "Random"
+        round.firstPlayerUUID = "Random"
+        round.secondPlayerName = SettingsActivity.getPlayerName(this)
+        round.secondPlayerUUID = SettingsActivity.getPlayerUUID(this)
         val repository = RoundRepositoryFactory.createRepository(this)
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
@@ -68,7 +68,7 @@ class RoundListActivity : AppCompatActivity(),
                     val roundListFragment =
                         fragmentManager.findFragmentById(R.id.fragment_container)
                                 as RoundListFragment
-                    roundListFragment.round_recycler_view.update(
+                    roundListFragment.recyclerView.update(
                         SettingsActivity.getPlayerUUID(baseContext),
                         { round -> onRoundSelected(round) }
                     )
