@@ -94,7 +94,7 @@ class TableroConecta4() : Tablero(), Serializable {
             tablero[fichasEnColumna.getValue(m.columna)-1][m.columna] = this.turno + 1
             fichasEnColumna.set(m.columna, fichasEnColumna.getValue(m.columna).dec())
             ultimoMovimiento = m
-            if(this.comprobarGanador(tablero) != 0 ){
+            if(this.comprobarGanador() != 0 ){
                 this.cambiaEstado(Tablero.FINALIZADA)
                 return
             }
@@ -127,6 +127,16 @@ class TableroConecta4() : Tablero(), Serializable {
         return movimientosValidos
     }
 
+    fun actualizarFichasEnColumna() {
+        for (fila in 0 until NUM_FILAS) {
+            for (columna in 0 until NUM_COLUMNAS) {
+                if (this.tablero[fila][columna] != 0) {
+                    fichasEnColumna.set(columna, fichasEnColumna.getValue(columna).dec())
+                }
+            }
+        }
+    }
+
     /**
      * Covierte [cadena] en una representacion del tablero
      */
@@ -138,6 +148,7 @@ class TableroConecta4() : Tablero(), Serializable {
                 }
             }
         }
+        this.actualizarFichasEnColumna()
         this.calcularMovimientosValidos()
     }
 
@@ -175,7 +186,7 @@ class TableroConecta4() : Tablero(), Serializable {
      * Comprueba si un jugador ha juntado 4 fichas en línea en el tablero [tablero]
      * @return Número del jugador que ha ganado, 0 si tablas
      */
-    fun comprobarGanador(tablero: MutableList<MutableList<Int>>): Int {
+    fun comprobarGanador(): Int {
         val FILA = tablero.size
         val COLUMNA = tablero[0].size
         val CASILLA_VACIA = 0

@@ -5,9 +5,12 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.DialogFragment
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.model.Round
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
 
 
 /**
@@ -28,6 +31,25 @@ class AlertDialogFragment : DialogFragment() {
                 activity.onRoundUpdated()
             else
                 activity?.finish()*/
+            val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
+            round.firstPlayerName = "Random"
+            round.firstPlayerUUID = "Random"
+            round.secondPlayerName = SettingsActivity.getPlayerName(context!!)
+            round.secondPlayerUUID = SettingsActivity.getPlayerUUID(context!!)
+            val repository = RoundRepositoryFactory.createRepository(context!!)
+            val callback = object : RoundRepository.BooleanCallback {
+                override fun onResponse(response: Boolean) {
+                    if (response == false)
+                        /*Snackbar.make(this@AlertDialogFragment.view!!.findViewById(R.id.title),
+                            R.string.error_adding_round, Snackbar.LENGTH_LONG).show()*/
+                    else {
+                        /*Snackbar.make(this@AlertDialogFragment.view!!.findViewById(R.id.title),
+                            "New " + round.title + " added", Snackbar.LENGTH_LONG).show()*/
+                    }
+                }
+            }
+            repository?.addRound(round, callback)
+            startActivity(RoundActivity.newIntent(context!!, round.toJSONString()))
             dialog.dismiss()
         }
         alertDialogBuilder.setNegativeButton(R.string.no_confirmation,

@@ -23,11 +23,22 @@ class RoundListActivity : AppCompatActivity(),
 
     override fun onRoundSelected(round: Round) {
         if (detail_fragment_container == null) {
-            startActivity(RoundActivity.newIntent(this, round.toJSONString()))
+            if (round.board.comprobarGanador() == 0) {
+                startActivity(RoundActivity.newIntent(this, round.toJSONString()))
+            }
+            else {
+                Snackbar.make(findViewById(R.id.round_recycler_view),
+                    R.string.round_already_finished, Snackbar.LENGTH_LONG).show()
+            }
         } else {
-            supportFragmentManager.executeTransaction {
-                replace(R.id.detail_fragment_container,
-                    RoundFragment.newInstance(round.toJSONString())) }
+            if (round.board.comprobarGanador() == 0) {
+                supportFragmentManager.executeTransaction {
+                    replace(
+                        R.id.detail_fragment_container,
+                        RoundFragment.newInstance(round.toJSONString())
+                    )
+                }
+            }
         }
     }
 
@@ -118,9 +129,9 @@ class RoundListActivity : AppCompatActivity(),
     /**
      *
      */
-   /* override fun onResume() {
+   override fun onResume() {
         super.onResume()
-        onRoundUpdated(round)
-    }*/
+        round_recycler_view.update(SettingsActivity.getPlayerUUID(baseContext), {round -> onRoundSelected(round)})
+    }
 
 }

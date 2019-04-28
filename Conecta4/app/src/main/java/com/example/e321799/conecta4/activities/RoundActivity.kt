@@ -36,23 +36,18 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
      * Funcion que se ejecuta cada vez que se actualiza el tablero
      */
     override fun onRoundUpdated(round: Round) {
-        /*val repository = RoundRepositoryFactory.createRepository(this)
+        val repository = RoundRepositoryFactory.createRepository(this)
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
                 if (response == true) {
-                    round_recycler_view.update(
-                        SettingsActivity.getPlayerUUID(baseContext),
-                        { round -> onRoundSelected(round) }
-                    )
                 } else
                     Snackbar.make(findViewById(R.id.title),
                         R.string.error_updating_round,
                         Snackbar.LENGTH_LONG).show()
             }
         }
-        repository?.updateRound(round, callback)*/
+        repository?.updateRound(round, callback)
     }
-
     /**
      * Metodo de factoria que genera un nuevo intent lanzando RoundActivity
      */

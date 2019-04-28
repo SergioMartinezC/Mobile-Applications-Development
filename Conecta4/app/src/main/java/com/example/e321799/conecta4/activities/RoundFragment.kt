@@ -178,12 +178,12 @@ class RoundFragment : Fragment(), PartidaListener {
     override fun onCambioEnPartida(evento: Evento) {
         when (evento.tipo) {
             Evento.EVENTO_CAMBIO ->  {
-                listener?.onRoundUpdated(round)
                 board_erview.invalidate()
+                listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
-                listener?.onRoundUpdated(round)
                 board_erview.invalidate()
+                listener?.onRoundUpdated(round)
                 AlertDialogFragment().show(activity?.supportFragmentManager,
                     "ALERT_DIALOG")
             }

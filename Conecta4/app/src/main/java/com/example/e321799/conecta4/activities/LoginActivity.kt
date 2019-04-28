@@ -64,7 +64,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                     email.text.toString())
                 startActivity(
                     Intent(this@LoginActivity,
-                    RoundListActivity::class.java)
+                    MainActivity::class.java)
                 )
                 finish()
             }
