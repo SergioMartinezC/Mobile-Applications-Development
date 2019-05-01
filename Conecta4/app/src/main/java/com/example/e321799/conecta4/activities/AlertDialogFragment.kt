@@ -50,6 +50,7 @@ class AlertDialogFragment : DialogFragment() {
             }
             repository?.addRound(round, callback)
             startActivity(RoundActivity.newIntent(context!!, round.toJSONString()))
+            activity?.finish()
             dialog.dismiss()
         }
         alertDialogBuilder.setNegativeButton(R.string.no_confirmation,
