@@ -101,6 +101,7 @@ class RoundFragment : Fragment(), PartidaListener {
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
+        registerResetButton(view)
     }
 
     /**
@@ -121,7 +122,7 @@ class RoundFragment : Fragment(), PartidaListener {
     /**
      * Funcion que asigna un metodo onClick al botón que resetea el tablero
      */
-    private fun registerResetButton() {
+    private fun registerResetButton(view: View) {
         val resetButton = view!!.findViewById(R.id.reset_round_fab) as
                 FloatingActionButton
         resetButton.setOnClickListener(View.OnClickListener {

@@ -9,7 +9,7 @@ import com.google.firebase.database.*
 import es.uam.eps.multij.Tablero
 
 class FBDataBase: RoundRepository {
-    private val DATABASENAME = "partidas"
+    private val DATABASENAME = "rounds"
     lateinit var db: DatabaseReference
     override fun open() {
         db = FirebaseDatabase.getInstance().reference.child(DATABASENAME)
@@ -73,7 +73,7 @@ class FBDataBase: RoundRepository {
 //To change body of created functions use File | Settings | File Templates.
     }
     override fun updateRound(round: Round, callback: RoundRepository.BooleanCallback) {
-        TODO("not implemented")
+
 //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -96,11 +96,12 @@ class FBDataBase: RoundRepository {
     }
 
     fun isOpenOrIamIn(round: Round) : Boolean {
+        val firebaseAuth = FirebaseAuth.getInstance()
         if (round.board.estado != Tablero.EN_CURSO) {
             return true
-        } else if (round.firstPlayerUUID == "hola") {
+        } else if (round.firstPlayerUUID == firebaseAuth.currentUser.toString()) {
             return true
-        } else if (round.secondPlayerUUID == "adios") {
+        } else if (round.secondPlayerUUID == firebaseAuth.currentUser.toString()) {
             return true
         }
         return false
