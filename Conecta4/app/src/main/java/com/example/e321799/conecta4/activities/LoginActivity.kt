@@ -62,8 +62,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         val repository = RoundRepositoryFactory.createRepository(this)
         val loginRegisterCallback = object : RoundRepository.LoginRegisterCallback {
             override fun onLogin(playerUuid: String) {
-
-                SettingsActivity.setPlayerUUID(this@LoginActivity, FirebaseAuth.getInstance().currentUser!!.uid)
+                SettingsActivity.setPlayerUUID(this@LoginActivity, playerUuid)
                 SettingsActivity.setPlayerName(this@LoginActivity,
                     email.text.toString())
                 startActivity(

@@ -148,9 +148,9 @@ class TableroConecta4() : Tablero(), Serializable {
      * Covierte [cadena] en una representacion del tablero
      */
     override fun stringToTablero(cadena: String?) {
-        var elements = cadena?.split("|")
+        var elements = cadena?.split("#")
         var tablero = elements?.get(0)
-        this.turno = cadena?.split("|")?.get(1)!!.toInt()
+        this.turno = elements?.get(1)!!.toInt()
         if(tablero?.length == NUM_COLUMNAS * NUM_FILAS) {
             for (fila in 0 until NUM_FILAS) {
                 for (columna in 0 until NUM_COLUMNAS) {
@@ -174,7 +174,7 @@ class TableroConecta4() : Tablero(), Serializable {
                 guardar += tablero[fila][columna]
             }
         }
-        guardar+="|$turno"
+        guardar+="#$turno"
         return guardar
     }
 

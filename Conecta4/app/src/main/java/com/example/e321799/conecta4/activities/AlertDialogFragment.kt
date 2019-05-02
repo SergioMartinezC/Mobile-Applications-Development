@@ -51,7 +51,6 @@ class AlertDialogFragment : DialogFragment() {
             }
             repository?.addRound(round, callback)
             if (activity is RoundListActivity) {
-                
                 startActivity(Intent(context!!, RoundListActivity::class.java))
             }
             else {
