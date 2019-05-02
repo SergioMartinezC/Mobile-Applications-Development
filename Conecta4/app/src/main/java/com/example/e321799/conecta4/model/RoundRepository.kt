@@ -21,6 +21,7 @@ interface RoundRepository {
                   callback: RoundsCallback)
     fun addRound(round: Round, callback: BooleanCallback)
     fun updateRound(round: Round, callback: BooleanCallback)
+    fun joinRound(round: Round, callback: BooleanCallback)
     interface RoundsCallback {
         fun onResponse(rounds: List<Round>)
         fun onError(error: String)

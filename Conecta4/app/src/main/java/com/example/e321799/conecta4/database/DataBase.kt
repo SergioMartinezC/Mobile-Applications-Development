@@ -124,6 +124,10 @@ class DataBase(context: Context) : RoundRepository {
         callback.onResponse(id >= 0)
     }
 
+    override fun joinRound(round: Round, callback: RoundRepository.BooleanCallback) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun getRounds(playeruuid: String, orderByField: String, group: String,
                            callback: RoundRepository.RoundsCallback) {
         val rounds = ArrayList<Round>()

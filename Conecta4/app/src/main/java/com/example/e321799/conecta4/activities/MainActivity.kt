@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.button_play -> {
                 val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
-                round.firstPlayerName = "OPEN_ROUND"
-                round.firstPlayerUUID = "Random"
-                round.secondPlayerName = SettingsActivity.getPlayerName(this)
-                round.secondPlayerUUID = SettingsActivity.getPlayerUUID(this)
+                round.firstPlayerName = SettingsActivity.getPlayerName(this)
+                round.firstPlayerUUID = SettingsActivity.getPlayerUUID(this)
+                round.secondPlayerName = "OPEN_ROUND"
+                round.secondPlayerUUID = "Random"
                 val repository = RoundRepositoryFactory.createRepository(this)
                 val callback = object : RoundRepository.BooleanCallback {
                     override fun onResponse(response: Boolean) {
