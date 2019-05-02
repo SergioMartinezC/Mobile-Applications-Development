@@ -76,6 +76,11 @@
                         android:text="@string/action_register"
                         android:textStyle="bold" />
             </LinearLayout>
+            <Switch
+                    android:text="Utilizar base de datos online        "
+                    android:id="@+id/simpleSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
