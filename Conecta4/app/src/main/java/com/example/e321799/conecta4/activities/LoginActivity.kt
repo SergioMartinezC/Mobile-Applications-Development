@@ -25,9 +25,11 @@ import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
 import android.preference.PreferenceManager
+import android.support.v7.widget.RecyclerView
 import android.widget.Switch
 import com.example.e321799.conecta4.R
 import com.example.e321799.conecta4.firebase.FBDataBase
+import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.google.firebase.auth.FirebaseAuth

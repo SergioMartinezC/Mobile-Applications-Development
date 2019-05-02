@@ -12,6 +12,8 @@ import com.example.e321799.conecta4.R
 import android.content.Context
 import android.graphics.Paint
 import android.support.v4.content.ContextCompat
+import com.example.e321799.conecta4.database.DataBase
+import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.example.e321799.conecta4.views.ERButton
 
@@ -47,7 +49,12 @@ fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
         override fun onError(error: String) {
         }
     }
-    repository?.getRounds(userName, "", "", roundsCallback)
+    if (repository is DataBase) {
+        repository?.getRounds(userName, "", "", roundsCallback)
+    }
+    else if(repository is FBDataBase) {
+        repository?.startListeningChanges(roundsCallback)
+    }
 }
 
 /**

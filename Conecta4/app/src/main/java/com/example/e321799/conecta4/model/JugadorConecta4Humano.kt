@@ -18,7 +18,7 @@ import java.lang.NumberFormatException
  * @property name Nombre del jugador.
  * @constructor Crea un jugador humano con el nombre
  */
-class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
+class JugadorConecta4Humano(var name: String, var puedeJugar: Boolean) : Jugador, ERView.OnPlayListener {
     var drawable: Int = 0
 
     private lateinit var game: Partida
@@ -34,7 +34,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
      * Decide si un jugador puede jugar
      * @return True si puede jugar, false en caso contrario
      */
-    override fun puedeJugar(tablero: Tablero?) = true
+    override fun puedeJugar(tablero: Tablero?) =  puedeJugar
 
 
     /**

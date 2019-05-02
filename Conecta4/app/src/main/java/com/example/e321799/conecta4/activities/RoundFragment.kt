@@ -12,8 +12,11 @@ import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.util.Log
 import android.widget.TextView
+import com.example.e321799.conecta4.firebase.FBDataBase
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.example.e321799.conecta4.views.ERView
 import kotlinx.android.synthetic.main.fragment_round.*
 import java.lang.RuntimeException
@@ -141,6 +144,23 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onStart() {
         super.onStart()
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase) {
+            val callback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    for (r in rounds) {
+                        if (r.id == round.id) {
+                            board_erview.setBoard(r.board)
+                        }
+                    }
+                    board_erview.invalidate()
+                }
+
+                override fun onError(error: String) {
+                }
+            }
+            repository?.startListeningBoardChanges(callback)
+        }
         startRound()
     }
 
@@ -157,9 +177,9 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     internal fun startRound() {
         val players = ArrayList<Jugador>()
-        val localPlayer = JugadorConecta4Humano("Humano")
+        val localPlayer = JugadorConecta4Humano("Humano", true)
         //val randomPlayer = JugadorAleatorio("Random player")
-        val secondPlayer = JugadorConecta4Humano("Humano")
+        val secondPlayer = JugadorConecta4Humano("Humano", false)
 
         players.add(secondPlayer)
         players.add(localPlayer)
@@ -183,11 +203,11 @@ class RoundFragment : Fragment(), PartidaListener {
     override fun onCambioEnPartida(evento: Evento) {
         when (evento.tipo) {
             Evento.EVENTO_CAMBIO ->  {
-                board_erview.invalidate()
+                /*board_erview.invalidate()*/
                 listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
-                board_erview.invalidate()
+                /*board_erview.invalidate()*/
                 listener?.onRoundUpdated(round)
                 AlertDialogFragment().show(activity?.supportFragmentManager,
                     "ALERT_DIALOG")

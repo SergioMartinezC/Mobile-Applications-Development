@@ -10,7 +10,7 @@ import com.google.firebase.database.*
 import es.uam.eps.multij.Tablero
 import android.support.annotation.NonNull
 import com.google.android.gms.tasks.OnCompleteListener
-
+import kotlin.math.round
 
 
 class FBDataBase: RoundRepository {
@@ -110,8 +110,13 @@ class FBDataBase: RoundRepository {
             }
             override fun onDataChange(p0: DataSnapshot) {
                 var rounds = listOf<Round>()
-                for (postSnapshot in p0.children)
-                    rounds += postSnapshot.getValue(Round::class.java)!!
+                for (postSnapshot in p0.children) {
+                    var round = postSnapshot.getValue(Round::class.java)!!
+                    if (isOpenOrIamIn(round)) {
+                        rounds += round
+                    }
+
+                }
                 callback.onResponse(rounds)
             }
         })
@@ -119,15 +124,15 @@ class FBDataBase: RoundRepository {
 
     fun startListeningBoardChanges(callback: RoundRepository.RoundsCallback) {
         db = FirebaseDatabase.getInstance().getReference().child(DATABASENAME)
-        db.addValueEventListener(object : ValueEventListener{
+        db.addValueEventListener(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
                 Log.d("DEBUG", p0.toString())
             }
-
             override fun onDataChange(p0: DataSnapshot) {
                 var rounds = listOf<Round>()
-                for (postSnapshot in p0.children){
-                }
+                for (postSnapshot in p0.children)
+                    rounds += postSnapshot.getValue(Round::class.java)!!
+                callback.onResponse(rounds)
             }
         })
     }

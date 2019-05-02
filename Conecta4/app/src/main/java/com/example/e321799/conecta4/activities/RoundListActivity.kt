@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.activity_twopane.*
 import kotlinx.android.synthetic.main.fragment_round_list.*
@@ -61,6 +63,7 @@ class RoundListActivity : AppCompatActivity(),
         val fm = supportFragmentManager
         if (fm.findFragmentById(R.id.fragment_container) == null) {
             fm.executeTransaction { add(R.id.fragment_container, RoundListFragment())}
+
         }
 
         var tb = findViewById<android.support.v7.widget.Toolbar>(R.id.my_toolbar)

@@ -6,6 +6,7 @@ import com.example.e321799.conecta4.R
 import android.content.Context
 import android.content.Intent
 import android.support.design.widget.Snackbar
+import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
@@ -22,6 +23,7 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_fragment)
         val fm = supportFragmentManager
+
         if (fm.findFragmentById(R.id.fragment_container) == null) {
             val fragment = RoundFragment.newInstance(intent.getStringExtra(EXTRA_ROUND_ID))
             fm.executeTransaction { add(R.id.fragment_container, fragment) }
