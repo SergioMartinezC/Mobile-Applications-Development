@@ -191,6 +191,7 @@ class TableroConecta4() : Tablero(), Serializable {
         for (i in 0 until NUM_COLUMNAS) {
             fichasEnColumna.set(i, NUM_FILAS)
         }
+        this.calcularMovimientosValidos()
         return super.reset()
     }
 

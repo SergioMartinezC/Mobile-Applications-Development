@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 
 class FBDataBase: RoundRepository {
     private val DATABASENAME = "rounds"
-    private val DEFAULT_PLAYER = "Random"
+    private val DEFAULT_PLAYER = "OPEN_ROUND"
     lateinit var db: DatabaseReference
     override fun open() {
         db = FirebaseDatabase.getInstance().reference.child(DATABASENAME)
