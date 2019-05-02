@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 
 class FBDataBase: RoundRepository {
     private val DATABASENAME = "rounds"
+    private val DEFAULT_PLAYER = "Random"
     lateinit var db: DatabaseReference
     override fun open() {
         db = FirebaseDatabase.getInstance().reference.child(DATABASENAME)
@@ -70,8 +71,8 @@ class FBDataBase: RoundRepository {
     }
     override fun addRound(round: Round, callback: RoundRepository.BooleanCallback) {
         var addRound = db.child(round.id).setValue(round)
-        addRound.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
+        addRound.addOnCompleteListener { it ->
+            if (it.isSuccessful) {
                callback.onResponse(true)
             } else {
                callback.onResponse(false)
@@ -80,9 +81,9 @@ class FBDataBase: RoundRepository {
 //To change body of created functions use File | Settings | File Templates.
     }
     override fun updateRound(round: Round, callback: RoundRepository.BooleanCallback) {
-        var addRound = db.child(round.id).setValue(round)
-        addRound.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
+        var updateRound = db.child(round.id).setValue(round)
+        updateRound.addOnCompleteListener { it ->
+            if (it.isSuccessful) {
                 callback.onResponse(true)
             } else {
                 callback.onResponse(false)
@@ -110,14 +111,6 @@ class FBDataBase: RoundRepository {
     }
 
     fun isOpenOrIamIn(round: Round) : Boolean {
-        val firebaseAuth = FirebaseAuth.getInstance()
-        if (round.board.estado != Tablero.EN_CURSO) {
-            return false
-        } else if (round.firstPlayerName == firebaseAuth.currentUser?.email) {
-            return true
-        } else if (round.secondPlayerName == firebaseAuth.currentUser?.email) {
-            return true
-        }
-        return false
+        return (round.board.estado == Tablero.EN_CURSO && (round.firstPlayerName == DEFAULT_PLAYER || round.secondPlayerName == DEFAULT_PLAYER))
     }
 }

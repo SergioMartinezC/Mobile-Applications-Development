@@ -24,6 +24,8 @@ import android.widget.TextView
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
 import android.content.Intent
+import android.preference.PreferenceManager
+import android.widget.Switch
 import com.example.e321799.conecta4.R
 import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepository
@@ -40,6 +42,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private var mAuthTask: UserLoginTask? = null
+    private val DATABASE_MODE = "database_mode"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +59,17 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         email_sign_in_button.setOnClickListener { attemptLogin("login") }
         email_register_button.setOnClickListener { attemptLogin("register")}
 
+
+
+
     }
 
     private fun Attempt(type: String) {
+        val sharedPreferences = PreferenceManager
+            .getDefaultSharedPreferences(this)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
+        editor.commit()
         val repository = RoundRepositoryFactory.createRepository(this)
         val loginRegisterCallback = object : RoundRepository.LoginRegisterCallback {
             override fun onLogin(playerUuid: String) {
@@ -78,6 +89,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 password.requestFocus()
             }
         }
+
         when (type) {
             "login" -> repository?.login(email.text.toString(),
                 password.text.toString(), loginRegisterCallback)
