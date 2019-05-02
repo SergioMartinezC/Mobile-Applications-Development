@@ -31,7 +31,7 @@ class FBDataBase: RoundRepository {
         firebaseAuth.signInWithEmailAndPassword(playername, password).addOnCompleteListener()
         { it ->
             if (it.isSuccessful) {
-                callback.onLogin(playername)
+                callback.onLogin(firebaseAuth.uid!!)
             } else {
                 callback.onError("Error login as $playername")
             }
@@ -106,11 +106,25 @@ class FBDataBase: RoundRepository {
             }
         })
     }
+
     fun startListeningBoardChanges(callback: RoundRepository.RoundsCallback) {
 
     }
 
     fun isOpenOrIamIn(round: Round) : Boolean {
-        return (round.board.estado == Tablero.EN_CURSO && (round.firstPlayerName == DEFAULT_PLAYER || round.secondPlayerName == DEFAULT_PLAYER))
+        val firebaseAuth = FirebaseAuth.getInstance()
+        if (round.board.estado != Tablero.EN_CURSO) {
+            return false
+        } else if ( round.firstPlayerName == firebaseAuth.currentUser?.email!! || round.secondPlayerName == firebaseAuth.currentUser?.email!!) {
+            return true
+        } else if ( round.firstPlayerName == DEFAULT_PLAYER ) {
+            round.firstPlayerName = firebaseAuth.currentUser?.email!!
+            return true
+        } else if ( round.secondPlayerName == DEFAULT_PLAYER ) {
+            round.secondPlayerName = firebaseAuth.currentUser?.email!!
+            return true
+        }
+        return false
     }
+
 }
