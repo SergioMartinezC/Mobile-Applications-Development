@@ -31,7 +31,7 @@ class FBDataBase: RoundRepository {
         firebaseAuth.signInWithEmailAndPassword(playername, password).addOnCompleteListener()
         { it ->
             if (it.isSuccessful) {
-                callback.onLogin(playername)
+                callback.onLogin(firebaseAuth.uid!!)
             } else {
                 callback.onError("Error login as $playername")
             }
@@ -107,7 +107,18 @@ class FBDataBase: RoundRepository {
         })
     }
     fun startListeningBoardChanges(callback: RoundRepository.RoundsCallback) {
+        db = FirebaseDatabase.getInstance().getReference().child(DATABASENAME)
+        db.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                Log.d("DEBUG", p0.toString())
+            }
 
+            override fun onDataChange(p0: DataSnapshot) {
+                var rounds = listOf<Round>()
+                for (postSnapshot in p0.children){
+                }
+            }
+        })
     }
 
     fun isOpenOrIamIn(round: Round) : Boolean {

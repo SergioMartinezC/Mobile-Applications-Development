@@ -11,17 +11,8 @@ import java.util.ArrayList
  *
  * @constructor Crea un tablero
  */
-class TableroConecta4() : Tablero(), Serializable {
-    /*constructor(tablero: MutableList<MutableList<Int>>, turno: Int, ultimoMovimiento: MovimientoConecta4, fichas: String, nJugadas: Int) : this() {
-        this.turno = turno
-        this.ultimoMovimiento = ultimoMovimiento /* Último movimiento*/
+class TableroConecta4 : Tablero(), Serializable {
 
-        fichasEnColumna = (fichas.split(",").associate {
-            val (left, right) = it.split("=")
-            left to right.toInt()
-        }).toMutableMap()
-        this.numJugadas = nJugadas
-    }*/
     var ultimaColumna : Int = -1
     val tablero = mutableListOf<MutableList<Int>>() /* Doble array que representa el tablero con las fichas del juego*/
     val NUM_COLUMNAS: Int = 7 /*Numero de columnas del tablero*/
@@ -191,6 +182,7 @@ class TableroConecta4() : Tablero(), Serializable {
         for (i in 0 until NUM_COLUMNAS) {
             fichasEnColumna.set(i, NUM_FILAS)
         }
+        this.calcularMovimientosValidos()
         return super.reset()
     }
 

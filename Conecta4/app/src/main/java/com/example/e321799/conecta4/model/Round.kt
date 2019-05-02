@@ -10,7 +10,7 @@ import java.util.*
  *
  * @constructor Crea una ronda con un tablero vacio
  */
-class Round() {
+class Round {
     var id: String
     var title: String
     var date: String
@@ -21,7 +21,7 @@ class Round() {
     lateinit var secondPlayerUUID: String
     init {
         id = UUID.randomUUID().toString()
-        title = "ROUND ${id.toString().substring(19, 23).toUpperCase()}"
+        title = "ROUND ${id.substring(19, 23).toUpperCase()}"
         date = Date().toString()
         board = TableroConecta4()
     }
