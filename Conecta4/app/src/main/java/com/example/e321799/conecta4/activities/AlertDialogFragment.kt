@@ -33,7 +33,7 @@ class AlertDialogFragment : DialogFragment() {
             else
                 activity?.finish()*/
             val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
-            round.firstPlayerName = "Random"
+            round.firstPlayerName = "OPEN_ROUND"
             round.firstPlayerUUID = "Random"
             round.secondPlayerName = SettingsActivity.getPlayerName(context!!)
             round.secondPlayerUUID = SettingsActivity.getPlayerUUID(context!!)

@@ -62,7 +62,7 @@ class RoundListActivity : AppCompatActivity(),
      */
     override fun onRoundAdded() {
         val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
-        round.firstPlayerName = "Random"
+        round.firstPlayerName = "OPEN_ROUND"
         round.firstPlayerUUID = "Random"
         round.secondPlayerName = SettingsActivity.getPlayerName(this)
         round.secondPlayerUUID = SettingsActivity.getPlayerUUID(this)

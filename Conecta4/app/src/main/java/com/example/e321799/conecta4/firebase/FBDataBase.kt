@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 
 class FBDataBase: RoundRepository {
     private val DATABASENAME = "rounds"
-    private val DEFAULT_PLAYER = "Random"
+    private val DEFAULT_PLAYER = "OPEN_ROUND"
     lateinit var db: DatabaseReference
     override fun open() {
         db = FirebaseDatabase.getInstance().reference.child(DATABASENAME)
@@ -106,6 +106,7 @@ class FBDataBase: RoundRepository {
             }
         })
     }
+
     fun startListeningBoardChanges(callback: RoundRepository.RoundsCallback) {
         db = FirebaseDatabase.getInstance().getReference().child(DATABASENAME)
         db.addValueEventListener(object : ValueEventListener{
@@ -122,6 +123,19 @@ class FBDataBase: RoundRepository {
     }
 
     fun isOpenOrIamIn(round: Round) : Boolean {
-        return (round.board.estado == Tablero.EN_CURSO && (round.firstPlayerName == DEFAULT_PLAYER || round.secondPlayerName == DEFAULT_PLAYER))
+        val firebaseAuth = FirebaseAuth.getInstance()
+        if (round.board.estado != Tablero.EN_CURSO) {
+            return false
+        } else if ( round.firstPlayerName == firebaseAuth.currentUser?.email!! || round.secondPlayerName == firebaseAuth.currentUser?.email!!) {
+            return true
+        } else if ( round.firstPlayerName == DEFAULT_PLAYER ) {
+            round.firstPlayerName = firebaseAuth.currentUser?.email!!
+            return true
+        } else if ( round.secondPlayerName == DEFAULT_PLAYER ) {
+            round.secondPlayerName = firebaseAuth.currentUser?.email!!
+            return true
+        }
+        return false
     }
+
 }
