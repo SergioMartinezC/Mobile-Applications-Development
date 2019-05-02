@@ -97,21 +97,8 @@ class FBDataBase: RoundRepository {
         val email = firebaseAuth.currentUser?.email
         val uid = firebaseAuth.currentUser?.uid
         if (round.secondPlayerName == DEFAULT_PLAYER) {
-            var setName = db.child(round.id).child("secondPlayerName").setValue(email).continueWith { db.child(round.id).child("secondPlayerUUID").setValue(uid) }
-            setName.addOnCompleteListener{ it->
-                if (it.isSuccessful) {
-                    callback.onResponse(true)
-                }else {
-                    callback.onResponse(false)
-                }
-            }
-            /*setUid.addOnCompleteListener{ it->
-                if (it.isSuccessful) {
-                    callback.onResponse(true)
-                }else {
-                    callback.onResponse(false)
-                }
-            }*/
+            round.secondPlayerName = email!!
+            round.secondPlayerUUID = uid!!
         }
     }
 
@@ -152,10 +139,8 @@ class FBDataBase: RoundRepository {
         } else if ( round.firstPlayerName == firebaseAuth.currentUser?.email!! || round.secondPlayerName == firebaseAuth.currentUser?.email!!) {
             return true
         } else if ( round.firstPlayerName == DEFAULT_PLAYER ) {
-            round.firstPlayerName = firebaseAuth.currentUser?.email!!
             return true
         } else if ( round.secondPlayerName == DEFAULT_PLAYER ) {
-            round.secondPlayerName = firebaseAuth.currentUser?.email!!
             return true
         }
         return false
