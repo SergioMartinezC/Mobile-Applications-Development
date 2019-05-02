@@ -23,7 +23,7 @@ class Round() {
         id = UUID.randomUUID().toString()
         title = "ROUND ${id.toString().substring(19, 23).toUpperCase()}"
         date = Date().toString()
-        board =TableroConecta4()
+        board = TableroConecta4()
     }
     fun toJSONString(): String {
         val json = JSONObject()

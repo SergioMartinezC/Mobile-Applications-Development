@@ -7,6 +7,8 @@ import android.support.design.widget.Snackbar
 import android.view.View
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.firebase.FBDataBase
+import com.example.e321799.conecta4.firebase.FBDataBase.*
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.activity_main.*

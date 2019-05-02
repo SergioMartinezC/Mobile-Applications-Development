@@ -1,4 +1,4 @@
-package com.example.e321799.conecta4.activities
+package com.example.sergio.myapplication
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -23,12 +23,6 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
-import android.content.Intent
-import com.example.e321799.conecta4.R
-import com.example.e321799.conecta4.firebase.FBDataBase
-import com.example.e321799.conecta4.model.RoundRepository
-import com.example.e321799.conecta4.model.RoundRepositoryFactory
-import com.google.firebase.auth.FirebaseAuth
 
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -48,44 +42,14 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         populateAutoComplete()
         password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin("login")
+                attemptLogin()
                 return@OnEditorActionListener true
             }
             false
         })
-        email_sign_in_button.setOnClickListener { attemptLogin("login") }
-        email_register_button.setOnClickListener { attemptLogin("register")}
 
+        email_sign_in_button.setOnClickListener { attemptLogin() }
     }
-
-    private fun Attempt(type: String) {
-        val repository = RoundRepositoryFactory.createRepository(this)
-        val loginRegisterCallback = object : RoundRepository.LoginRegisterCallback {
-            override fun onLogin(playerUuid: String) {
-
-                SettingsActivity.setPlayerUUID(this@LoginActivity, FirebaseAuth.getInstance().currentUser!!.uid)
-                SettingsActivity.setPlayerName(this@LoginActivity,
-                    email.text.toString())
-                startActivity(
-                    Intent(this@LoginActivity,
-                    MainActivity::class.java)
-                )
-                finish()
-            }
-            override fun onError(error: String) {
-                email.error = getString(R.string.error_invalid_email)
-                password.error = getString(R.string.error_incorrect_password)
-                password.requestFocus()
-            }
-        }
-        when (type) {
-            "login" -> repository?.login(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
-            "register" -> repository?.register(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
-        }
-    }
-
 
     private fun populateAutoComplete() {
         if (!mayRequestContacts()) {
@@ -104,14 +68,10 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(email, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-                .setAction(android.R.string.ok,
-                    { requestPermissions(arrayOf(READ_CONTACTS),
-                        REQUEST_READ_CONTACTS
-                    ) })
+                    .setAction(android.R.string.ok,
+                            { requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS) })
         } else {
-            requestPermissions(arrayOf(READ_CONTACTS),
-                REQUEST_READ_CONTACTS
-            )
+            requestPermissions(arrayOf(READ_CONTACTS), REQUEST_READ_CONTACTS)
         }
         return false
     }
@@ -119,22 +79,22 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     /**
      * Callback received when a permissions request has been completed.
      */
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+                                            grantResults: IntArray) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.size == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 populateAutoComplete()
             }
         }
     }
+
+
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
-    private fun attemptLogin(type: String) {
+    private fun attemptLogin() {
         if (mAuthTask != null) {
             return
         }
@@ -178,7 +138,6 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             showProgress(true)
             mAuthTask = UserLoginTask(emailStr, passwordStr)
             mAuthTask!!.execute(null as Void?)
-            Attempt(type)
         }
     }
 
@@ -205,23 +164,23 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
             login_form.visibility = if (show) View.GONE else View.VISIBLE
             login_form.animate()
-                .setDuration(shortAnimTime)
-                .alpha((if (show) 0 else 1).toFloat())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        login_form.visibility = if (show) View.GONE else View.VISIBLE
-                    }
-                })
+                    .setDuration(shortAnimTime)
+                    .alpha((if (show) 0 else 1).toFloat())
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            login_form.visibility = if (show) View.GONE else View.VISIBLE
+                        }
+                    })
 
             login_progress.visibility = if (show) View.VISIBLE else View.GONE
             login_progress.animate()
-                .setDuration(shortAnimTime)
-                .alpha((if (show) 1 else 0).toFloat())
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        login_progress.visibility = if (show) View.VISIBLE else View.GONE
-                    }
-                })
+                    .setDuration(shortAnimTime)
+                    .alpha((if (show) 1 else 0).toFloat())
+                    .setListener(object : AnimatorListenerAdapter() {
+                        override fun onAnimationEnd(animation: Animator) {
+                            login_progress.visibility = if (show) View.VISIBLE else View.GONE
+                        }
+                    })
         } else {
             // The ViewPropertyAnimator APIs are not available, so simply show
             // and hide the relevant UI components.
@@ -231,24 +190,18 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     }
 
     override fun onCreateLoader(i: Int, bundle: Bundle?): Loader<Cursor> {
-        return CursorLoader(
-            this,
-            // Retrieve data rows for the device user's 'profile' contact.
-            Uri.withAppendedPath(
-                ContactsContract.Profile.CONTENT_URI,
-                ContactsContract.Contacts.Data.CONTENT_DIRECTORY
-            ), ProfileQuery.PROJECTION,
+        return CursorLoader(this,
+                // Retrieve data rows for the device user's 'profile' contact.
+                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
+                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-            // Select only email addresses.
-            ContactsContract.Contacts.Data.MIMETYPE + " = ?", arrayOf(
-                ContactsContract.CommonDataKinds.Email
-                    .CONTENT_ITEM_TYPE
-            ),
+                // Select only email addresses.
+                ContactsContract.Contacts.Data.MIMETYPE + " = ?", arrayOf(ContactsContract.CommonDataKinds.Email
+                .CONTENT_ITEM_TYPE),
 
-            // Show primary email addresses first. Note that there won't be
-            // a primary email address if the user hasn't specified one.
-            ContactsContract.Contacts.Data.IS_PRIMARY + " DESC"
-        )
+                // Show primary email addresses first. Note that there won't be
+                // a primary email address if the user hasn't specified one.
+                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC")
     }
 
     override fun onLoadFinished(cursorLoader: Loader<Cursor>, cursor: Cursor) {
@@ -268,19 +221,16 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
 
     private fun addEmailsToAutoComplete(emailAddressCollection: List<String>) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
-        val adapter = ArrayAdapter(
-            this@LoginActivity,
-            android.R.layout.simple_dropdown_item_1line, emailAddressCollection
-        )
+        val adapter = ArrayAdapter(this@LoginActivity,
+                android.R.layout.simple_dropdown_item_1line, emailAddressCollection)
 
         email.setAdapter(adapter)
     }
 
     object ProfileQuery {
         val PROJECTION = arrayOf(
-            ContactsContract.CommonDataKinds.Email.ADDRESS,
-            ContactsContract.CommonDataKinds.Email.IS_PRIMARY
-        )
+                ContactsContract.CommonDataKinds.Email.ADDRESS,
+                ContactsContract.CommonDataKinds.Email.IS_PRIMARY)
         val ADDRESS = 0
         val IS_PRIMARY = 1
     }
@@ -289,8 +239,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
      * Represents an asynchronous login/registration task used to authenticate
      * the user.
      */
-    inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) :
-        AsyncTask<Void, Void, Boolean>() {
+    inner class UserLoginTask internal constructor(private val mEmail: String, private val mPassword: String) : AsyncTask<Void, Void, Boolean>() {
 
         override fun doInBackground(vararg params: Void): Boolean? {
             // TODO: attempt authentication against a network service.
@@ -303,13 +252,13 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
             }
 
             return DUMMY_CREDENTIALS
-                .map { it.split(":") }
-                .firstOrNull { it[0] == mEmail }
-                ?.let {
-                    // Account exists, return true if the password matches.
-                    it[1] == mPassword
-                }
-                ?: true
+                    .map { it.split(":") }
+                    .firstOrNull { it[0] == mEmail }
+                    ?.let {
+                        // Account exists, return true if the password matches.
+                        it[1] == mPassword
+                    }
+                    ?: true
         }
 
         override fun onPostExecute(success: Boolean?) {

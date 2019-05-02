@@ -101,6 +101,7 @@ class RoundFragment : Fragment(), PartidaListener {
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
+        registerResetButton(view)
     }
 
     /**
@@ -121,7 +122,7 @@ class RoundFragment : Fragment(), PartidaListener {
     /**
      * Funcion que asigna un metodo onClick al botón que resetea el tablero
      */
-    private fun registerResetButton() {
+    private fun registerResetButton(view: View) {
         val resetButton = view!!.findViewById(R.id.reset_round_fab) as
                 FloatingActionButton
         resetButton.setOnClickListener(View.OnClickListener {
@@ -157,16 +158,20 @@ class RoundFragment : Fragment(), PartidaListener {
     internal fun startRound() {
         val players = ArrayList<Jugador>()
         val localPlayer = JugadorConecta4Humano("Humano")
-        val randomPlayer = JugadorAleatorio("Random player")
+        //val randomPlayer = JugadorAleatorio("Random player")
+        val secondPlayer = JugadorConecta4Humano("Humano")
+
+        players.add(secondPlayer)
         players.add(localPlayer)
-        players.add(randomPlayer)
 
         game = Partida(round.board, players)
         game.addObservador(this)
         localPlayer.setPartida(game)
+        secondPlayer.setPartida(game)
         board_erview = view!!.findViewById(R.id.board_erview) as ERView
         board_erview.setBoard(round.board)
         board_erview.setOnPlayListener(localPlayer)
+        board_erview.setOnPlayListener(secondPlayer)
         if (game.tablero.estado == Tablero.EN_CURSO) {
             game.comenzar()
         }

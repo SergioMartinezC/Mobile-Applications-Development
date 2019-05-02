@@ -3,6 +3,7 @@ package com.example.e321799.conecta4.activities
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -49,7 +50,13 @@ class AlertDialogFragment : DialogFragment() {
                 }
             }
             repository?.addRound(round, callback)
-            startActivity(RoundActivity.newIntent(context!!, round.toJSONString()))
+            if (activity is RoundListActivity) {
+                
+                startActivity(Intent(context!!, RoundListActivity::class.java))
+            }
+            else {
+                startActivity(RoundActivity.newIntent(context!!, round.toJSONString()))
+            }
             activity?.finish()
             dialog.dismiss()
         }

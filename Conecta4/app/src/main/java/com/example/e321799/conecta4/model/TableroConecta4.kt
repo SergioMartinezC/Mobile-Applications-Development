@@ -22,15 +22,16 @@ class TableroConecta4() : Tablero(), Serializable {
         }).toMutableMap()
         this.numJugadas = nJugadas
     }*/
-
+    var ultimaColumna : Int = -1
     val tablero = mutableListOf<MutableList<Int>>() /* Doble array que representa el tablero con las fichas del juego*/
     val NUM_COLUMNAS: Int = 7 /*Numero de columnas del tablero*/
     val NUM_FILAS: Int = 6 /*Numero de filas del tablero*/
     val JUGADOR_1 = 1 /*Valor dentro del array que representa una ficha del jugador 1*/
     val JUGADOR_2 = 2 /*Valor dentro del array que representa una ficha del jugador 2*/
     val CASILLA_VACIA = 0 /*Valor dentro del array que representa una ficha que no pertenece a ningún jugador*/
-    var movimientosValidos: ArrayList<Int> = ArrayList() /*Lista de movimientos validos*/
-    //var fichasEnColumna = mutableMapOf<String, Int>() /*Mapa que relaciona la columna con el número de fichas que hay en ella*/
+    var movimientosValidos: MutableList<Int> = mutableListOf() /*Lista de movimientos validos*/
+    var fichasEnColumna : MutableList<Int> = mutableListOf()
+    /*var fichasEnColumna = mutableMapOf<String, Int>()*/ /*Mapa que relaciona la columna con el número de fichas que hay en ella*/
     init {
         estado = EN_CURSO
         /* Ponemos a 0 (vacio) todas las casillas*/
@@ -41,9 +42,10 @@ class TableroConecta4() : Tablero(), Serializable {
             }
             tablero.add(columna)
         }
-       /* for (i in 0 until NUM_COLUMNAS) {
-            fichasEnColumna.put(i.toString(),NUM_FILAS)
-        }*/
+
+        for (i in 0 until NUM_COLUMNAS) {
+            fichasEnColumna.add(i,NUM_FILAS)
+        }
         this.calcularMovimientosValidos()
     }
 
@@ -53,10 +55,8 @@ class TableroConecta4() : Tablero(), Serializable {
      */
     fun calcularMovimientosValidos() {
         for (columna in 0 until NUM_COLUMNAS) {
-            if(fichasEnColumna.get(columna.toString()) != 0) {
-                if (columna !in movimientosValidos) {
-                    movimientosValidos.add(columna)
-                }
+            if(fichasEnColumna.get(columna) != 0 && columna !in movimientosValidos) {
+                movimientosValidos.add(columna)
             }
         }
     }
@@ -93,14 +93,15 @@ class TableroConecta4() : Tablero(), Serializable {
      */
     override fun mueve(m: Movimiento?) {
         if (m is MovimientoConecta4) {
-            tablero[fichasEnColumna.getValue(m.columna.toString())-1][m.columna] = this.turno + 1
-            fichasEnColumna.set(m.columna.toString(), fichasEnColumna.getValue(m.columna.toString()).dec())
-            ultimoMovimiento = m
+            tablero[fichasEnColumna.get(m.columna)-1][m.columna] = this.turno + 1
+            fichasEnColumna.set(m.columna, fichasEnColumna.get(m.columna).dec())
+           /* ultimoMovimiento = m*/
+            ultimaColumna = m.columna
             if(this.comprobarGanador() != 0 ){
                 this.cambiaEstado(Tablero.FINALIZADA)
                 return
             }
-            else if (fichasEnColumna.getValue(m.columna.toString()) == 0) {
+            else if (fichasEnColumna.get(m.columna) == 0) {
                 movimientosValidos.remove(m.columna)
                 if (movimientosValidos.size == 0) {
                     this.cambiaEstado(Tablero.TABLAS)
@@ -127,8 +128,8 @@ class TableroConecta4() : Tablero(), Serializable {
      */
     override fun movimientosValidos(): ArrayList<Movimiento> {
         var movimientos = ArrayList<Movimiento>()
-        for (c in movimientosValidos) {
-            movimientos.add(MovimientoConecta4(c))
+        for (columna in movimientosValidos) {
+            movimientos.add(MovimientoConecta4(columna))
         }
         return movimientos
     }
@@ -137,7 +138,7 @@ class TableroConecta4() : Tablero(), Serializable {
         for (fila in 0 until NUM_FILAS) {
             for (columna in 0 until NUM_COLUMNAS) {
                 if (this.tablero[fila][columna] != 0) {
-                    fichasEnColumna.set(columna.toString(), fichasEnColumna.getValue(columna.toString()).dec())
+                    fichasEnColumna.set(columna, fichasEnColumna.get(columna).dec())
                 }
             }
         }
@@ -147,13 +148,17 @@ class TableroConecta4() : Tablero(), Serializable {
      * Covierte [cadena] en una representacion del tablero
      */
     override fun stringToTablero(cadena: String?) {
-        if(cadena?.length == NUM_COLUMNAS * NUM_FILAS) {
+        var elements = cadena?.split("|")
+        var tablero = elements?.get(0)
+        this.turno = cadena?.split("|")?.get(1)!!.toInt()
+        if(tablero?.length == NUM_COLUMNAS * NUM_FILAS) {
             for (fila in 0 until NUM_FILAS) {
                 for (columna in 0 until NUM_COLUMNAS) {
-                    this.tablero[fila][columna] = cadena[fila * NUM_COLUMNAS + columna].toInt() - 48
+                    this.tablero[fila][columna] = tablero[fila * NUM_COLUMNAS + columna].toInt() - 48
                 }
             }
         }
+
         this.actualizarFichasEnColumna()
         this.calcularMovimientosValidos()
     }
@@ -169,6 +174,7 @@ class TableroConecta4() : Tablero(), Serializable {
                 guardar += tablero[fila][columna]
             }
         }
+        guardar+="|$turno"
         return guardar
     }
 
@@ -183,7 +189,7 @@ class TableroConecta4() : Tablero(), Serializable {
             }
         }
         for (i in 0 until NUM_COLUMNAS) {
-            fichasEnColumna.put(i.toString(),NUM_FILAS)
+            fichasEnColumna.set(i, NUM_FILAS)
         }
         return super.reset()
     }
