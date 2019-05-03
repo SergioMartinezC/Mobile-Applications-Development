@@ -77,6 +77,17 @@ class TableroConecta4 : Tablero(), Serializable {
             return ret
     }
 
+    fun copyBoard(board: TableroConecta4) {
+        for (fila in 0 until NUM_FILAS) {
+            for (columna in 0 until NUM_COLUMNAS) {
+                tablero[fila][columna] = board.tablero[fila][columna]
+            }
+        }
+        actualizarFichasEnColumna()
+        calcularMovimientosValidos()
+        turno = board.turno
+        estado = board.estado
+    }
 
     /**
      * Realiza un movimiento si el movimiento [m] es válido
@@ -126,6 +137,9 @@ class TableroConecta4 : Tablero(), Serializable {
     }
 
     fun actualizarFichasEnColumna() {
+        for (i in 0 until NUM_COLUMNAS) {
+            fichasEnColumna.add(i,NUM_FILAS)
+        }
         for (fila in 0 until NUM_FILAS) {
             for (columna in 0 until NUM_COLUMNAS) {
                 if (this.tablero[fila][columna] != 0) {

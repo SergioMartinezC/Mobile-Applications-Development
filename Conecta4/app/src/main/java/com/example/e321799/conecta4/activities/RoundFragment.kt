@@ -11,6 +11,7 @@ import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
+import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.util.Log
@@ -151,11 +152,17 @@ class RoundFragment : Fragment(), PartidaListener {
                     for (r in rounds) {
                         if (r.id == round.id) {
                             board_erview.setBoard(r.board)
+                            round.board.copyBoard(r.board)
+                            round.secondPlayerName = r.secondPlayerName
+                            round.secondPlayerUUID = r.secondPlayerUUID
                         }
                     }
                     board_erview.invalidate()
+                    if (round.board.estado != Tablero.EN_CURSO) {
+                        AlertDialogFragment().show(activity?.supportFragmentManager,
+                            "ALERT_DIALOG")
+                    }
                 }
-
                 override fun onError(error: String) {
                 }
             }
@@ -163,6 +170,7 @@ class RoundFragment : Fragment(), PartidaListener {
         }
         startRound()
     }
+
 
     /**
      *
@@ -176,22 +184,41 @@ class RoundFragment : Fragment(), PartidaListener {
      * Funcion que inicia una partida completa desde 0
      */
     internal fun startRound() {
+        val repository = RoundRepositoryFactory.createRepository(context!!)
         val players = ArrayList<Jugador>()
-        val localPlayer = JugadorConecta4Humano("Humano", true)
+        val localPlayer = JugadorConecta4Humano(SettingsActivity.getPlayerName(context!!))
+        var secondPlayer = JugadorConecta4Humano("Humano")
         //val randomPlayer = JugadorAleatorio("Random player")
-        val secondPlayer = JugadorConecta4Humano("Humano", false)
+        if (repository is FBDataBase) {
+            if(repository.isOpenOrIamIn(round)){
+                if (round.firstPlayerName == SettingsActivity.getPlayerName(context!!)){
+                    secondPlayer = JugadorConecta4Humano(round.secondPlayerName)
+                    players.add(localPlayer)
+                    players.add(secondPlayer)
+                } else if (round.secondPlayerName == SettingsActivity.getPlayerName(context!!)) {
+                    secondPlayer = JugadorConecta4Humano(round.firstPlayerName)
+                    players.add(secondPlayer)
+                    players.add(localPlayer)
+                } else {
+                    secondPlayer = JugadorConecta4Humano(SettingsActivity.getPlayerName(context!!))
+                    players.add(secondPlayer)
+                    players.add(localPlayer)
+                }
+            }
+        } else {
+            players.add(localPlayer)
+            players.add(secondPlayer)
+        }
 
-        players.add(secondPlayer)
-        players.add(localPlayer)
 
         game = Partida(round.board, players)
         game.addObservador(this)
         localPlayer.setPartida(game)
-        secondPlayer.setPartida(game)
+        /*secondPlayer.setPartida(game)*/
         board_erview = view!!.findViewById(R.id.board_erview) as ERView
         board_erview.setBoard(round.board)
         board_erview.setOnPlayListener(localPlayer)
-        board_erview.setOnPlayListener(secondPlayer)
+        /*board_erview.setOnPlayListener(secondPlayer)*/
         if (game.tablero.estado == Tablero.EN_CURSO) {
             game.comenzar()
         }

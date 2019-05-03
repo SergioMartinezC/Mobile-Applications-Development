@@ -2,6 +2,7 @@ import android.content.Context
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.activities.SettingsActivity
 import com.example.e321799.conecta4.views.ERView
 import es.uam.eps.multij.*
 import java.io.File
@@ -18,7 +19,7 @@ import java.lang.NumberFormatException
  * @property name Nombre del jugador.
  * @constructor Crea un jugador humano con el nombre
  */
-class JugadorConecta4Humano(var name: String, var puedeJugar: Boolean) : Jugador, ERView.OnPlayListener {
+class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
     var drawable: Int = 0
 
     private lateinit var game: Partida
@@ -34,7 +35,7 @@ class JugadorConecta4Humano(var name: String, var puedeJugar: Boolean) : Jugador
      * Decide si un jugador puede jugar
      * @return True si puede jugar, false en caso contrario
      */
-    override fun puedeJugar(tablero: Tablero?) =  puedeJugar
+    override fun puedeJugar(tablero: Tablero?) =  true
 
 
     /**
@@ -54,7 +55,12 @@ class JugadorConecta4Humano(var name: String, var puedeJugar: Boolean) : Jugador
         }
         val m = MovimientoConecta4(column)
         if (game.tablero.esValido(m)) {
-            game.realizaAccion(AccionMover(this, m))
+            if (game.getJugador(game.tablero.turno).nombre == nombre) {
+                game.realizaAccion(AccionMover(this, m))
+            }
+            else {
+                Snackbar.make(view, R.string.invalid_turn, Snackbar.LENGTH_SHORT).show()
+            }
         } else {
             Snackbar.make(view, R.string.invalid_movement, Snackbar.LENGTH_SHORT).show()
         }
@@ -64,6 +70,7 @@ class JugadorConecta4Humano(var name: String, var puedeJugar: Boolean) : Jugador
      * Funcion que es ejecutada cada vez que se recibe [evento]
      */
     override fun onCambioEnPartida(evento: Evento?) {
+
     }
 
 }

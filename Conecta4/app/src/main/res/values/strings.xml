@@ -19,6 +19,7 @@
     <string name="error_updating_round">Error al actualizar la partida</string>
     <string name="error_adding_round">Error al añadir una partida</string>
     <string name="action_register">action_register</string>
+    <string name="invalid_turn">Turno del contrincante</string>
 
     <!-- Strings related to Settings -->
     <string name="settings">Settings</string>
