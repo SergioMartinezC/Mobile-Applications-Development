@@ -97,7 +97,7 @@ class FBDataBase: RoundRepository {
         val firebaseAuth = FirebaseAuth.getInstance()
         val email = firebaseAuth.currentUser?.email
         val uid = firebaseAuth.currentUser?.uid
-        if (round.secondPlayerName == DEFAULT_PLAYER) {
+        if (round.secondPlayerName == DEFAULT_PLAYER && round.firstPlayerName != email) {
             round.secondPlayerName = email!!
             round.secondPlayerUUID = uid!!
 

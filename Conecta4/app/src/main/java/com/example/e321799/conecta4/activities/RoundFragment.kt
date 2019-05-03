@@ -102,6 +102,29 @@ class RoundFragment : Fragment(), PartidaListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase) {
+            val callback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    for (r in rounds) {
+                        if (r.id == round.id) {
+                            board_erview.setBoard(r.board)
+                            round.board.copyBoard(r.board)
+                            round.secondPlayerName = r.secondPlayerName
+                            round.secondPlayerUUID = r.secondPlayerUUID
+                        }
+                    }
+                    board_erview.invalidate()
+                    if (round.board.estado != Tablero.EN_CURSO) {
+                        AlertDialogFragment().show(activity?.supportFragmentManager,
+                            "ALERT_DIALOG")
+                    }
+                }
+                override fun onError(error: String) {
+                }
+            }
+            repository?.startListeningBoardChanges(callback)
+        }
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
@@ -145,29 +168,7 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onStart() {
         super.onStart()
-        val repository = RoundRepositoryFactory.createRepository(context!!)
-        if (repository is FBDataBase) {
-            val callback = object : RoundRepository.RoundsCallback {
-                override fun onResponse(rounds: List<Round>) {
-                    for (r in rounds) {
-                        if (r.id == round.id) {
-                            board_erview.setBoard(r.board)
-                            round.board.copyBoard(r.board)
-                            round.secondPlayerName = r.secondPlayerName
-                            round.secondPlayerUUID = r.secondPlayerUUID
-                        }
-                    }
-                    board_erview.invalidate()
-                    if (round.board.estado != Tablero.EN_CURSO) {
-                        AlertDialogFragment().show(activity?.supportFragmentManager,
-                            "ALERT_DIALOG")
-                    }
-                }
-                override fun onError(error: String) {
-                }
-            }
-            repository?.startListeningBoardChanges(callback)
-        }
+
         startRound()
     }
 
