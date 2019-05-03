@@ -43,7 +43,7 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
             override fun onResponse(response: Boolean) {
                 if (response == true) {
                 } else
-                    Snackbar.make(findViewById(R.id.title),
+                    Snackbar.make(findViewById(R.id.board_erview),
                         R.string.error_updating_round,
                         Snackbar.LENGTH_LONG).show()
             }
