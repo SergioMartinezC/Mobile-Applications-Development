@@ -81,7 +81,6 @@ class FBDataBase: RoundRepository {
 //To change body of created functions use File | Settings | File Templates.
     }
     override fun updateRound(round: Round, callback: RoundRepository.BooleanCallback) {
-
         var updateRound = db.child(round.id).setValue(round)
         updateRound.addOnCompleteListener { it ->
             if (it.isSuccessful) {

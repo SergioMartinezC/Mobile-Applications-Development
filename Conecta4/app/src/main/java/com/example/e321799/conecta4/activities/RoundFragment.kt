@@ -11,11 +11,13 @@ import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
+import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.util.Log
 import android.widget.TextView
+import com.example.e321799.conecta4.database.DataBase
 import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.example.e321799.conecta4.views.ERView
@@ -100,12 +102,19 @@ class RoundFragment : Fragment(), PartidaListener {
      * Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
-        registerResetButton(view)
+        if (repository is DataBase) {
+            registerResetButton(view)
+        } else {
+            val resetButton = view!!.findViewById(R.id.reset_round_fab) as
+                    FloatingActionButton
+            resetButton.hide()
+        }
     }
 
     /**
@@ -230,11 +239,11 @@ class RoundFragment : Fragment(), PartidaListener {
     override fun onCambioEnPartida(evento: Evento) {
         when (evento.tipo) {
             Evento.EVENTO_CAMBIO ->  {
-                /*board_erview.invalidate()*/
+                board_erview.invalidate()
                 listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
-                /*board_erview.invalidate()*/
+                board_erview.invalidate()
                 listener?.onRoundUpdated(round)
                 AlertDialogFragment().show(activity?.supportFragmentManager,
                     "ALERT_DIALOG")
