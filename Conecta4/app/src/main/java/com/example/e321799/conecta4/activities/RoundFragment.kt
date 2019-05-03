@@ -105,7 +105,6 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
-        val repository = RoundRepositoryFactory.createRepository(context!!)
         if (repository is FBDataBase) {
             val callback = object : RoundRepository.RoundsCallback {
                 override fun onResponse(rounds: List<Round>) {
@@ -177,7 +176,6 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onStart() {
         super.onStart()
-
         startRound()
     }
 

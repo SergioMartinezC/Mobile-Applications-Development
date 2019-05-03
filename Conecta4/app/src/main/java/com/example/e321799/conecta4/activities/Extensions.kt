@@ -49,12 +49,12 @@ fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
         override fun onError(error: String) {
         }
     }
-    if (repository is DataBase) {
+    /*if (repository is DataBase) {*/
         repository?.getRounds(userName, "", "", roundsCallback)
-    }
+   /* }
     else if(repository is FBDataBase) {
         repository?.startListeningChanges(roundsCallback)
-    }
+    }*/
 }
 
 /**
