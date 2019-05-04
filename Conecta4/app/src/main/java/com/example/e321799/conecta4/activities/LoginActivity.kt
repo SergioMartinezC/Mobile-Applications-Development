@@ -60,18 +60,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
         email_sign_in_button.setOnClickListener { attemptLogin("login") }
         email_register_button.setOnClickListener { attemptLogin("register")}
-
-
-
-
     }
 
     private fun Attempt(type: String) {
-        val sharedPreferences = PreferenceManager
-            .getDefaultSharedPreferences(this)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
-        editor.commit()
         val repository = RoundRepositoryFactory.createRepository(this)
         val loginRegisterCallback = object : RoundRepository.LoginRegisterCallback {
             override fun onLogin(playerUuid: String) {
@@ -90,12 +81,26 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 password.requestFocus()
             }
         }
-
         when (type) {
-            "login" -> repository?.login(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
-            "register" -> repository?.register(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
+
+            "login" -> {
+                val sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
+                editor.commit()
+                repository?.login(email.text.toString(),
+                    password.text.toString(), loginRegisterCallback)
+            }
+            "register" -> {
+                val sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
+                editor.commit()
+                repository?.register(email.text.toString(),
+                    password.text.toString(), loginRegisterCallback)
+            }
         }
     }
 
@@ -188,9 +193,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            //showProgress(true)
-            //mAuthTask = UserLoginTask(emailStr, passwordStr)
-            //mAuthTask!!.execute(null as Void?)
+            // showProgress(true)
+            // mAuthTask = UserLoginTask(emailStr, passwordStr)
+            // mAuthTask!!.execute(null as Void?)
             Attempt(type)
         }
     }

@@ -18,14 +18,21 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
  * Clase que representa los mensajes de alerta de nuestra aplicacion
  */
 class AlertDialogFragment : DialogFragment() {
-    /**
-     * Funcion que se ejecuta cuando se crea el dialogo
-     */
+
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = activity as AppCompatActivity?
         val alertDialogBuilder = AlertDialog.Builder(getActivity())
-        alertDialogBuilder.setTitle(R.string.game_over)
-        alertDialogBuilder.setMessage(R.string.game_over_message)
+
+        alertDialogBuilder.setTitle(R.string.end_game)
+        if (tag == "TABLAS") {
+            alertDialogBuilder.setMessage(R.string.draw_message)
+        } else if (tag == "WINNER") {
+            alertDialogBuilder.setMessage(R.string.winner_message)
+        } else {
+            alertDialogBuilder.setMessage(R.string.game_over_message)
+        }
         alertDialogBuilder.setPositiveButton(R.string.yes_confirmation) { dialog, which ->
           /* RoundRepository.addRound()
             if (activity is RoundListActivity)
@@ -64,6 +71,10 @@ class AlertDialogFragment : DialogFragment() {
                 override fun onClick(dialog: DialogInterface, which: Int) {
                     if (activity is RoundActivity)
                         activity?.finish()
+                    else {
+                        var fragment = fragmentManager?.findFragmentById(R.id.detail_fragment_container)
+                        fragmentManager?.beginTransaction()?.remove(fragment!!)!!.commit()
+                    }
                     dialog.dismiss()
                 }
             })

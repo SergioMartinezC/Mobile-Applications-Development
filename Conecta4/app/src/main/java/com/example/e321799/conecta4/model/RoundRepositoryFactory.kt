@@ -12,7 +12,7 @@ object RoundRepositoryFactory {
         val sharedPreferences = PreferenceManager
             .getDefaultSharedPreferences(context)
         val repository: RoundRepository
-        repository = if (sharedPreferences.getBoolean(DATABASE_MODE, false)) FBDataBase() else DataBase(context)
+        repository = if (sharedPreferences.getBoolean(DATABASE_MODE, false)) DataBase(context) else FBDataBase()
         try {
             repository.open()
         } catch (e: Exception) {

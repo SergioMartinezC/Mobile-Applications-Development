@@ -77,7 +77,7 @@
                         android:textStyle="bold" />
             </LinearLayout>
             <Switch
-                    android:text="Utilizar base de datos online        "
+                    android:text="@string/play_without_connection"
                     android:id="@+id/simpleSwitch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

@@ -29,16 +29,18 @@ class RoundListActivity : AppCompatActivity(),
             override fun onResponse(response: Boolean) {
                 if (response == false)
                     Snackbar.make(findViewById(R.id.round_recycler_view),
-                        "No puedes unirte a la partida", Snackbar.LENGTH_LONG).show()
+
+                       "No puedes unirte a la partida", Snackbar.LENGTH_LONG).show()
                 else {
                     Snackbar.make(findViewById(R.id.round_recycler_view),
                         "Añadido a la partida", Snackbar.LENGTH_LONG).show()
                 }
             }
         }
+
+        val repository = RoundRepositoryFactory.createRepository(this)
         if (detail_fragment_container == null) {
             if (round.board.comprobarGanador() == 0) {
-                val repository = RoundRepositoryFactory.createRepository(this)
                 repository?.joinRound(round, callback)
                 startActivity(RoundActivity.newIntent(this, round.toJSONString()))
             }
@@ -48,7 +50,6 @@ class RoundListActivity : AppCompatActivity(),
             }
         } else {
             if (round.board.comprobarGanador() == 0) {
-                val repository = RoundRepositoryFactory.createRepository(this)
                 repository?.joinRound(round, callback)
                 supportFragmentManager.executeTransaction {
                     replace(
