@@ -99,8 +99,16 @@ class RoundFragment : Fragment(), PartidaListener {
                     board_erview.invalidate()
                     if (round.board.estado != Tablero.EN_CURSO) {
                         if (activity != null) {
+                            var mensaje = "LOSER"
+                            if (round.board.comprobarGanador() == 0) {
+                                mensaje = "TABLAS"
+                            } else if (round.board.comprobarGanador() == 1 && round.firstPlayerName == SettingsActivity.getPlayerName(context!!)) {
+                                mensaje = "WINNER"
+                            } else if (round.board.comprobarGanador() == 2 && round.secondPlayerName == SettingsActivity.getPlayerName(context!!)) {
+                                mensaje = "WINNER"
+                            }
                             AlertDialogFragment().show(activity?.supportFragmentManager,
-                                "ALERT_DIALOG")
+                                mensaje)
                         }
                     }
                 }
@@ -204,10 +212,10 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         val players = ArrayList<Jugador>()
         val localPlayer = JugadorConecta4Humano(SettingsActivity.getPlayerName(context!!))
-        var secondPlayer = JugadorConecta4Humano("Humano")
         //val randomPlayer = JugadorAleatorio("Random player")
         if (repository is FBDataBase) {
             if(repository.isOpenOrIamIn(round)){
+            var secondPlayer = JugadorConecta4Humano("Humano")
                 if (round.firstPlayerName == SettingsActivity.getPlayerName(context!!)){
                     secondPlayer = JugadorConecta4Humano(round.secondPlayerName)
                     players.add(localPlayer)
@@ -223,6 +231,7 @@ class RoundFragment : Fragment(), PartidaListener {
                 }
             }
         } else {
+            var secondPlayer = JugadorAleatorio("NPC")
             players.add(localPlayer)
             players.add(secondPlayer)
         }
@@ -251,10 +260,16 @@ class RoundFragment : Fragment(), PartidaListener {
                 listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
+                var mensaje = "LOSER"
                 board_erview.invalidate()
                 listener?.onRoundUpdated(round)
-                AlertDialogFragment().show(activity?.supportFragmentManager,
-                    "ALERT_DIALOG")
+                if (round.board.comprobarGanador() == 0){
+                    mensaje = "TABLAS"
+                } else if (round.board.comprobarGanador() == 1) {
+                    mensaje = "WINNER"
+                }
+                /*AlertDialogFragment().show(activity?.supportFragmentManager,
+                    mensaje)*/
             }
         }
     }
