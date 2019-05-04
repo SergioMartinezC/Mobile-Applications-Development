@@ -99,6 +99,7 @@ class RoundFragment : Fragment(), PartidaListener {
                     board_erview.invalidate()
                     if (round.board.estado != Tablero.EN_CURSO) {
                         if (activity != null) {
+
                             AlertDialogFragment().show(activity?.supportFragmentManager,
                                 "ALERT_DIALOG")
                         }
@@ -253,8 +254,8 @@ class RoundFragment : Fragment(), PartidaListener {
             Evento.EVENTO_FIN -> {
                 board_erview.invalidate()
                 listener?.onRoundUpdated(round)
-                AlertDialogFragment().show(activity?.supportFragmentManager,
-                    "ALERT_DIALOG")
+                /*AlertDialogFragment().show(activity?.supportFragmentManager,
+                    "ALERT_DIALOG")*/
             }
         }
     }

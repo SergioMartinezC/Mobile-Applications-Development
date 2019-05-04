@@ -7,6 +7,10 @@ import com.example.e321799.conecta4.model.Round
 import es.uam.eps.multij.ExcepcionJuego
 import com.example.e321799.conecta4.database.RoundDataBaseSchema.RoundTable
 import com.example.e321799.conecta4.database.RoundDataBaseSchema.UserTable
+
+/**
+ * Clase de contenedor para el cursor que delega todas las llamadas al objeto del cursor real. El uso principal de esta clase es extender un cursor mientras reemplaza solo un subconjunto de sus métodos.
+ */
 class RoundCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
     private val DEBUG = "DEBUG"
     val round: Round

@@ -188,9 +188,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+            //showProgress(true)
+            //mAuthTask = UserLoginTask(emailStr, passwordStr)
+            //mAuthTask!!.execute(null as Void?)
             Attempt(type)
         }
     }
