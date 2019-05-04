@@ -11,10 +11,12 @@ import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
+import android.app.Activity
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.TextView
 import com.example.e321799.conecta4.database.DataBase
@@ -52,6 +54,7 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         try {
             arguments?.let {
                 round = Round.fromJSONString(it.getString(ARG_ROUND))
@@ -65,6 +68,7 @@ class RoundFragment : Fragment(), PartidaListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(BOARDSTRING, round.board.tableroToString())
+        println("--------------onSaveInstanceState-----------------")
         super.onSaveInstanceState(outState)
     }
 
@@ -72,12 +76,38 @@ class RoundFragment : Fragment(), PartidaListener {
      * Funcion que es llamada cuando se asigna el fragmento a la vista
      */
     override fun onAttach(context: Context?) {
+        println("--------------onAttach-----------------")
         super.onAttach(context)
         if (context is OnRoundFragmentInteractionListener) {
             listener = context
         }
         else {
             throw RuntimeException(context.toString() + " must implement OnRoundInteractionLIstener")
+        }
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase) {
+            val callback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    for (r in rounds) {
+                        if (r.id == round.id) {
+                            board_erview.setBoard(r.board)
+                            round.board.copyBoard(r.board)
+                            round.secondPlayerName = r.secondPlayerName
+                            round.secondPlayerUUID = r.secondPlayerUUID
+                        }
+                    }
+                    board_erview.invalidate()
+                    if (round.board.estado != Tablero.EN_CURSO) {
+                        if (activity != null) {
+                            AlertDialogFragment().show(activity?.supportFragmentManager,
+                                "ALERT_DIALOG")
+                        }
+                    }
+                }
+                override fun onError(error: String) {
+                }
+            }
+            repository?.startListeningBoardChanges(callback)
         }
     }
 
@@ -105,28 +135,7 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
-        if (repository is FBDataBase) {
-            val callback = object : RoundRepository.RoundsCallback {
-                override fun onResponse(rounds: List<Round>) {
-                    for (r in rounds) {
-                        if (r.id == round.id) {
-                            board_erview.setBoard(r.board)
-                            round.board.copyBoard(r.board)
-                            round.secondPlayerName = r.secondPlayerName
-                            round.secondPlayerUUID = r.secondPlayerUUID
-                        }
-                    }
-                    board_erview.invalidate()
-                    if (round.board.estado != Tablero.EN_CURSO) {
-                        AlertDialogFragment().show(activity?.supportFragmentManager,
-                            "ALERT_DIALOG")
-                    }
-                }
-                override fun onError(error: String) {
-                }
-            }
-            repository?.startListeningBoardChanges(callback)
-        }
+
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }

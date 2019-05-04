@@ -138,7 +138,7 @@ class TableroConecta4 : Tablero(), Serializable {
 
     fun actualizarFichasEnColumna() {
         for (i in 0 until NUM_COLUMNAS) {
-            fichasEnColumna.add(i,NUM_FILAS)
+            fichasEnColumna.set(i, NUM_FILAS)
         }
         for (fila in 0 until NUM_FILAS) {
             for (columna in 0 until NUM_COLUMNAS) {

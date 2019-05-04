@@ -73,6 +73,18 @@ class RoundListFragment : Fragment() {
      */
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase){
+            val roundsCallback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    recyclerView.update(SettingsActivity.getPlayerUUID(context!!),
+                        { round -> listener?.onRoundSelected(round) })
+                }
+                override fun onError(error: String) {
+                }
+            }
+            repository?.startListeningChanges(roundsCallback)
+        }
         if (context is OnRoundListFragmentInteractionListener) {
             listener = context
         } else {
@@ -86,6 +98,7 @@ class RoundListFragment : Fragment() {
      */
     override fun onDetach() {
         super.onDetach()
+        println("-----------------------Detach")
         listener = null
     }
 
@@ -99,20 +112,10 @@ class RoundListFragment : Fragment() {
      *
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("-----------------------VIEWCREATED")
         recyclerView = view.findViewById(R.id.round_recycler_view)
-        val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
-        val roundsCallback = object : RoundRepository.RoundsCallback {
-            override fun onResponse(rounds: List<Round>) {
-                recyclerView.update(SettingsActivity.getPlayerUUID(context!!),
-                    { round -> listener?.onRoundSelected(round) })
-            }
-            override fun onError(error: String) {
-            }
-        }
-        if (repository is FBDataBase){
-            repository?.startListeningChanges(roundsCallback)
-        }
+
         round_recycler_view.apply {
             layoutManager = LinearLayoutManager(activity)
             update(SettingsActivity.getPlayerUUID(context!!))
