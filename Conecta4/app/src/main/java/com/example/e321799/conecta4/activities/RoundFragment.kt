@@ -109,7 +109,11 @@ class RoundFragment : Fragment(), PartidaListener {
 
                     } else {
                         token?.setImageResource(R.drawable.token_red_48dp)
-                        name?.text = "Turno de ${round.secondPlayerName.replaceAfter("@", "").removeSuffix("@")}"
+                        if (round.secondPlayerName.equals("OPEN_ROUND")) {
+                            name?.text = "Esperando contrincante"
+                        } else {
+                            name?.text = "Turno de ${round.secondPlayerName.replaceAfter("@", "").removeSuffix("@")}"
+                        }
                     }
                     board_erview.invalidate()
                     if (round.board.estado != Tablero.EN_CURSO) {
@@ -251,7 +255,7 @@ class RoundFragment : Fragment(), PartidaListener {
                 }
             }
         } else {
-            var secondPlayer = JugadorConecta4Humano("NPC")
+            var secondPlayer = JugadorAleatorio("NPC")
             players.add(localPlayer)
             players.add(secondPlayer)
         }

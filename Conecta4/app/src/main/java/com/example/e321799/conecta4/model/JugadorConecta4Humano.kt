@@ -59,14 +59,9 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
         if (game.tablero.esValido(m)) {
             if (repository is FBDataBase) {
                 if (game.getJugador(game.tablero.turno).nombre == nombre) {
-                    if (game.getJugador(1).nombre == "OPEN_ROUND"){
-                        Snackbar.make(view, R.string.waiting_players, Snackbar.LENGTH_SHORT).show()
-                    }
-                    else {
-                        var mp = MediaPlayer.create(view.context, R.raw.plop)
-                        mp.start()
-                        game.realizaAccion(AccionMover(this, m))
-                    }
+                    var mp = MediaPlayer.create(view.context, R.raw.plop)
+                    mp.start()
+                    game.realizaAccion(AccionMover(this, m))
                 }
                 else {
                     Snackbar.make(view, R.string.invalid_turn, Snackbar.LENGTH_SHORT).show()
