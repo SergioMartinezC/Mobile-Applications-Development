@@ -1,4 +1,5 @@
 import android.content.Context
+import android.media.MediaPlayer
 import android.support.design.widget.Snackbar
 import android.view.View
 import com.example.e321799.conecta4.R
@@ -23,7 +24,6 @@ import java.lang.NumberFormatException
  */
 class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
     var drawable: Int = 0
-
     private lateinit var game: Partida
 
     /**
@@ -61,13 +61,22 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
         if (game.tablero.esValido(m)) {
             if (repository is FBDataBase) {
                 if (game.getJugador(game.tablero.turno).nombre == nombre) {
-                    game.realizaAccion(AccionMover(this, m))
+                    if (game.getJugador(1).nombre == "OPEN_ROUND"){
+                        Snackbar.make(view, R.string.waiting_players, Snackbar.LENGTH_SHORT).show()
+                    }
+                    else {
+                        var mp = MediaPlayer.create(view.context, R.raw.plop)
+                        mp.start()
+                        game.realizaAccion(AccionMover(this, m))
+                    }
                 }
                 else {
                     Snackbar.make(view, R.string.invalid_turn, Snackbar.LENGTH_SHORT).show()
                 }
             } else {
                 game.realizaAccion(AccionMover(this, m))
+                var mp = MediaPlayer.create(view.context, R.raw.plop)
+                mp.start()
             }
         } else {
             Snackbar.make(view, R.string.invalid_movement, Snackbar.LENGTH_SHORT).show()

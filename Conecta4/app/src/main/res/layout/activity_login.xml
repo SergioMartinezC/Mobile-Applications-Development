@@ -34,6 +34,8 @@
                     android:layout_height="wrap_content" android:textColorHint="@color/colorPrimary"
                     app:passwordToggleTint="@color/colorPrimary" app:hintAnimationEnabled="true">
                 <AutoCompleteTextView style="@style/AutoCompleteTextView"
+                                      android:backgroundTint="@color/colorPrimary"
+
                                       android:textColorHint="@color/colorPrimaryDark"
                                       android:textColorHighlight="@color/colorPrimaryDark"
                                       android:textColor="@color/colorPrimary"
@@ -48,8 +50,10 @@
             </android.support.design.widget.TextInputLayout>
             <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:textColorHint="@color/colorPrimary">
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/colorPrimary">
                 <EditText
+                        android:backgroundTint="@color/colorPrimary"
                         android:id="@+id/password"
                         android:textColorHint="@color/colorPrimary"
                         android:textColorHighlight="@color/colorPrimaryDark"
@@ -83,6 +87,9 @@
                         android:text="@string/action_register"/>
             </LinearLayout>
             <Switch
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"
                     android:text="@string/play_without_connection"
                     android:id="@+id/simpleSwitch"
                     android:layout_width="wrap_content"

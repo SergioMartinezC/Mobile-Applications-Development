@@ -51,7 +51,7 @@
                         android:padding="@dimen/round_title_padding"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:fontFamily="@font/prototype"
                         android:textColor="@color/colorPrimary">
                 </TextView>

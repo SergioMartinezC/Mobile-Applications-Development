@@ -36,6 +36,7 @@
     <string name="pref_description_music">Animar las jugadas con sonidos</string>
     <string name="pref_title_display_name">Nombre del jugador</string>
     <string name="pref_default_display_name">Pedro Soria</string>
+    <string name="waiting_players">Esperando rival</string>
 
 
 

@@ -2,6 +2,10 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory android:title="Ajustes generales">
         <EditTextPreference
+                android:theme="@style/DarkTheme"
+                android:textColor="@color/colorPrimary"
+                android:backgroundTint="@color/colorPrimary"
+                android:background="@color/background"
                 android:capitalize="words"
                 android:defaultValue="@string/pref_default_display_name"
                 android:inputType="textCapWords"

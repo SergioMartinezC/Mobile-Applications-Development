@@ -15,7 +15,6 @@
     <style name="token">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-
         <item name="android:background">@android:color/transparent</item>
     </style>
 
@@ -29,7 +28,7 @@
     <style name="login_buttons">
         <item name="android:padding">5dp</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="android:textSize">@dimen/main_menu_font_size</item>
+        <item name="android:textSize">@dimen/login_font_size</item>
         <item name="android:fontFamily">@font/prototype</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:background">@drawable/button_background_solid</item>
@@ -37,13 +36,16 @@
     <style name="DarkTheme">
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+    <style name="ListDividerColor" parent="android:Widget.TextView">
+        <item name="android:divider">@color/colorPrimary</item>
+    </style>
 
     <style name="PreferencesTheme" parent="AppTheme">
-        <item name="android:listDivider">@color/colorPrimary</item>
-        <item name="android:dividerHeight">1dp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:divider">@color/colorPrimary</item>
+        <item name="android:listSeparatorTextViewStyle">@style/ListDividerColor</item>
+        <item name="android:textColorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:dialogPreferenceStyle">@style/DarkTheme</item>
     </style>
 
 </resources>
