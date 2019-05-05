@@ -18,6 +18,8 @@ import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.FragmentActivity
 import android.util.Log
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.e321799.conecta4.database.DataBase
 import com.example.e321799.conecta4.firebase.FBDataBase
@@ -97,6 +99,16 @@ class RoundFragment : Fragment(), PartidaListener {
                             round.secondPlayerUUID = r.secondPlayerUUID
                         }
                     }
+                    var token =  view?.findViewById<ImageView>(R.id.player_turn_token)
+                    var name = view?.findViewById<TextView>(R.id.player_turn_name)
+                    if (round.board.turno == 0) {
+                        token?.setImageResource(R.drawable.token_blue_48dp)
+                        name?.text = "Turno de ${round.firstPlayerName.replaceAfter("@", "").removeSuffix("@")}"
+
+                    } else {
+                        token?.setImageResource(R.drawable.token_red_48dp)
+                        name?.text = "Turno de ${round.secondPlayerName.replaceAfter("@", "").removeSuffix("@")}"
+                    }
                     board_erview.invalidate()
                     if (round.board.estado != Tablero.EN_CURSO) {
                         if (activity != null) {
@@ -144,11 +156,13 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
-
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
         if (repository is DataBase) {
+            val turnLayout = view!!.findViewById(R.id.player_turn) as
+                    LinearLayout
+            turnLayout.visibility = View.INVISIBLE
             registerResetButton(view)
         } else {
             val resetButton = view!!.findViewById(R.id.reset_round_fab) as

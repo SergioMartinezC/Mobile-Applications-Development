@@ -83,8 +83,8 @@ class TableroConecta4 : Tablero(), Serializable {
                 tablero[fila][columna] = board.tablero[fila][columna]
             }
         }
-        actualizarFichasEnColumna()
-        calcularMovimientosValidos()
+        this.fichasEnColumna = board.fichasEnColumna
+        this.movimientosValidos = board.movimientosValidos
         turno = board.turno
         estado = board.estado
     }
@@ -105,12 +105,21 @@ class TableroConecta4 : Tablero(), Serializable {
             }
             else if (fichasEnColumna.get(m.columna) == 0) {
                 movimientosValidos.remove(m.columna)
-                if (movimientosValidos.size == 0) {
+                if (esTableroLleno()) {
                     this.cambiaEstado(Tablero.TABLAS)
                 }
             }
             this.cambiaTurno()
         }
+    }
+
+    fun esTableroLleno() : Boolean {
+        for (fichas in fichasEnColumna) {
+            if (fichas != 0) {
+                return false
+            }
+        }
+        return true
     }
 
     /**
