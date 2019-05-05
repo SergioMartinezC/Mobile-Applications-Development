@@ -91,7 +91,6 @@ class FBDataBase: RoundRepository {
         if (round.secondPlayerName == DEFAULT_PLAYER && round.firstPlayerName != email) {
             round.secondPlayerName = email!!
             round.secondPlayerUUID = uid!!
-
         }
     }
 

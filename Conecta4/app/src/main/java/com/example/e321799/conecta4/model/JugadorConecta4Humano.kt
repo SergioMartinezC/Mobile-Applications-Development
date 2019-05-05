@@ -59,7 +59,7 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
         if (game.tablero.esValido(m)) {
             if (repository is FBDataBase) {
                 if (game.getJugador(game.tablero.turno).nombre == nombre) {
-                    var mp = MediaPlayer.create(view.context, )
+                    var mp = MediaPlayer.create(view.context, R.raw.plop)
                     mp.start()
                     game.realizaAccion(AccionMover(this, m))
                 }
