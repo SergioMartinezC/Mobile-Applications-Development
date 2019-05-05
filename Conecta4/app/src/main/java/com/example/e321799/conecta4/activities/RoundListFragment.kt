@@ -17,8 +17,7 @@ import kotlinx.android.synthetic.main.fragment_round_list.*
 
 
 /**
- * Fragmento que representa la lista de partidas.
- *
+ * @brief Fragmento que representa la lista de partidas.
  */
 class RoundListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
@@ -30,8 +29,7 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *private const val ARG_PARAM2 = "param2"
-
+     * @brief Funcion que se ejecuta cuando se crea la vista
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +39,8 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta cuand se crea la instancia
+     * @param savedInstanceState estado de la instanca guardado
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +49,8 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta al seleccionar una opcion del menu
+     * @param item opcion
      */
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
@@ -67,7 +67,8 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta al vincular el contexto
+     * @param context contexto
      */
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -92,7 +93,7 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta al desvincular el contexto
      */
     override fun onDetach() {
         super.onDetach()
@@ -100,6 +101,9 @@ class RoundListFragment : Fragment() {
         listener = null
     }
 
+    /**
+     * @brief Funcion que se ejecuta al continuar con la instancia
+     */
     override fun onResume() {
         super.onResume()
         round_recycler_view.update(SettingsActivity.getPlayerUUID(context!!))
@@ -107,7 +111,9 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta al crearse la vista
+     * @param view vista
+     * @param savedInstanceState estado de la instancia guardada
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         println("-----------------------VIEWCREATED")

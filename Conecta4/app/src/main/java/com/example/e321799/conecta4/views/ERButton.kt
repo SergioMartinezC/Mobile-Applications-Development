@@ -8,6 +8,11 @@ import android.util.AttributeSet
 import android.widget.Button
 import com.example.e321799.conecta4.R
 
+/**
+ * @brief Clase representa una vista customizada de nuestras fichas
+ * @param conext contexto
+ * @param attributeSet lista de atributos
+ */
 class ERButton(context: Context, attributeSet: AttributeSet) :
 Button(context, attributeSet) {
     private var radious: Float = 0.toFloat()
@@ -16,7 +21,10 @@ Button(context, attributeSet) {
     init {
         paint = Paint(Paint.ANTI_ALIAS_FLAG)
     }
-
+    /**
+     * @brief Dibuja la ficha
+     * @param canvas lienzo
+     */
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         val x = 0.5f * width

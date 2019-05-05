@@ -11,7 +11,8 @@ import com.example.e321799.conecta4.R
 import com.example.e321799.conecta4.views.ERView
 
 /**
- * Mantiene una lista de referencias a los elementos de un ítem de la lista
+ * @brief Mantiene una lista de referencias a los elementos de un ítem de la lista
+ * @param itemView vista
  */
 class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     var idTextView: TextView
@@ -29,7 +30,9 @@ class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     }
 
     /**
-     * Asigna la funcionalidad para hacer clickables los elementos de la vista
+     * @brief Asigna la funcionalidad para hacer clickables los elementos de la vista
+     * @param round ronda
+     * @param listener listener
      */
     fun bindRound(round: Round, listener: (Round) -> Unit) {
         this.round = round
@@ -50,7 +53,9 @@ class RoundHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
  */
 class RoundAdapter(var rounds: List<Round>, val listener: (Round) -> Unit): RecyclerView.Adapter<RoundHolder>() {
     /**
-    * Infla una vista a partir del fichero de diseño de los ítems y crea un nuevo RoundHolder con esta vista como argumento
+     * @brief Infla una vista a partir del fichero de diseño de los ítems y crea un nuevo RoundHolder con esta vista como argumento
+     * @param parent padre de la vista
+     * @param viewType tipo de vista
     **/
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoundHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -59,12 +64,14 @@ class RoundAdapter(var rounds: List<Round>, val listener: (Round) -> Unit): Recy
     }
 
     /**
-     * Devuelve el tamaño de la lista de rondas
+     * @brief Devuelve el tamaño de la lista de rondas
      */
     override fun getItemCount(): Int = rounds.size
 
     /**
-     * reutiliza un RoundHolder ya existente para mostrar los datos de otra partida
+     * @brief reutiliza un RoundHolder ya existente para mostrar los datos de otra partida
+     * @param holder referencia al holder de la ronda
+     * @param position posicion
      */
     override fun onBindViewHolder(holder: RoundHolder, position: Int) {
         holder.bindRound(rounds[position], listener)

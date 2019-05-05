@@ -1,7 +1,7 @@
 package com.example.e321799.conecta4.model
 
 /**
- * Repositorio donde van a estar todas las partidas guardadas
+ * @brief Interfaz con las funciones para gestionar las rondas
  */
 interface RoundRepository {
     @Throws(Exception::class)

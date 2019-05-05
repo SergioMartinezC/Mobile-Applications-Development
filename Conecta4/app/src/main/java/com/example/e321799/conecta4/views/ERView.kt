@@ -13,8 +13,9 @@ import com.example.e321799.conecta4.R
 import es.uam.eps.multij.Tablero
 
 /**
- * Clase representa una vista customizada de nuestro tablero
- *
+ * @brief Clase representa una vista customizada de nuestro tablero
+ * @param conext contexto
+ * @param attrs lista de atributos
  */
 class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val DEBUG = "ERView"
@@ -40,7 +41,9 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     }
 
     /**
-     * Estimamos la altura y anchura de nuestro tablero en funcion de las especificaciones del padre
+     * @brief Estimamos la altura y anchura de nuestro tablero en funcion de las especificaciones del padre
+     * @param widthMeasureSpec anchura
+     * @param heightMeasureSpec altura
      */
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val wMode: String
@@ -67,7 +70,11 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     }
 
     /**
-     * Actualizacion del tamaño de las fichas
+     * @brief Actualizacion del tamaño de las fichas
+     * @param w anchura
+     * @param h altura
+     * @param oldw anchura anterior
+     * @param oldh anchura anterior
      */
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         widthOfTile = (w / COLUMNS).toFloat()
@@ -80,7 +87,8 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     }
 
     /**
-     * Dibuja el tablero
+     * @brief Dibuja el tablero
+     * @param canvas lienzo
      */
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -96,7 +104,9 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     }
 
     /**
-     * Dibuja las fichas del tablero
+     * @brief Dibuja las fichas del tablero
+     * @param canvas lienzo
+     * @param paint pintura
      */
     private fun drawCircles(canvas: Canvas, paint: Paint) {
         var centerRaw: Float
@@ -117,28 +127,32 @@ class ERView(context: Context, attrs: AttributeSet? = null) : View(context, attr
     }
 
     /**
-     * Convierte [event] en una columna de nuestro tablero
+     * @brief Convierte [event] en una columna de nuestro tablero
+     * @param event evento
      */
     private fun fromEventToJ(event: MotionEvent): Int {
         return (event.x / widthOfTile).toInt()
     }
 
     /**
-     *
+     * @brief Funcion que establece un listener al play
+     * @param listener listener
      */
     fun setOnPlayListener(listener: OnPlayListener) {
         this.onPlayListener = listener
     }
 
     /**
-     * Asigna [board] al tablero de la vista
+     * @brief Asigna un tablero al tablero de la vista
+     * @param board tablero
      */
     fun setBoard(board: TableroConecta4) {
         this.board = board
     }
 
     /**
-     * Funcion que realiza una acción cuando se toca un elemento del tablero
+     * @brief Funcion que realiza una acción cuando se toca un elemento del tablero
+     * @param event evento
      */
     override fun onTouchEvent(event: MotionEvent): Boolean {
         if (onPlayListener == null)

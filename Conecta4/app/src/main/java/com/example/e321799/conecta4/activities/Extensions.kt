@@ -15,7 +15,9 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
 
 
 /**
- * Funcion que extiende de RecyclerView y actualiza la lista de partidas guardadas
+ * @brief Funcion que extiende de RecyclerView y actualiza la lista de partidas guardadas
+ * @param userName nombre del usuario
+ * @param onClickListener listener
  */
 fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
     val repository = RoundRepositoryFactory.createRepository(context)
@@ -40,8 +42,9 @@ fun RecyclerView.update(userName: String, onClickListener: (Round) -> Unit) {
 }
 
 /**
- * Funcion que extiende de FragmentManager y ejecuta una transicion sobre un fragmento
- * con unas operaciones dadas [operations]
+ * @brief Funcion que extiende de FragmentManager y ejecuta una transicion sobre un fragmento
+ * con unas operaciones dadas
+ * @param operations operaciones a realizar
  */
 fun FragmentManager.executeTransaction(operations: (FragmentTransaction.() -> Unit)) {
     val transaction = beginTransaction()
@@ -51,7 +54,11 @@ fun FragmentManager.executeTransaction(operations: (FragmentTransaction.() -> Un
 
 
 /**
- * Funcion que extiende de Paint y asigna un color en función de qué ficha es cada jugador
+ * @brief Funcion que extiende de Paint y asigna un color en función de qué ficha es cada jugador
+ * @param board tablero
+ * @param i fila
+ * @param j columna
+ * @param context contexto
  */
 fun Paint.setColor(board: TableroConecta4, i: Int, j: Int, context: Context) {
     color = when(board.tablero[i][j]) {
