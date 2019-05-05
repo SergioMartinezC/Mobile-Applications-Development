@@ -109,7 +109,7 @@ class RoundFragment : Fragment(), PartidaListener {
 
                     } else {
                         token?.setImageResource(R.drawable.token_red_48dp)
-                        name?.text = "Turno de ${round.secondPlayerName.replaceAfter("@", "").removeSuffix("@")}"
+                        name?.text = "Esperando rival"
                     }
                     board_erview.invalidate()
                     if (round.board.estado != Tablero.EN_CURSO) {

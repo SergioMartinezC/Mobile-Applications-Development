@@ -1,17 +1,14 @@
 package com.example.e321799.conecta4.activities
 
-import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
-import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.activity_twopane.*
 import kotlinx.android.synthetic.main.fragment_round_list.*
@@ -30,9 +27,8 @@ class RoundListActivity : AppCompatActivity(),
     override fun onRoundSelected(round: Round) {
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
-                if (response == false)
+                if (!response)
                     Snackbar.make(findViewById(R.id.round_recycler_view),
-
                        "No puedes unirte a la partida", Snackbar.LENGTH_LONG).show()
                 else {
                     Snackbar.make(findViewById(R.id.round_recycler_view),
@@ -107,9 +103,8 @@ class RoundListActivity : AppCompatActivity(),
                         fragmentManager.findFragmentById(R.id.fragment_container)
                                 as RoundListFragment
                     roundListFragment.recyclerView.update(
-                        SettingsActivity.getPlayerUUID(baseContext),
-                        { round -> onRoundSelected(round) }
-                    )
+                        SettingsActivity.getPlayerUUID(baseContext)
+                    ) { round -> onRoundSelected(round) }
                 }
             }
         }
