@@ -10,9 +10,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.R
-import com.example.e321799.conecta4.firebase.FBDataBase
-import com.example.e321799.conecta4.model.RoundRepository
-import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
 
@@ -100,19 +97,7 @@ class RoundListFragment : Fragment() {
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerView = view.findViewById(R.id.round_recycler_view)
-        val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
-        val roundsCallback = object : RoundRepository.RoundsCallback {
-            override fun onResponse(rounds: List<Round>) {
-                recyclerView.update(SettingsActivity.getPlayerUUID(context!!),
-                    { round -> listener?.onRoundSelected(round) })
-            }
-            override fun onError(error: String) {
-            }
-        }
-        if (repository is FBDataBase){
-            repository?.startListeningChanges(roundsCallback)
-        }
         round_recycler_view.apply {
             layoutManager = LinearLayoutManager(activity)
             update(SettingsActivity.getPlayerUUID(context!!))
