@@ -2,11 +2,9 @@ package com.example.e321799.conecta4.activities
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.DialogFragment
 import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
@@ -18,15 +16,22 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
  * Clase que representa los mensajes de alerta de nuestra aplicacion
  */
 class AlertDialogFragment : DialogFragment() {
-    /**
-     * Funcion que se ejecuta cuando se crea el dialogo
-     */
+
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = activity as AppCompatActivity?
         val alertDialogBuilder = AlertDialog.Builder(getActivity())
-        alertDialogBuilder.setTitle(R.string.game_over)
-        alertDialogBuilder.setMessage(R.string.game_over_message)
-        alertDialogBuilder.setPositiveButton(R.string.yes_confirmation) { dialog, which ->
+
+        alertDialogBuilder.setTitle(R.string.end_game)
+        if (tag == "TABLAS") {
+            alertDialogBuilder.setMessage(R.string.draw_message)
+        } else if (tag == "WINNER") {
+            alertDialogBuilder.setMessage(R.string.winner_message)
+        } else {
+            alertDialogBuilder.setMessage(R.string.game_over_message)
+        }
+        alertDialogBuilder.setPositiveButton(R.string.yes_confirmation) { dialog, _ ->
           /* RoundRepository.addRound()
             if (activity is RoundListActivity)
                 activity.onRoundUpdated()
@@ -39,8 +44,8 @@ class AlertDialogFragment : DialogFragment() {
             round.secondPlayerUUID = "Random"
             val repository = RoundRepositoryFactory.createRepository(context!!)
             val callback = object : RoundRepository.BooleanCallback {
-                override fun onResponse(response: Boolean) {
-                    if (response == false)
+                override fun onResponse(ok: Boolean) {
+                    if (ok == false)
                         /*Snackbar.make(this@AlertDialogFragment.view!!.findViewById(R.id.title),
                             R.string.error_adding_round, Snackbar.LENGTH_LONG).show()*/
                     else {
@@ -59,14 +64,16 @@ class AlertDialogFragment : DialogFragment() {
             activity?.finish()
             dialog.dismiss()
         }
-        alertDialogBuilder.setNegativeButton(R.string.no_confirmation,
-            object : DialogInterface.OnClickListener {
-                override fun onClick(dialog: DialogInterface, which: Int) {
-                    if (activity is RoundActivity)
-                        activity?.finish()
-                    dialog.dismiss()
-                }
-            })
+        alertDialogBuilder.setNegativeButton(R.string.no_confirmation
+        ) { dialog, _ ->
+            if (activity is RoundActivity)
+                activity.finish()
+            else {
+                var fragment = fragmentManager?.findFragmentById(R.id.detail_fragment_container)
+                fragmentManager?.beginTransaction()?.remove(fragment!!)!!.commit()
+            }
+            dialog.dismiss()
+        }
         return alertDialogBuilder.create()
     }
 }

@@ -11,16 +11,19 @@ import com.example.e321799.conecta4.model.RoundRepository
 import com.example.e321799.conecta4.R
 import es.uam.eps.multij.*
 import JugadorConecta4Humano
+import android.app.Activity
 import android.os.strictmode.WebViewMethodCalledOnWrongThreadViolation
 import android.preference.PreferenceManager
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.widget.TextView
 import com.example.e321799.conecta4.database.DataBase
 import com.example.e321799.conecta4.firebase.FBDataBase
 import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import com.example.e321799.conecta4.views.ERView
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_round.*
 import java.lang.RuntimeException
 
@@ -52,6 +55,7 @@ class RoundFragment : Fragment(), PartidaListener {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         try {
             arguments?.let {
                 round = Round.fromJSONString(it.getString(ARG_ROUND))
@@ -65,6 +69,7 @@ class RoundFragment : Fragment(), PartidaListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString(BOARDSTRING, round.board.tableroToString())
+        println("--------------onSaveInstanceState-----------------")
         super.onSaveInstanceState(outState)
     }
 
@@ -72,12 +77,46 @@ class RoundFragment : Fragment(), PartidaListener {
      * Funcion que es llamada cuando se asigna el fragmento a la vista
      */
     override fun onAttach(context: Context?) {
+        println("--------------onAttach-----------------")
         super.onAttach(context)
         if (context is OnRoundFragmentInteractionListener) {
             listener = context
         }
         else {
             throw RuntimeException(context.toString() + " must implement OnRoundInteractionLIstener")
+        }
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase) {
+            val callback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    for (r in rounds) {
+                        if (r.id == round.id) {
+                            board_erview.setBoard(r.board)
+                            round.board.copyBoard(r.board)
+                            round.secondPlayerName = r.secondPlayerName
+                            round.secondPlayerUUID = r.secondPlayerUUID
+                        }
+                    }
+                    board_erview.invalidate()
+                    if (round.board.estado != Tablero.EN_CURSO) {
+                        if (activity != null) {
+                            var mensaje = "LOSER"
+                            if (round.board.comprobarGanador() == 0) {
+                                mensaje = "TABLAS"
+                            } else if (round.board.comprobarGanador() == 1 && round.firstPlayerName == SettingsActivity.getPlayerName(context!!)) {
+                                mensaje = "WINNER"
+                            } else if (round.board.comprobarGanador() == 2 && round.secondPlayerName == SettingsActivity.getPlayerName(context!!)) {
+                                mensaje = "WINNER"
+                            }
+                            AlertDialogFragment().show(activity?.supportFragmentManager,
+                                mensaje)
+                        }
+                    }
+                }
+                override fun onError(error: String) {
+                }
+            }
+            repository?.startListeningBoardChanges(callback)
         }
     }
 
@@ -105,28 +144,7 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         super.onViewCreated(view, savedInstanceState)
         round_title.text = "${round.title}"
-        if (repository is FBDataBase) {
-            val callback = object : RoundRepository.RoundsCallback {
-                override fun onResponse(rounds: List<Round>) {
-                    for (r in rounds) {
-                        if (r.id == round.id) {
-                            board_erview.setBoard(r.board)
-                            round.board.copyBoard(r.board)
-                            round.secondPlayerName = r.secondPlayerName
-                            round.secondPlayerUUID = r.secondPlayerUUID
-                        }
-                    }
-                    board_erview.invalidate()
-                    if (round.board.estado != Tablero.EN_CURSO) {
-                        AlertDialogFragment().show(activity?.supportFragmentManager,
-                            "ALERT_DIALOG")
-                    }
-                }
-                override fun onError(error: String) {
-                }
-            }
-            repository?.startListeningBoardChanges(callback)
-        }
+
         if (savedInstanceState != null) {
             round.board.stringToTablero(savedInstanceState.getString(BOARDSTRING))
         }
@@ -195,10 +213,10 @@ class RoundFragment : Fragment(), PartidaListener {
         val repository = RoundRepositoryFactory.createRepository(context!!)
         val players = ArrayList<Jugador>()
         val localPlayer = JugadorConecta4Humano(SettingsActivity.getPlayerName(context!!))
-        var secondPlayer = JugadorConecta4Humano("Humano")
         //val randomPlayer = JugadorAleatorio("Random player")
         if (repository is FBDataBase) {
             if(repository.isOpenOrIamIn(round)){
+            var secondPlayer = JugadorConecta4Humano("Humano")
                 if (round.firstPlayerName == SettingsActivity.getPlayerName(context!!)){
                     secondPlayer = JugadorConecta4Humano(round.secondPlayerName)
                     players.add(localPlayer)
@@ -214,6 +232,7 @@ class RoundFragment : Fragment(), PartidaListener {
                 }
             }
         } else {
+            var secondPlayer = JugadorConecta4Humano("NPC")
             players.add(localPlayer)
             players.add(secondPlayer)
         }
@@ -242,10 +261,20 @@ class RoundFragment : Fragment(), PartidaListener {
                 listener?.onRoundUpdated(round)
             }
             Evento.EVENTO_FIN -> {
+                var repository = RoundRepositoryFactory.createRepository(context!!)
                 board_erview.invalidate()
+                round.board.cambiaEstado(Tablero.TABLAS)
                 listener?.onRoundUpdated(round)
-                AlertDialogFragment().show(activity?.supportFragmentManager,
-                    "ALERT_DIALOG")
+                if (repository is DataBase) {
+                    var mensaje = "LOSER"
+                    if (round.board.comprobarGanador() == 0) {
+                        mensaje = "TABLAS"
+                    } else if (round.board.comprobarGanador() == 1) {
+                        mensaje = "WINNER"
+                    }
+                    AlertDialogFragment().show(activity?.supportFragmentManager,
+                        mensaje)
+                }
             }
         }
     }

@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Conecta 4</string>
+    <string name="app_name_land">C\no\nn\ne\nc\nt\na</string>
+    <string name="app_name_land_2">4</string>
     <string name="game_finished">Fin de partida</string>
     <string name="invalid_movement">Movimiento no válido</string>
     <string name="play">Jugar</string>
@@ -10,7 +12,9 @@
     <string name="new_round">New Round</string>
     <string name="title">EN RAYA</string>
     <string name="game_over">Game over</string>
-    <string name="game_over_message">¿Quieres crear una nueva partida?</string>
+    <string name="game_over_message">Derrota ¿Desea crear una nueva partida?</string>
+    <string name="winner_message">¡Victoria! ¿Desea crear una nueva partida?</string>
+    <string name="draw_message">Empate ¿Desea crear una nueva partida?</string>
     <string name="round_already_finished">Partida ya finalizada</string>
     <string name="yes_confirmation">Sí</string>
     <string name="no_confirmation">No</string>
@@ -18,8 +22,10 @@
 
     <string name="error_updating_round">Error al actualizar la partida</string>
     <string name="error_adding_round">Error al añadir una partida</string>
-    <string name="action_register">action_register</string>
+    <string name="action_register">Register</string>
     <string name="invalid_turn">Turno del contrincante</string>
+    <string name="play_without_connection">Jugar sin conexión</string>
+    <string name="end_game">Fin de partida</string>
 
     <!-- Strings related to Settings -->
     <string name="settings">Settings</string>
@@ -103,7 +109,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>

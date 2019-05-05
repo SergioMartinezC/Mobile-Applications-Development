@@ -4,17 +4,17 @@ package com.example.e321799.conecta4.activities
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.*
 import com.example.e321799.conecta4.model.Round
 import com.example.e321799.conecta4.R
+import com.example.e321799.conecta4.firebase.FBDataBase
+import com.example.e321799.conecta4.model.RoundRepository
+import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 /**
  * Fragmento que representa la lista de partidas.
@@ -30,7 +30,8 @@ class RoundListFragment : Fragment() {
     }
 
     /**
-     *
+     *private const val ARG_PARAM2 = "param2"
+
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -70,6 +71,18 @@ class RoundListFragment : Fragment() {
      */
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        val repository = RoundRepositoryFactory.createRepository(context!!)
+        if (repository is FBDataBase){
+            val roundsCallback = object : RoundRepository.RoundsCallback {
+                override fun onResponse(rounds: List<Round>) {
+                    recyclerView.update(SettingsActivity.getPlayerUUID(context)
+                    ) { round -> listener?.onRoundSelected(round) }
+                }
+                override fun onError(error: String) {
+                }
+            }
+            repository.startListeningChanges(roundsCallback)
+        }
         if (context is OnRoundListFragmentInteractionListener) {
             listener = context
         } else {
@@ -83,6 +96,7 @@ class RoundListFragment : Fragment() {
      */
     override fun onDetach() {
         super.onDetach()
+        println("-----------------------Detach")
         listener = null
     }
 
@@ -96,6 +110,7 @@ class RoundListFragment : Fragment() {
      *
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        println("-----------------------VIEWCREATED")
         recyclerView = view.findViewById(R.id.round_recycler_view)
         super.onViewCreated(view, savedInstanceState)
         round_recycler_view.apply {

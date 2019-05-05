@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AutoCompleteTextView" parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:colorControlNormal">@color/colorPrimary</item>
+    </style>
+
     <style name="token">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -17,6 +21,14 @@
 
     <style name="menu_buttons">
         <item name="android:padding">@dimen/main_menu_button_padding</item>
+        <item name="android:textSize">@dimen/main_menu_font_size</item>
+        <item name="android:fontFamily">@font/prototype</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:background">@drawable/button_background_solid</item>
+    </style>
+    <style name="login_buttons">
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_margin">5dp</item>
         <item name="android:textSize">@dimen/main_menu_font_size</item>
         <item name="android:fontFamily">@font/prototype</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>

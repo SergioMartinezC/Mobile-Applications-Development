@@ -23,6 +23,7 @@ import android.widget.TextView
 
 import java.util.ArrayList
 import android.Manifest.permission.READ_CONTACTS
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.preference.PreferenceManager
 import android.support.v7.widget.RecyclerView
@@ -60,18 +61,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         })
         email_sign_in_button.setOnClickListener { attemptLogin("login") }
         email_register_button.setOnClickListener { attemptLogin("register")}
-
-
-
-
     }
 
     private fun Attempt(type: String) {
-        val sharedPreferences = PreferenceManager
-            .getDefaultSharedPreferences(this)
-        val editor = sharedPreferences.edit()
-        editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
-        editor.commit()
         val repository = RoundRepositoryFactory.createRepository(this)
         val loginRegisterCallback = object : RoundRepository.LoginRegisterCallback {
             override fun onLogin(playerUuid: String) {
@@ -90,12 +82,28 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
                 password.requestFocus()
             }
         }
-
         when (type) {
-            "login" -> repository?.login(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
-            "register" -> repository?.register(email.text.toString(),
-                password.text.toString(), loginRegisterCallback)
+
+            "login" -> {
+                val sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
+                /*editor.commit()*/
+                editor.apply()
+                repository?.login(email.text.toString(),
+                    password.text.toString(), loginRegisterCallback)
+            }
+            "register" -> {
+                val sharedPreferences = PreferenceManager
+                    .getDefaultSharedPreferences(this)
+                val editor = sharedPreferences.edit()
+                editor.putBoolean(DATABASE_MODE, findViewById<Switch>(R.id.simpleSwitch).isChecked)
+                /*editor.commit()*/
+                editor.apply()
+                repository?.register(email.text.toString(),
+                    password.text.toString(), loginRegisterCallback)
+            }
         }
     }
 
@@ -188,9 +196,9 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
-            showProgress(true)
-            mAuthTask = UserLoginTask(emailStr, passwordStr)
-            mAuthTask!!.execute(null as Void?)
+            // showProgress(true)
+            // mAuthTask = UserLoginTask(emailStr, passwordStr)
+            // mAuthTask!!.execute(null as Void?)
             Attempt(type)
         }
     }
@@ -208,6 +216,7 @@ class LoginActivity : AppCompatActivity(), LoaderCallbacks<Cursor> {
     /**
      * Shows the progress UI and hides the login form.
      */
+    @SuppressLint("ObsoleteSdkInt")
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
         // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow

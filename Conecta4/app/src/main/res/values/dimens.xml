@@ -14,6 +14,7 @@
     <dimen name="activity_horizontal_margin">20dp</dimen>
     <dimen name="round_title">26sp</dimen>
     <dimen name="game_title">45sp</dimen>
+    <dimen name="game_title_land">35sp</dimen>
 
 
     <!-- MAIN MENU TITLE -->

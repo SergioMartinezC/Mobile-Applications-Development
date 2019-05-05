@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        tools:context=".activities.MainActivity" tools:layout_editor_absoluteY="81dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <TextView
+                android:id="@+id/game_title"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/main_menu_title_padding"
+                android:textSize="@dimen/game_title_land"
+                android:fontFamily="@font/prototype"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/app_name_land"
+                android:gravity="center"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="4dp"
+                android:layout_weight="2">
+
+        </TextView>
+        <TableLayout android:layout_width="wrap_content"
+                     android:layout_height="match_parent"
+                     android:gravity="center"
+                     android:id="@+id/gridLayout"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintBottom_toBottomOf="parent"
+                     app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_weight="1">
+            <TableRow
+                    android:layout_marginBottom="@dimen/main_menu_button_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                <Button style="@style/menu_buttons"
+                        android:text="@string/play"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_play"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+            </TableRow>
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/main_menu_button_margin"
+                    android:gravity="center">
+                <Button style="@style/menu_buttons"
+                        android:text="@string/load_game"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_load_game"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                <Button style="@style/menu_buttons"
+                        android:layout_gravity=""
+                        android:text="@string/exit"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/button_exit"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+            </TableRow>
+        </TableLayout>
+        <TextView
+                android:id="@+id/game_title_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/main_menu_title_padding"
+                android:textSize="@dimen/game_title"
+                android:fontFamily="@font/prototype"
+                android:textColor="@color/colorPrimary"
+                android:text="@string/app_name_land_2"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_weight="2">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+</android.support.constraint.ConstraintLayout>
