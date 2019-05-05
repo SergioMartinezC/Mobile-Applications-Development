@@ -28,9 +28,34 @@
                 android:fontFamily="@font/prototype"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout">
-
         </TextView>
 
+        <LinearLayout
+                      android:id="@+id/player_turn"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="bottom|left"
+                      android:layout_marginBottom="@dimen/activity_vertical_margin"
+                      android:layout_marginLeft="@dimen/activity_horizontal_margin">
+                <ImageView
+                        android:id="@+id/player_turn_token"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/token_blue_48dp"/>
+                <TextView
+                        android:id="@+id/player_turn_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:padding="@dimen/round_title_padding"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:textSize="15sp"
+                        android:fontFamily="@font/prototype"
+                        android:textColor="@color/colorPrimary">
+                </TextView>
+        </LinearLayout>
         <android.support.design.widget.FloatingActionButton
                 android:id="@+id/reset_round_fab"
                 android:layout_width="wrap_content"
