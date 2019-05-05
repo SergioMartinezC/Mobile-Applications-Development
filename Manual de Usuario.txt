@@ -1,0 +1,20 @@
+En la pantalla de login:
+	- Se deberá registrar un nuevo usuario añadiendo mail y contraseña y dando al botón "register"
+	- En caso de tener un usuario se deberá poner dicho mail y contraseña y dar al botón "sign in"
+	- Accionando el switch se jugará en modo "local", si lo dejamos sin accionar se utilizará la firabase (modo online)
+Jugando en local:
+	- Dentro del juego el botón "Jugar" te llevará a una nueva partida contra la máquina.
+	- El botón "Cargar partida" te mostrará una lista de partidas jugadas y por jugar. En esta nueva pantalla el botón con forma de '+' añadirá una partida a la lista
+	- Al terminar una partida se informará del resultado (Victoria, derrota o empate) y se ofrecerá empezar una nueva partida.
+		- Si se rechaza se volvera a la última pantalla desde la que se ha accedido a la partida (El menu principal o la pantalla con la lista de partidas)
+		- Si se acepta se creará un tablero nuevo vacío
+	- "Salir" cerrará el programa
+Jugando en oline:
+	- Con el botón "jugar" se creará una partida abierta que te permitirá colocar una ficha a la espera de un segundo jugador.
+	- Al darle a "cargar partida" se mostrarán una lista de partidas que, o estén abiertas (creadas por otro jugador sin que haya entrado nadie mas)
+		o en las cuales estés como alguno de los dos jugadores (bien siendo el jugador 1 o el jugador 2)
+	- Las partidas finalizadas o que tengan dos jugadores diferentes al usuario no se le mostrarán a este último.
+	- Al terminar una partida se informará del resultado (Victoria, derrota o empate) y se ofrecerá empezar una nueva partida.
+		- Si se rechaza se volvera a la última pantalla desde la que se ha accedido a la partida (El menu principal o la pantalla con la lista de partidas)
+		- Si se admite se creara un tablero nuevo vacío
+	- "Salir" cerrará el programa

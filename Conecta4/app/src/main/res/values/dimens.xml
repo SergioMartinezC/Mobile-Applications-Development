@@ -16,6 +16,7 @@
     <dimen name="round_title">26sp</dimen>
     <dimen name="game_title">45sp</dimen>
     <dimen name="game_title_land">35sp</dimen>
+    <dimen name="player_turn_name_text">12sp</dimen>
 
 
     <!-- MAIN MENU TITLE -->
