@@ -23,7 +23,10 @@ class RoundListActivity : AppCompatActivity(),
     RoundListFragment.OnRoundListFragmentInteractionListener,
     RoundFragment.OnRoundFragmentInteractionListener {
 
-
+    /**
+     * @brief Funcion que gestiona la ronda seleccionada
+     * @param round ronda
+     */
     override fun onRoundSelected(round: Round) {
         val callback = object : RoundRepository.BooleanCallback {
             override fun onResponse(response: Boolean) {
@@ -61,6 +64,10 @@ class RoundListActivity : AppCompatActivity(),
         }
     }
 
+    /**
+     * @brief Funcion que se ejecuta al crear la vista
+     * @param savedInstanceState estado de la instancia guardada
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_master_detail)
@@ -78,7 +85,7 @@ class RoundListActivity : AppCompatActivity(),
     }
 
     /**
-     * Funcion que es llamada cuando una partida se va a añadir a la lista
+     * @brief Funcion que es llamada cuando una partida se va a añadir a la lista
      */
     override fun onRoundAdded() {
         val round = Round(/* SettingsActivity.getBoardSize(this).toInt() */)
@@ -110,15 +117,15 @@ class RoundListActivity : AppCompatActivity(),
     }
 
     /**
-     * Funcion que es llamada cuando se accede a las opciones
+     * @brief Funcion que es llamada cuando se accede a las opciones
      */
     override fun onPreferenceSelected() {
         startActivity(Intent(this, SettingsActivity::class.java))
     }
 
     /**
-     * Funcion que se llama para crear el menu de opciones utilizando
-     * [menu]
+     * @brief Funcion que se llama para crear el menu de opciones utilizando
+     * @param menu menu
      */
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
@@ -126,7 +133,8 @@ class RoundListActivity : AppCompatActivity(),
     }
 
     /**
-     * Funcion que se llama cuando se actualiza una partida
+     * @brief Funcion que se llama cuando se actualiza una partida
+     * @param round ronda
      */
     override fun onRoundUpdated(round: Round) {
         val repository = RoundRepositoryFactory.createRepository(this)
@@ -147,7 +155,7 @@ class RoundListActivity : AppCompatActivity(),
     }
 
     /**
-     *
+     * @brief Funcion que se ejecuta al continuae con la instancia
      */
    override fun onResume() {
         super.onResume()

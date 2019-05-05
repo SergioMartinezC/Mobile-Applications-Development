@@ -13,11 +13,12 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.fragment_round_list.*
 
 /**
- * Actividad que se lanza cuando se muestra una partida
+ * @brief Actividad que se lanza cuando se muestra una partida
  */
 class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteractionListener {
     /**
-     * Funcion que se ejecuta una vez que se crea la actividad
+     * @brief Funcion que se ejecuta una vez que se crea la actividad
+     * @param savedInstanceState estado de la isntancia guardada
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +36,8 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
     }
 
     /**
-     * Funcion que se ejecuta cada vez que se actualiza el tablero
+     * @brief Funcion que se ejecuta cada vez que se actualiza el tablero
+     * @param round ronda
      */
     override fun onRoundUpdated(round: Round) {
         val repository = RoundRepositoryFactory.createRepository(this)
@@ -51,7 +53,7 @@ class RoundActivity : AppCompatActivity(), RoundFragment.OnRoundFragmentInteract
         repository?.updateRound(round, callback)
     }
     /**
-     * Metodo de factoria que genera un nuevo intent lanzando RoundActivity
+     * @brief Metodo de factoria que genera un nuevo intent lanzando RoundActivity
      */
     companion object {
         val EXTRA_ROUND_ID = "es.uam.eps.dadm.er10.round_id"

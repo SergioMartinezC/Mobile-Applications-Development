@@ -31,8 +31,7 @@ import java.lang.RuntimeException
 
 
 /**
- * Fragmento utilizado para mostrar la partida
- *
+ * @brief Fragmento utilizado para mostrar la partida
  */
 class RoundFragment : Fragment(), PartidaListener {
 
@@ -43,17 +42,19 @@ class RoundFragment : Fragment(), PartidaListener {
     var listener: OnRoundFragmentInteractionListener? = null
 
     /**
-     * Interfaz que interactua con el fragmento
+     * @brief Interfaz que interactua con el fragmento
      */
     interface OnRoundFragmentInteractionListener {
         /**
-         * Funcion que es llamada cuando el tablero de la ronda se actualiza
+         * @brief Funcion que es llamada cuando el tablero de la ronda se actualiza
+         * @param round ronda
          */
         fun onRoundUpdated(round: Round)
     }
 
     /**
-     * Se crea el fragmento con la ronda seleccionada
+     * @brief Se crea el fragmento con la ronda seleccionada
+     * @param savedInstanceState estado de la instancia guardada
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +77,8 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que es llamada cuando se asigna el fragmento a la vista
+     * @brief Funcion que es llamada cuando se asigna el fragmento a la vista
+     * @param context contexto
      */
     override fun onAttach(context: Context?) {
         println("--------------onAttach-----------------")
@@ -133,7 +135,7 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que es llamada cuando se desacopla el fragmento de la vista
+     * @brief Funcion que es llamada cuando se desacopla el fragmento de la vista
      */
     override fun onDetach() {
         super.onDetach()
@@ -141,7 +143,7 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
+     * @brief Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
      */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -150,7 +152,9 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
+     * @brief Funcion que se llama cuando la vista a la que pertenece el fragmento se crea
+     * @param view vista
+     * @param savedInstanceState estado de la instancia guardada
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val repository = RoundRepositoryFactory.createRepository(context!!)
@@ -172,7 +176,7 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Metodo de factoria del fragmento que crea una instancia con la ronda seleccionada
+     * @brief Metodo de factoria del fragmento que crea una instancia con la ronda seleccionada
      */
     companion object {
         val ARG_ROUND = "es.uam.eps.dadm.er20.round"
@@ -187,7 +191,8 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que asigna un metodo onClick al botón que resetea el tablero
+     * @brief Funcion que asigna un metodo onClick al botón que resetea el tablero
+     * @param view vista
      */
     private fun registerResetButton(view: View) {
         val resetButton = view!!.findViewById(R.id.reset_round_fab) as
@@ -221,7 +226,7 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que inicia una partida completa desde 0
+     * @brief Funcion que inicia una partida completa desde 0
      */
     internal fun startRound() {
         val repository = RoundRepositoryFactory.createRepository(context!!)
@@ -266,7 +271,8 @@ class RoundFragment : Fragment(), PartidaListener {
     }
 
     /**
-     * Funcion que es llamada cuando se produce un evento [evento]
+     * @brief Funcion que es llamada cuando se produce un evento [evento]
+     * @param evento evento
      */
     override fun onCambioEnPartida(evento: Evento) {
         when (evento.tipo) {

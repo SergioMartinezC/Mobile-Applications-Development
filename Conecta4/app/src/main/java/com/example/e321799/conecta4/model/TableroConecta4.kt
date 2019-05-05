@@ -77,6 +77,10 @@ class TableroConecta4 : Tablero(), Serializable {
             return ret
     }
 
+    /**
+     * @brief Copia un tablero en otro
+     * @param board tablero
+     */
     fun copyBoard(board: TableroConecta4) {
         for (fila in 0 until NUM_FILAS) {
             for (columna in 0 until NUM_COLUMNAS) {
@@ -90,8 +94,8 @@ class TableroConecta4 : Tablero(), Serializable {
     }
 
     /**
-     * Realiza un movimiento si el movimiento [m] es válido
-     *
+     * @brief Realiza un movimiento si el movimiento [m] es válido
+     * @param m movimiento
      */
     override fun mueve(m: Movimiento?) {
         if (m is MovimientoConecta4) {
@@ -113,6 +117,9 @@ class TableroConecta4 : Tablero(), Serializable {
         }
     }
 
+    /**
+     * @brief Funcion que comprueba si el tablero esta lleno
+     */
     fun esTableroLleno() : Boolean {
         for (fichas in fichasEnColumna) {
             if (fichas != 0) {
@@ -159,7 +166,8 @@ class TableroConecta4 : Tablero(), Serializable {
     }
 
     /**
-     * Covierte [cadena] en una representacion del tablero
+     * @brief covierte [cadena] en una representacion del tablero
+     * @param cadena cadena
      */
     override fun stringToTablero(cadena: String?) {
         var elements = cadena?.split("#")
@@ -253,7 +261,8 @@ class TableroConecta4 : Tablero(), Serializable {
     }
 
     /**
-     * Cambia el estado de la partida por [estado]
+     * @brief Cambia el estado de la partida por [estado]
+     * @estado estado
      */
     fun cambiaEstado(estado: Int) {
         this.estado = estado

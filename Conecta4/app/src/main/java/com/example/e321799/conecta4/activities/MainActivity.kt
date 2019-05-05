@@ -14,12 +14,13 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
 import kotlinx.android.synthetic.main.activity_main.*
 
 /**
- * Actividad principal de la aplicacion que lanza el menú principal
+ * @brief Actividad principal de la aplicacion que lanza el menú principal
  */
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     var tupack = 0
     /**
-     * Funcion que se ejecuta al crear la actividad
+     * @brief Funcion que se ejecuta al crear la actividad
+     * @param savedInstanceState estado de la instancia guardada
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +31,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     /**
-     * Definimos qué acciones hace cada boton del menu principal
+     * @brief Definimos qué acciones hace cada boton del menu principal
+     * @param v vista
      */
     override fun onClick(v: View?) {
         when (v?.id) {

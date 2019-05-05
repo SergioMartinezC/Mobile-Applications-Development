@@ -19,11 +19,8 @@ class FBDataBase: RoundRepository {
     lateinit var db: DatabaseReference
     override fun open() {
         db = FirebaseDatabase.getInstance().reference.child(DATABASENAME)
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun close() {
-        TODO("not implemented")
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun login(playername: String, password: String,
                        callback: RoundRepository.LoginRegisterCallback) {
@@ -36,7 +33,6 @@ class FBDataBase: RoundRepository {
                 callback.onError("Error login as $playername")
             }
         }
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun register(playername: String, password: String,
                           callback: RoundRepository.LoginRegisterCallback) {
@@ -49,7 +45,6 @@ class FBDataBase: RoundRepository {
                 callback.onError("Error login as $playername")
             }
         }
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun getRounds(playeruuid: String, orderByField: String,
                            group: String, callback: RoundRepository.RoundsCallback) {
@@ -67,7 +62,6 @@ class FBDataBase: RoundRepository {
                 callback.onResponse(rounds)
             }
         })
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun addRound(round: Round, callback: RoundRepository.BooleanCallback) {
         var addRound = db.child(round.id).setValue(round)
@@ -78,7 +72,6 @@ class FBDataBase: RoundRepository {
                callback.onResponse(false)
             }
         }
-//To change body of created functions use File | Settings | File Templates.
     }
     override fun updateRound(round: Round, callback: RoundRepository.BooleanCallback) {
         var updateRound = db.child(round.id).setValue(round)
@@ -89,7 +82,6 @@ class FBDataBase: RoundRepository {
                 callback.onResponse(false)
             }
         }
-//To change body of created functions use File | Settings | File Templates.
     }
 
     override fun joinRound(round: Round, callback: RoundRepository.BooleanCallback) {

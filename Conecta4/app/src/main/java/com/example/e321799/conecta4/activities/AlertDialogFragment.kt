@@ -13,12 +13,15 @@ import com.example.e321799.conecta4.model.RoundRepositoryFactory
 
 
 /**
- * Clase que representa los mensajes de alerta de nuestra aplicacion
+ * @brief Clase que representa los mensajes de alerta de nuestra aplicacion
  */
 class AlertDialogFragment : DialogFragment() {
 
 
-
+    /**
+     * @brief funcion para mostrar el dialogo
+     * @param savedInstanceState Estado de la instancia guardada
+     */
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val activity = activity as AppCompatActivity?
         val alertDialogBuilder = AlertDialog.Builder(getActivity())

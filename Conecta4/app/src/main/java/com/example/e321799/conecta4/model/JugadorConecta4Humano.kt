@@ -13,12 +13,8 @@ import java.lang.NumberFormatException
 
 
 /**
- * Jugador humano de la aplicación
- *
- *
- *
- * @param T the type of a member in this group.
- * @property name Nombre del jugador.
+ * @brief Jugador humano de la aplicación
+ * @param name Nombre del jugador.
  * @constructor Crea un jugador humano con el nombre
  */
 class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
@@ -41,15 +37,17 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
 
 
     /**
-     * Asigna la partida [game] al jugador
+     * @brief Asigna una partida al jugador
+     * @param game partida
      */
     fun setPartida(game: Partida) {
         this.game = game
     }
 
     /**
-     * Realiza la acción de jugar sobre la columna [column] en caso de que la partida este en curso
-     *
+     * @brief Realiza la acción de jugar sobre la columna [column] en caso de que la partida este en curso
+     * @param column columna
+     * @param view vista
      */
     override fun onPlay(column: Int, view: ERView) {
         if (game.tablero.estado != Tablero.EN_CURSO){
@@ -75,7 +73,8 @@ class JugadorConecta4Humano(var name: String) : Jugador, ERView.OnPlayListener {
     }
 
     /**
-     * Funcion que es ejecutada cada vez que se recibe [evento]
+     * @brief Funcion que es ejecutada cada vez que se recibe [evento]
+     * @param evento evento
      */
     override fun onCambioEnPartida(evento: Evento?) {
 

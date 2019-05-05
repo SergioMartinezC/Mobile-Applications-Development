@@ -25,6 +25,10 @@ class Round {
         date = Date().toString()
         board = TableroConecta4()
     }
+
+    /**
+     * @brief Convierte la ronda en un objeto JSON
+     */
     fun toJSONString(): String {
         val json = JSONObject()
         json.put("id", id)
@@ -39,7 +43,14 @@ class Round {
         return json.toString()
     }
 
+    /**
+     * @brief objeto companion de la ronda
+     */
     companion object {
+        /**
+         * @brief Transforma una cadena en una ronda
+         * @param string cadena
+         */
         fun fromJSONString(string: String): Round {
             val jsonObject = JSONObject(string)
             val round = Round(/* jsonObject.get("size") as Int */)
